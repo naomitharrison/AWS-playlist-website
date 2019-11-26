@@ -18,24 +18,22 @@ public class NewPlaylistHandler implements RequestHandler<NewPlaylistRequest,New
 	@Override
 	public NewPlaylistResponse handleRequest(NewPlaylistRequest req, Context context) {
 		logger = context.getLogger();
-		logger.log("Loading Java Lambda handler to delete");
+		logger.log("Loading Java Lambda handler to create playlist");
 
 		NewPlaylistResponse response = null;
 		logger.log(req.toString());
 
 		PlaylistsDAO dao = new PlaylistsDAO();
 
-		// See how awkward it is to call delete with an object, when you only
-		// have one part of its information?
 		Playlist playlist = new Playlist(req.getName());
 		try {
 			if (dao.addPlaylist(playlist)) {
-				response = new NewPlaylistResponse(req.name, 200);
+				response = new NewPlaylistResponse(req.getName(), 200);
 			} else {
-				response = new NewPlaylistResponse(req.name, 422, "Unable to delete constant.");
+				response = new NewPlaylistResponse(req.getName(), 422, "Unable to create playlist.");
 			}
 		} catch (Exception e) {
-			response = new NewPlaylistResponse(req.name, 403, "Unable to delete constant: " + req.name + "(" + e.getMessage() + ")");
+			response = new NewPlaylistResponse(req.getName(), 403, "Unable to create playlist: " + req.getName() + "(" + e.getMessage() + ")");
 		}
 
 		return response;
