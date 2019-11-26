@@ -42,8 +42,8 @@ function processVideoListResponse(result) {
 
 	var output = '';
 	output +='<ul style="list-style-type:none;">';
-	for (var i = 0; i < js.listOfSegments.length; i++) {
-		var constantJson = js.listOfSegments[i];
+	for (var i = 0; i < js.list.length; i++) { // listOfSegments
+		var constantJson = js.list[i];
 		console.log(constantJson);
 
 		var ctitle = constantJson["title"];
@@ -61,8 +61,8 @@ function processVideoListAdminResponse(result) {
 	let adminVideoList = document.getElementById('adminVideoSegmentList');
 
 	let output = '';
-	for (let i = 0; i < js.listOfSegments.length; i++) {
-		let constantJson = js.listOfSegments[i];
+	for (let i = 0; i < js.list.length; i++) { // listOfSegments
+		let constantJson = js.list[i];
 		console.log(constantJson);
 
 		let ctitle = constantJson["title"];
