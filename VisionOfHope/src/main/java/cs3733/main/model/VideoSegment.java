@@ -7,13 +7,13 @@ public class VideoSegment {
 	String title;
 	String character;
 	// Is the ogg filename
-	String filename;
+	String url;
 	Boolean remoteAvaliability;
 	
-	public VideoSegment(String title, String character, String filename) {
+	public VideoSegment(String title, String character, String url) {
 		this.title = title;
 		this.character = character;
-		this.filename = filename;
+		this.url = url;
 		this.remoteAvaliability = true;
 		
 	}
@@ -26,8 +26,8 @@ public class VideoSegment {
 		return this.character;
 	}
 	
-	public String getFile() {
-		return this.filename;
+	public String getUrl() {
+		return this.url;
 	}
 	
 	public Boolean getAvaiability(){
@@ -45,7 +45,7 @@ public class VideoSegment {
 	}
 	@Override
 	public String toString() {
-		return "VideoSegment [title=" + title + ", character=" + character + ", filename=" + filename
+		return "VideoSegment [title=" + title + ", character=" + character + ", url=" + url
 				+ ", remoteAvaliability=" + remoteAvaliability + "]";
 	}
 }
