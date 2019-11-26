@@ -69,14 +69,14 @@ public class PlaylistsDAO {
 	 */
 	private VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
 		String URL = resultSet.getString("videoURL");
-		PreparedStatement ps = conn.prepareStatement("SELECT * FROM Library where URL = '" + URL + "'");
+		PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoURL = '" + URL + "'");
         ResultSet result = ps.executeQuery();
-        String title = "";
-        String character = "";
+        String title = "y";
+        String character = "y";
         
         while (resultSet.next()) {
-        	title = result.getString("title");
-        	character = result.getString("character");
+        	title = result.getString("videoName");
+        	character = result.getString("videoCharacter");
         }
         
         result.close();
