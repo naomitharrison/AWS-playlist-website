@@ -71,8 +71,8 @@ public class PlaylistsDAO {
 		String URL = resultSet.getString("videoURL");
 		PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoURL = '" + URL + "'");
         ResultSet result = ps.executeQuery();
-        String title = "";
-        String character = "";
+        String title = "y";
+        String character = "y";
         
         while (resultSet.next()) {
         	title = result.getString("videoTitle");
