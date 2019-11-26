@@ -7,9 +7,9 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import main.ListRemoteLibraryHandler;
-import main.http.ListRemoteLibrariesResponse;
-import main.model.RemoteLib;
+import cs3733.main.ListRemoteLibraryHandler;
+import cs3733.main.http.ListRemoteLibrariesResponse;
+import cs3733.main.model.RemoteLib;
 
 /**
  * A simple test harness for locally invoking your Lambda function handler.

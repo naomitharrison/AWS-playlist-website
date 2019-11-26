@@ -7,12 +7,12 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import main.ListPlaylistsHandler;
-import main.ListVideoSegmentsHandler;
-import main.http.ListPlaylistResponse;
-import main.http.ListVideoSegmentsResponse;
-import main.model.Playlist;
-import main.model.VideoSegment;
+import cs3733.main.ListPlaylistsHandler;
+import cs3733.main.ListVideoSegmentsHandler;
+import cs3733.main.http.ListPlaylistResponse;
+import cs3733.main.http.ListVideoSegmentsResponse;
+import cs3733.main.model.Playlist;
+import cs3733.main.model.VideoSegment;
 
 /**
  * A simple test harness for locally invoking your Lambda function handler.

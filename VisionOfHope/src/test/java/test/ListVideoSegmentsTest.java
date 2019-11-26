@@ -7,9 +7,9 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import main.ListVideoSegmentsHandler;
-import main.http.ListVideoSegmentsResponse;
-import main.model.VideoSegment;
+import cs3733.main.ListVideoSegmentsHandler;
+import cs3733.main.http.ListVideoSegmentsResponse;
+import cs3733.main.model.VideoSegment;
 
 /**
  * A simple test harness for locally invoking your Lambda function handler.
