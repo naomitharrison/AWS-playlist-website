@@ -42,8 +42,8 @@ function processVideoListResponse(result) {
 
 	var output = '';
 	output +='<ul style="list-style-type:none;">';
-	for (var i = 0; i < js.listOfSegments.length; i++) {
-		var constantJson = js.listOfSegments[i];
+	for (var i = 0; i < js.list.length; i++) { // listOfSegments
+		var constantJson = js.list[i];
 		console.log(constantJson);
 
 		var ctitle = constantJson["title"];
@@ -61,15 +61,15 @@ function processVideoListAdminResponse(result) {
 	let adminVideoList = document.getElementById('adminVideoSegmentList');
 
 	let output = '';
-	for (let i = 0; i < js.listOfSegments.length; i++) {
-		let constantJson = js.listOfSegments[i];
+	for (let i = 0; i < js.list.length; i++) { // listOfSegments
+		let constantJson = js.list[i];
 		console.log(constantJson);
 
 		let ctitle = constantJson["title"];
 		let ccharacter = constantJson["character"];
 		let cfile = constantJson["file"];
 		output += '<div class="row"><div class="col-sm-8">';
-		output += '<input type="checkbox" name="' + cfile + '"><video width="300" height="230" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter;
+		output += '<input type="checkbox" name="' + cfile + '"><video width="300" height="230" controls><source src="' + cfile +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter;
 		output += '</div><div class="col"><input type="checkbox" name="rem1"></div></div><br><br>';
 	}
 	adminVideoList.innerHTML = output;
