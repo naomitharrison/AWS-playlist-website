@@ -145,4 +145,11 @@ public class PlaylistsDAO {
 		return false;
 	}
 
+
+
+	public boolean addVideoToPlaylist(String playlistName, String videoURL) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
