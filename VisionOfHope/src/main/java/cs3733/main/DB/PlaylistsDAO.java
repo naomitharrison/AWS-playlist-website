@@ -75,8 +75,8 @@ public class PlaylistsDAO {
         String character = "";
         
         while (resultSet.next()) {
-        	title = result.getString("title");
-        	character = result.getString("character");
+        	title = result.getString("videoTitle");
+        	character = result.getString("videoCharacter");
         }
         
         result.close();
