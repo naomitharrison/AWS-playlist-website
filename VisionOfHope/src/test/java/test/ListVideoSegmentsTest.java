@@ -17,7 +17,7 @@ import main.model.VideoSegment;
 public class ListVideoSegmentsTest extends LambdaTest {
 	
     @Test
-    public void testGetList() throws IOException {
+    public void testGetListDatabase() throws IOException {
     	ListVideoSegmentsHandler handler = new ListVideoSegmentsHandler();
 
     	ListVideoSegmentsResponse resp = handler.handleRequest(null, createContext("list"));
@@ -29,6 +29,24 @@ public class ListVideoSegmentsTest extends LambdaTest {
         }
         for (VideoSegment vs : resp.list) {
         	if (vs.getTitle().equals("It will be out secret")) { hasVideo = true; break; }
+        }
+        assertTrue(hasVideo);
+        assertEquals(200, resp.statusCode);
+    }
+    
+    @Test
+    public void testGetListS3() throws IOException {
+    	ListVideoSegmentsHandler handler = new ListVideoSegmentsHandler();
+
+    	ListVideoSegmentsResponse resp = handler.handleRequest(null, createContext("list"));
+        
+        boolean hasVideo = false;
+        
+        for (VideoSegment vs : resp.list) {
+        	System.out.println(vs.toString());
+        }
+        for (VideoSegment vs : resp.list) {
+        	if (vs.getTitle().equals("definitely not humanoid, Captain.ogg")) { hasVideo = true; break; }
         }
         assertTrue(hasVideo);
         assertEquals(200, resp.statusCode);
