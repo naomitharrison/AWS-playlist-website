@@ -24,7 +24,7 @@ public class ListRemoteLibrariesTest extends LambdaTest {
         
         boolean hasLib = false;
         for (RemoteLib rl : resp.list) {
-        	if (rl.getName().equals("remote lib name")) { hasLib = true; break; }
+        	if (rl.getName().equals("test")) { hasLib = true; break; }
         }
         assertTrue(hasLib);
         assertEquals(200, resp.statusCode);
