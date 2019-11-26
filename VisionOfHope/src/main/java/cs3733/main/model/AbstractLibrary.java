@@ -48,5 +48,9 @@ public abstract class AbstractLibrary {
 		}
 		return results;
 	}
+	
+	public boolean addVideo(VideoSegment vs) {
+		return VideoSegments.add(vs);
+	}
 
 }

@@ -34,6 +34,10 @@ public class VideoSegment {
 		return this.remoteAvaliability;
 	}
 	
+	public Boolean equalsVideoSegment(VideoSegment vs) {
+		return this.equals(vs);
+	}
+	
 	// toggles remote availability of videos
 	public void setAvaliability() {
 		if(this.remoteAvaliability = true) {
@@ -43,6 +47,7 @@ public class VideoSegment {
 			this.remoteAvaliability = true;
 		}
 	}
+	
 	@Override
 	public String toString() {
 		return "VideoSegment [title=" + title + ", character=" + character + ", url=" + url

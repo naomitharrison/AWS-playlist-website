@@ -17,6 +17,10 @@ public class Playlist {
 		return this.playlistVideos.add(vs);
 	}
 	
+	public boolean equalsPlaylist(Playlist pl) {
+		return this.equals(pl);
+	}
+	
 	public boolean removeEntry(VideoSegment vs) {
 		Iterator<VideoSegment> videos = this.playlistVideos.iterator(); 
 		Boolean Success = false;
