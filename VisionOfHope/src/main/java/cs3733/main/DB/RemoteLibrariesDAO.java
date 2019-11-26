@@ -97,4 +97,14 @@ public class RemoteLibrariesDAO {
 		URL = resultSet.getString("videoURL");
 		return new VideoSegment(title, character, URL);
 	}
+
+	public boolean addRemoteLib(String name, String url) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public boolean deleteRemoteLib(String name, String url) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
