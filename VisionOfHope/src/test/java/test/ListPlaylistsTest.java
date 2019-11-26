@@ -27,7 +27,7 @@ public class ListPlaylistsTest extends LambdaTest {
         
         boolean hasPlaylist = false;
         for (Playlist p : resp.list) {
-        	if (p.getName().equals("test name")) { hasPlaylist = true; break; }
+        	if (p.getName().equals("first Playlist")) { hasPlaylist = true; break; }
         }
         assertTrue(hasPlaylist);
         assertEquals(200, resp.statusCode);
