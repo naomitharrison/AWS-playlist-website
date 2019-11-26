@@ -26,7 +26,7 @@ public class DeleteVideoSegmentHandler implements RequestHandler<DeleteVideoSegm
 		VideoSegmentsDAO dao = new VideoSegmentsDAO();
 		
 		try {
-			if (dao.deleteVideoSegment(req.getURL())) {
+			if (dao.deleteVideo(req.getURL())) {
 				response = new DeleteVideoSegmentResponse(req.getURL(), 200);
 			} else {
 				response = new DeleteVideoSegmentResponse(req.getURL(), 422, "Unable to delete playlist");

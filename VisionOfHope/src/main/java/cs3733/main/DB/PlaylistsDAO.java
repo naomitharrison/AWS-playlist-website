@@ -203,4 +203,9 @@ public class PlaylistsDAO {
 		return false;
 	}
 
+	public boolean deleteVideoFromPlaylist(String playlistName, String videoURL) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
