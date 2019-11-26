@@ -33,7 +33,7 @@ public class VideoSegmentsDAO {
 			
 			
 			
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM innodb.library");
+			PreparedStatement ps = conn.prepareStatement("SELECT *  innodb.library");
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
