@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Video Mashup Service</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script type='text/javascript' src='../js/api.js'></script>
+<script type='text/javascript' src='../js/get_videoSegments.js'></script>
+<script type="text/javascript">
+	function initialize() {
+		// get all video segments
+		refreshAdminVideoSegments();
+	}
+</script>
+</head>
+<body onload="initialize()">
+	<div class="jumbotron text-center">
+		<h1>Star Trek Video Mashup</h1>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h3>Remote Library Tools</h3>
+				<div class="row">
+					<input type="checkbox" name="rl1"> Library 1
+				</div>
+				<div class="row">
+					<input type="checkbox" name="rl2"> Library 2
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<h3>Options</h3>
+				<button type="button">Delete Library</button>
+				<br> <br>
+				<button type="button">Add Library</button>
+			</div>
+		</div>
+		<br> <br>
+		<hr size="4" noshade>
+		<br> <br>
+		<div class="row">
+			<div class="col">
+				<h3>Video Segment Tools</h3>
+				<div class="row">
+					<div class="col-sm-8"><h5>Video Segment</h5></div>
+                    <div class="col"><h5>Remote Availability</h5></div>
+				</div>
+                <br> <br>
+				<div id="adminVideoSegmentList"></div>
+				<!--  <div class="row">
+					<div class="col-sm-8">
+						<input type="checkbox" name="vs1"> <br> Sample Title
+						<br> Sample Character
+					</div>
+					<div class="col">
+						<input type="checkbox" name="rem1">
+					</div>
+				</div> -->
+			</div>
+			<div class="col-sm-4">
+				<h3>Options</h3>
+				<button type="button">Delete Video</button>
+				<br> <br>
+				<button type="button">Save Remote Availability</button>
+			</div>
+		</div>
+
+
+	</div>

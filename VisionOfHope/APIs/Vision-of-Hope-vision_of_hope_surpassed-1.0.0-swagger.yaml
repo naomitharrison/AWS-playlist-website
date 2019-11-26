@@ -1,0 +1,407 @@
+swagger: '2.0'
+info:
+  version: "1.0"
+  title: 'API for Group Project'
+  description: 'Communication between browser and AWS lambda function'
+tags:
+- name: administrator
+  description: Admin-only calls
+- name: participant
+  description: Operations available to regular consumers
+paths: 
+  /playlists:
+    get:
+      tags:
+      - participant
+      summary: request a list of all playlists
+      description: Returns a list of all playlists
+      operationId: getPlaylistList
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: list of playlists returned
+    post:
+      tags:
+      - participant
+      summary: requests to create a new playlist
+      description: Creates a new playlist
+      operationId: newPlaylist
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: NewPlaylistRequest
+        description: Creates new Playlist
+        required: false
+        schema:
+          $ref: '#/definitions/NewPlaylistRequest'
+      responses:
+        200:
+          description: a new playlist has been added to the library
+        400:
+          description: invalid input, object invalid
+        409:
+          description: valid input but duplicate playlist
+  /playlistRemove:
+    post:
+      tags:
+      - participant
+      summary: requests to delete an existing playlist
+      description: Deletes a  playlist
+      operationId: deletePlaylist
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: DeletePlaylistRequest
+        description: Deletes Playlist
+        required: false
+        schema:
+          $ref: '#/definitions/DeletePlaylistRequest'
+      responses:
+        200:
+          description: a playlist has been removed from the library
+        400:
+          description: invalid input, object invalid
+  /videoSegments:
+    get:
+      tags:
+      - participant
+      summary: request a list of video segments in the library
+      description: Returns a list of all video segments in the library
+      operationId: getVideoSegmentsList
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: list of video segments in the library returned
+    post:
+      tags:
+      - participant
+      summary: requests to upload a video segment to the library
+      description: Uploads a new video segment to the local library
+      operationId: newVideoSegment
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: NewVideoSegmentRequest
+        description: Adds a video segment to the library
+        required: false
+        schema:
+          $ref: '#/definitions/NewVideoSegmentRequest'
+      responses:
+        200:
+          description: video segment is uploaded
+        400:
+          description: invalid input, object invalid
+        409:
+          description: valid input but duplicate video
+  /playlistVideoSegments:
+    post:
+      tags:
+      - participant
+      summary: request a list of video segments in the playlist
+      description: Returns a list of all video segments in the playlist
+      operationId: getVideoSegmentsListInPlaylist
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: ListPlaylistVideoSegmentsRequest
+        description: lists all of the video segments in the playlist
+        required: false
+        schema:
+          $ref: '#/definitions/ListPlaylistVideoSegmentsRequest'
+      responses:
+        200:
+          description: list of video segments returned
+        400:
+          description: invalid input, object invalid
+  /playlistVideoSegmentAppend:  
+    post:
+      tags:
+      - participant
+      summary: requests to add a video segment to a playlist
+      description: Adds video segment onto the end of a playlist's list of video segments
+      operationId: appendPlaylist
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: AppendPlaylistRequest
+        description: Adds a video segment to the end of a playlist
+        required: false
+        schema:
+          $ref: '#/definitions/AppendPlaylistRequest'
+      responses:
+        200:
+          description: a video segment has been appended to the playlist
+        400:
+          description: invalid input, object invalid
+  /playlistVideoSegmentRemove:
+    post:
+      tags:
+      - participant
+      summary: requests to remove a video segment from the playlist
+      description: Remove a video segment from the playlist
+      operationId: removeVideoSegmentFromPlaylist
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: DeletePlaylistVideoSegmentRequest
+        description: Deletes a video segment from the playlist
+        required: false
+        schema:
+          $ref: '#/definitions/DeletePlaylistVideoSegmentRequest'
+      responses:
+        200:
+          description: video segment removed from playlist
+        400:
+          description: invalid input, object invalid
+  /videoSegmentRemove:
+    post:
+      tags:
+      - participant
+      summary: requests to delete a video segment from the local library
+      description: Deletes a video segment from the local library
+      operationId: deleteVideoSegment
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: DeleteVideoSegmentRequest
+        description: Deletes a video segment
+        required: false
+        schema:
+          $ref: '#/definitions/DeleteVideoSegmentRequest'
+      responses:
+        200:
+          description: video segment has been deleted from the library
+        400:
+          description: invalid input, object invalid
+  /searchVideoSegments: 
+    post:
+      tags:
+      - participant
+      summary: request to search video segments
+      description: Requests to create a search from base64 string title and/or base64 string character
+      operationId: searchVideoSegments
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: VideoSegmentSearchRequest
+        description: Search for a video segment in local and remote libraries
+        required: false
+        schema:
+          $ref: '#/definitions/VideoSegmentSearchRequest'
+      responses:
+        200:
+          description: search completed
+        400:
+          description: invalid input, search invalid
+  /videoSegmentRemoteStatus:
+    post:
+      tags:
+        - administrator
+      summary: requests that video segment remote availability is toggled
+      description: Requests that video segment remote availability is toggled
+      operationId: requestAvailable
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: VideoRemoteStatusRequest
+        description: Toggles video segment remote availability
+        required: false
+        schema:
+          $ref: '#/definitions/RemoteStatusRequest'
+      responses:
+        200:
+          description: video segment marked available
+        400:
+          description: invalid input, object invald
+  /remoteLibrary:
+    post:
+      tags:
+        - administrator
+      summary: requests that remote library is added
+      description: Requests that remote library is added
+      operationId: requestAddRemoteLibrary
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: RemoteLibraryAddRequest
+        description: Adds remote library
+        required: false
+        schema:
+          $ref: '#/definitions/RemoteLibraryAddRequest'
+      responses:
+        200:
+          description: remote library unselected
+        400:
+          description: invalid input, object invald
+        409:
+          description: remote library has already been registered
+    get:
+      tags:
+        - administrator
+      summary: request a list of all remote libraries
+      description: Returns a list of all remote libraries
+      operationId: getRemoteLibraries
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: list of remote libraries returned
+  /remoteLibraryRemove:
+    post:
+      tags:
+        - administrator
+      summary: requests that remote library is removed
+      description: Requests that remote library is removed
+      operationId: requestRemoveRemoteLibrary
+      consumes: 
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: RemoteLibraryRemoveRequest
+        description: Removes remote library
+        required: false
+        schema:
+          $ref: '#/definitions/RemoteLibraryRemoveRequest'
+      responses:
+        200:
+          description: remote library removed
+        400:
+          description: invalid input, object invald    
+definitions:
+  NewPlaylistRequest:
+    type: object
+    required:
+    - playlistName
+    properties:
+      playlistName:
+        type: string
+  DeletePlaylistRequest:
+    type: object
+    required:
+    - playlistName
+    properties:
+      playlistName:
+        type: string
+  AppendPlaylistRequest:
+    type: object
+    required:
+    - playlistName
+    - videoName
+    properties:
+      playlistName:
+        type: string
+      videoName:
+        type: string
+  NewVideoSegmentRequest:
+    type: object
+    required:
+    - title
+    - character
+    - filepath
+    properties:
+      title:
+        type: string
+      character:
+        type: string
+      filepath:
+        type: string
+  DeleteVideoSegmentRequest:
+    type: object
+    required:
+    - videoName
+    properties:
+      videoName:
+        type: string
+  VideoSegmentSearchRequest:
+    type: object
+    required:
+    - title
+    - character
+    properties:
+      title:
+        type: string
+      character:
+        type: string
+  RemoteStatusRequest:
+    type: object
+    required:
+    - checkbox
+    - name
+    properties:
+      checkbox:
+        type: boolean
+      name:
+        type: string
+  RemoteLibraryAddRequest:
+    type: object
+    required:
+    - url
+    properties:
+      url:
+        type: string
+  RemoteLibraryRemoveRequest:
+    type: object
+    required:
+    - url
+    properties:
+      url:
+        type: string
+  ListPlaylistVideoSegmentsRequest:
+    type: object
+    required: 
+    - playlistName
+    properties:
+      playlistName:
+        type: string
+  DeletePlaylistVideoSegmentRequest:
+    type: object
+    required:
+    - playlistName
+    - videoSegmentName
+    properties:
+      playlistName:
+        type: string
+      videoSegmentName:
+        type: string
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /Vision-of-Hope/vision_of_hope_surpassed/1.0
+schemes:
+ - https
