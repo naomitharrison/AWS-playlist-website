@@ -10,7 +10,7 @@ import cs3733.main.model.RemoteLib;
 import cs3733.main.model.VideoSegment;
 
 public class RemoteLibrariesDAO {
-	
+
 	java.sql.Connection conn;
 
 	public RemoteLibrariesDAO() {
@@ -21,10 +21,16 @@ public class RemoteLibrariesDAO {
 		}
 	}
 
+	/**
+	 * returns a list of all the remote libraries
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public List<RemoteLib> getAllRemoteLibraries() throws Exception {
 		try {
 			List<RemoteLib> remotes = new ArrayList<RemoteLib>();
-			
+
 			PreparedStatement ps = conn.prepareStatement("SELECT distinct remoteURL, name FROM innodb.remoteLibraries");
 			ResultSet resultSet = ps.executeQuery();
 
@@ -34,11 +40,12 @@ public class RemoteLibrariesDAO {
 			}
 			resultSet.close();
 			ps.close();
-			
-			for(RemoteLib remote: remotes) {
-				ps = conn.prepareStatement("SELECT * FROM innodb.remoteLibraries where remoteURL = '" + remote.getUrl() + "'");
+
+			for (RemoteLib remote : remotes) {
+				ps = conn.prepareStatement(
+						"SELECT * FROM innodb.remoteLibraries where remoteURL = '" + remote.getUrl() + "'");
 				resultSet = ps.executeQuery();
-				
+
 				while (resultSet.next()) {
 					VideoSegment vs = generateVideoSegment(resultSet);
 					remote.addVideo(vs);
@@ -56,31 +63,38 @@ public class RemoteLibrariesDAO {
 
 	}
 
+	/**
+	 * creates Remote Library from one row of the database
+	 * 
+	 * @param resultSet
+	 * @return
+	 * @throws SQLException
+	 */
 	private RemoteLib generateRemoteLibrary(ResultSet resultSet) throws SQLException {
 		String name = "";
 		String URL = "";
-		
+
 		name = resultSet.getString("name");
 		URL = resultSet.getString("remoteURL");
-		
-		return new RemoteLib(name,URL);
+
+		return new RemoteLib(name, URL);
 	}
 
+	/**
+	 * returns video segment from one row
+	 * 
+	 * @param resultSet
+	 * @return
+	 * @throws Exception
+	 */
 	private VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
-		String URL = resultSet.getString("videoURL");
-		PreparedStatement p = conn.prepareStatement("SELECT * FROM innodb.remoteLibraries where videoURL = '" + URL + "'");
-        ResultSet result = p.executeQuery();
-        String title = "";
-        String character = "";
-        
-        while (result.next()) {
-        	title = result.getString("videoTitle");
-        	character = result.getString("videoCharacter");
-        }
-        
-        result.close();
-        p.close();
-		
-		return new VideoSegment(title,character,URL);
+		String URL = "";
+		String title = "";
+		String character = "";
+
+		title = resultSet.getString("videoTitle");
+		character = resultSet.getString("videoCharacter");
+		URL = resultSet.getString("videoURL");
+		return new VideoSegment(title, character, URL);
 	}
 }
