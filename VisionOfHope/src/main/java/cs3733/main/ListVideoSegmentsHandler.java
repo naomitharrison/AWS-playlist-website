@@ -1,4 +1,4 @@
-package main;
+package cs3733.main;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +16,10 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
-import main.DB.VideoSegmentsDAO;
-import main.http.ListVideoSegmentsRequest;
-import main.http.ListVideoSegmentsResponse;
-import main.model.VideoSegment;
+import cs3733.main.DB.VideoSegmentsDAO;
+import cs3733.main.http.ListVideoSegmentsRequest;
+import cs3733.main.http.ListVideoSegmentsResponse;
+import cs3733.main.model.VideoSegment;
 
 public class ListVideoSegmentsHandler implements RequestHandler<Object,ListVideoSegmentsResponse>{
 
