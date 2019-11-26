@@ -39,7 +39,7 @@ public class VideoSegment {
 	}
 	
 	// toggles remote availability of videos
-	public void setAvaliability() {
+	public void setAvailability() {
 		if(this.remoteAvailability = true) {
 			this.remoteAvailability = false;
 		}
