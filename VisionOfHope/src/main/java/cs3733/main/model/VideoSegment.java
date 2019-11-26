@@ -30,7 +30,7 @@ public class VideoSegment {
 		return this.url;
 	}
 	
-	public Boolean getAvaiability(){
+	public Boolean getAvailability(){
 		return this.remoteAvailability;
 	}
 	

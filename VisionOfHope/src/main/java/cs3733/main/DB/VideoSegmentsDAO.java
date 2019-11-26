@@ -158,7 +158,7 @@ public class VideoSegmentsDAO {
 			resultSet.close();
 			
 			// add video segment
-			ps = conn.prepareStatement("INSERT INTO library VALUES ('" + vs.getTitle() +"','" + vs.getCharacter() + "','" + vs.getUrl() + "','" + vs.getAvaiability() + "');");
+			ps = conn.prepareStatement("INSERT INTO library VALUES ('" + vs.getTitle() +"','" + vs.getCharacter() + "','" + vs.getUrl() + "','" + vs.getAvailability() + "');");
 			resultSet = ps.executeQuery();
 			
 			return true;
