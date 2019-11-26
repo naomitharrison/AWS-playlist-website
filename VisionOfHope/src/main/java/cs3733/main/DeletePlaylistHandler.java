@@ -37,6 +37,6 @@ public LambdaLogger logger = null;
 			response = new DeletePlaylistResponse(req.getName(), 403, "Unable to delete playlist: " + req.getName() + "(" + e.getMessage() + ")");
 		}
 
-		return response;
+		return response; 
 	}
 }
