@@ -30,9 +30,6 @@ public class VideoSegmentsDAO {
 		try {
 			List<VideoSegment> videos = new ArrayList<VideoSegment>();
 
-			
-			
-			
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM innodb.library");
 			ResultSet resultSet = ps.executeQuery();
 
@@ -113,9 +110,10 @@ public class VideoSegmentsDAO {
 		}
 
 	}
-	
+
 	/**
-	 * lists all videos by specified character and with specified title in local library
+	 * lists all videos by specified character and with specified title in local
+	 * library
 	 * 
 	 * @param character
 	 * @param title
@@ -126,7 +124,8 @@ public class VideoSegmentsDAO {
 		try {
 			List<VideoSegment> videos = new ArrayList<VideoSegment>();
 
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where character = '" + character + "' title = '" + title + "'");
+			PreparedStatement ps = conn.prepareStatement(
+					"SELECT * FROM library where character = '" + character + "' title = '" + title + "'");
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -138,6 +137,31 @@ public class VideoSegmentsDAO {
 
 			return videos;
 
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in getting videos: " + e.getMessage());
+		}
+	}
+
+	public boolean addVideo(VideoSegment vs) throws Exception {
+		try {
+			// get videos in where urls are equal
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoURL = '" + vs.getUrl() + "'");
+			ResultSet resultSet = ps.executeQuery();
+			
+			// check if there is a returned row
+			while(resultSet.next()) {
+				// return false if there is something returned
+				return false;
+			}
+			ps.close();
+			resultSet.close();
+			
+			// add video segment
+			ps = conn.prepareStatement("INSERT INTO library VALUES ('" + vs.getTitle() +"','" + vs.getCharacter() + "','" + vs.getUrl() + "','" + vs.getAvaiability() + "');");
+			resultSet = ps.executeQuery();
+			
+			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Failed in getting videos: " + e.getMessage());
