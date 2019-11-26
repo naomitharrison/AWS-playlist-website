@@ -33,3 +33,9 @@ function processPlaylistListResponse(result) {
 	console.log("final HTML: " + output);
 	playlistList.innerHTML = output;
 }
+
+function getPlaylist(){
+	
+
+	
+}
