@@ -22,13 +22,14 @@ function processPlaylistListResponse(result) {
 	
 	var output = '';
 	output +='<ul style="list-style-type:none;">';
-	for (var i = 0; i < js.listOfPlaylists.length; i++) {
-		var constantJson = js.listOfPlaylists[i];
+	for (var i = 0; i < js.list.length; i++) {    // listOfPlaylists
+		var constantJson = js.list[i];
 		console.log(constantJson);
 		
 		var cname = constantJson["name"];
 		output += '<li><input type="radio" name="' + cname + '">' + cname + '</li>';
 	}
 	output += '</ul>';
+	console.log("final HTML: " + output);
 	playlistList.innerHTML = output;
 }

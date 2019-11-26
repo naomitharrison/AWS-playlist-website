@@ -69,7 +69,7 @@ function processVideoListAdminResponse(result) {
 		let ccharacter = constantJson["character"];
 		let cfile = constantJson["file"];
 		output += '<div class="row"><div class="col-sm-8">';
-		output += '<input type="checkbox" name="' + cfile + '"><video width="300" height="230" controls><source src="' + cfile +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter;
+		output += '<input type="checkbox" name="' + cfile + '"><video width="300" height="230" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter;
 		output += '</div><div class="col"><input type="checkbox" name="rem1"></div></div><br><br>';
 	}
 	adminVideoList.innerHTML = output;
