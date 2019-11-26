@@ -28,7 +28,7 @@ public class ListVideoSegmentsTest extends LambdaTest {
         	System.out.println(vs.toString());
         }
         for (VideoSegment vs : resp.list) {
-        	if (vs.getTitle().equals("They said you'd been killed, sir")) { hasVideo = true; break; }
+        	if (vs.getTitle().equals("It will be out secret")) { hasVideo = true; break; }
         }
         assertTrue(hasVideo);
         assertEquals(200, resp.statusCode);
