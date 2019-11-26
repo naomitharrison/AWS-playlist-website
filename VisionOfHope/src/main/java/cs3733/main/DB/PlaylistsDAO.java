@@ -133,7 +133,8 @@ public class PlaylistsDAO {
 
 	public boolean addPlaylist(Playlist playlist) {
 		// TODO Auto-generated method stub
-		//hello can you please make this function so that it will add a playlist to the database and return a boolean whther or not it works
+		//hello can you please make this function so that it will add a playlist
+		//to the database and return a boolean whther or not it works
 		return false;
 	}
 
@@ -141,7 +142,8 @@ public class PlaylistsDAO {
 
 	public boolean deletePlaylist(Playlist playlist) {
 		// TODO Auto-generated method stub
-		//hello can you please make this function so that it will add a playlist to the database and return a boolean whther or not it works
+		//hello can you please make this function so that it will add a playlist 
+		//to the database and return a boolean whther or not it works
 		return false;
 	}
 

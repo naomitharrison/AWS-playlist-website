@@ -143,6 +143,12 @@ public class VideoSegmentsDAO {
 		}
 	}
 
+	/**
+	 * adds given video segment
+	 * @param vs
+	 * @return
+	 * @throws Exception
+	 */
 	public boolean addVideo(VideoSegment vs) throws Exception {
 		try {
 			// get videos in where urls are equal
@@ -159,6 +165,37 @@ public class VideoSegmentsDAO {
 			
 			// add video segment
 			ps = conn.prepareStatement("INSERT INTO library VALUES ('" + vs.getTitle() +"','" + vs.getCharacter() + "','" + vs.getUrl() + "','" + vs.getAvailability() + "');");
+			resultSet = ps.executeQuery();
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in getting videos: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * deletes given video segment
+	 * @param vs
+	 * @return
+	 * @throws Exception
+	 */
+	public boolean deleteVideo(VideoSegment vs) throws Exception {
+		try {
+			// get videos in where urls are equal
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoURL = '" + vs.getUrl() + "'");
+			ResultSet resultSet = ps.executeQuery();
+			
+			// check if there is a returned row
+			while(resultSet.next()) {
+				// return false if there is something returned
+				return false;
+			}
+			ps.close();
+			resultSet.close();
+			
+			// delete video segment
+			ps = conn.prepareStatement("delete from library where videoURL = '" + vs.getUrl() + "';");
 			resultSet = ps.executeQuery();
 			
 			return true;
