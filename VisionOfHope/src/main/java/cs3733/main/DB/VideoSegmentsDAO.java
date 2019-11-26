@@ -92,7 +92,8 @@ public class VideoSegmentsDAO {
 		try {
 			List<VideoSegment> videos = new ArrayList<VideoSegment>();
 
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoCharacter = '" + character + "'");
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM library where videoCharacter = '" + character + "'");
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -125,7 +126,7 @@ public class VideoSegmentsDAO {
 			List<VideoSegment> videos = new ArrayList<VideoSegment>();
 
 			PreparedStatement ps = conn.prepareStatement(
-					"SELECT * FROM library where videoCharacter = '" + character + "' videoName = '" + title + "'");
+					"SELECT * FROM library where videoCharacter = '" + character + "' and videoName = '" + title + "'");
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -142,29 +143,29 @@ public class VideoSegmentsDAO {
 			throw new Exception("Failed in getting videos: " + e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * returns video with the given URL
+	 * 
 	 * @param URL
 	 * @return
 	 * @throws Exception
 	 */
 	public VideoSegment getVideo(String URL) throws Exception {
 		try {
-		VideoSegment vs = null;
-		
-		PreparedStatement ps = conn.prepareStatement(
-				"SELECT * FROM library where videoURL = '" + URL + "'");
-		ResultSet resultSet = ps.executeQuery();
+			VideoSegment vs = null;
 
-		while (resultSet.next()) {
-			vs = generateVideoSegment(resultSet);
-			
-		}
-		resultSet.close();
-		ps.close();
-		
-		return vs;
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoURL = '" + URL + "'");
+			ResultSet resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+				vs = generateVideoSegment(resultSet);
+
+			}
+			resultSet.close();
+			ps.close();
+
+			return vs;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Failed in getting videos: " + e.getMessage());
@@ -173,6 +174,7 @@ public class VideoSegmentsDAO {
 
 	/**
 	 * adds given video segment
+	 * 
 	 * @param vs
 	 * @return
 	 * @throws Exception
@@ -180,33 +182,36 @@ public class VideoSegmentsDAO {
 	public boolean addVideo(VideoSegment vs) throws Exception {
 		try {
 			// get videos in where urls are equal
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoURL = '" + vs.getUrl() + "'");
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM library where videoURL = '" + vs.getUrl() + "'");
 			ResultSet resultSet = ps.executeQuery();
-			
+
 			// check if there is a returned row
-			while(resultSet.next()) {
+			while (resultSet.next()) {
 				// return false if there is something returned
 				return false;
 			}
 			ps.close();
 			resultSet.close();
-			
+
 			// add video segment
-			ps = conn.prepareStatement("INSERT INTO library VALUES ('" + vs.getTitle() +"','" + vs.getCharacter() + "','" + vs.getUrl() + "','" + vs.getAvailability() + "');");
+			ps = conn.prepareStatement("INSERT INTO library VALUES ('" + vs.getTitle() + "','" + vs.getCharacter()
+					+ "','" + vs.getUrl() + "','" + vs.getAvailability() + "');");
 			resultSet = ps.executeQuery();
-			
+
 			ps.close();
 			resultSet.close();
-			
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Failed in getting videos: " + e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * deletes given video segment
+	 * 
 	 * @param vs
 	 * @return
 	 * @throws Exception
@@ -216,22 +221,22 @@ public class VideoSegmentsDAO {
 			// get videos in where urls are equal
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoURL = '" + URL + "'");
 			ResultSet resultSet = ps.executeQuery();
-			
+
 			// check if there is a returned row
-			while(resultSet.next()) {
+			while (resultSet.next()) {
 				// return false if there is something returned
 				return false;
 			}
 			ps.close();
 			resultSet.close();
-			
+
 			// delete video segment
 			ps = conn.prepareStatement("delete from library where videoURL = '" + URL + "';");
 			resultSet = ps.executeQuery();
-			
+
 			ps.close();
 			resultSet.close();
-			
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

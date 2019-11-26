@@ -93,7 +93,6 @@ public class PlaylistsDAO {
 	 * @return
 	 */
 	private Playlist generatePlaylist(ResultSet resultSet) throws Exception {
-		// TODO Auto-generated method stub
 		return new Playlist(resultSet.getString("playlistname"));
 	}
 
@@ -157,7 +156,7 @@ public class PlaylistsDAO {
 			// add video segment
 			ps = conn.prepareStatement("INSERT INTO playlists VALUES (null, '" + name + "', null );");
 			resultSet = ps.executeQuery();
-			
+
 			ps.close();
 			resultSet.close();
 
@@ -185,10 +184,10 @@ public class PlaylistsDAO {
 			// add video segment
 			ps = conn.prepareStatement("delete from playlists were playlist name = '" + name + "');");
 			resultSet = ps.executeQuery();
-			
+
 			ps.close();
 			resultSet.close();
-			
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -196,11 +195,34 @@ public class PlaylistsDAO {
 		}
 	}
 
+	public boolean addVideoToPlaylist(String playlistName, String videoURL) throws Exception {
+		try {
+			// get videos in where urls are equal
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM playlists where playlistName = '" + playlistName
+					+ "' and videoURL = '" + videoURL + "'");
+			ResultSet resultSet = ps.executeQuery();
 
+			// check if there is a returned row
+			while (resultSet.next()) {
+				// return false if there is something returned
+				return false;
+			}
+			ps.close();
+			resultSet.close();
 
-	public boolean addVideoToPlaylist(String playlistName, String videoURL) {
-		// TODO Auto-generated method stub
-		return false;
+			// add video segment
+			ps = conn.prepareStatement(
+					"INSERT INTO playlists VALUES ( '" + videoURL + "', '" + playlistName + "', null );");
+			resultSet = ps.executeQuery();
+
+			ps.close();
+			resultSet.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in getting videos: " + e.getMessage());
+		}
 	}
 
 }
