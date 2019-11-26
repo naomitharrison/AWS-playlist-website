@@ -2,6 +2,8 @@ package main.model;
 
 public class VideoSegment {
 
+	
+
 	String title;
 	String character;
 	// Is the ogg filename
@@ -40,5 +42,10 @@ public class VideoSegment {
 		else {
 			this.remoteAvaliability = true;
 		}
+	}
+	@Override
+	public String toString() {
+		return "VideoSegment [title=" + title + ", character=" + character + ", filename=" + filename
+				+ ", remoteAvaliability=" + remoteAvaliability + "]";
 	}
 }
