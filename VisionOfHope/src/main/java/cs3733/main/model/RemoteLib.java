@@ -18,4 +18,8 @@ public class RemoteLib extends AbstractLibrary {
 		return url;
 	}
 	
+	public Boolean equalsRemoteLib(RemoteLib rl) {
+		return this.equals(rl);
+	}
+	
 }

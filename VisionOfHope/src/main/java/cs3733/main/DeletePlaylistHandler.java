@@ -23,12 +23,9 @@ public LambdaLogger logger = null;
 		logger.log(req.toString());
 
 		PlaylistsDAO dao = new PlaylistsDAO();
-
-
-		Playlist playlist = new Playlist(req.getName());
 		
 		try {
-			if (dao.deletePlaylist(playlist)) {
+			if (dao.deletePlaylist(req.getName())) {
 				response = new DeletePlaylistResponse(req.getName(), 200);
 			} else {
 				response = new DeletePlaylistResponse(req.getName(), 422, "Unable to delete playlist");
@@ -37,6 +34,6 @@ public LambdaLogger logger = null;
 			response = new DeletePlaylistResponse(req.getName(), 403, "Unable to delete playlist: " + req.getName() + "(" + e.getMessage() + ")");
 		}
 
-		return response;
+		return response; 
 	}
 }

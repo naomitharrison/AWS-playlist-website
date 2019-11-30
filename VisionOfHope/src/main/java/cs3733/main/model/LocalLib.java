@@ -36,7 +36,7 @@ public class LocalLib extends AbstractLibrary {
 		while (videos.hasNext()) {
 			VideoSegment current = videos.next();
 			if (current == vs) {
-				current.setAvaliability();
+				current.setAvailability();
 			}
 		}
 	}

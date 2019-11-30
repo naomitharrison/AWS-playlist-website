@@ -8,13 +8,13 @@ public class VideoSegment {
 	String character;
 	// Is the ogg filename
 	String url;
-	Boolean remoteAvaliability;
+	Boolean remoteAvailability;
 	
 	public VideoSegment(String title, String character, String url) {
 		this.title = title;
 		this.character = character;
 		this.url = url;
-		this.remoteAvaliability = true;
+		this.remoteAvailability = true;
 		
 	}
 	
@@ -30,22 +30,27 @@ public class VideoSegment {
 		return this.url;
 	}
 	
-	public Boolean getAvaiability(){
-		return this.remoteAvaliability;
+	public Boolean getAvailability(){
+		return this.remoteAvailability;
+	}
+	
+	public Boolean equalsVideoSegment(VideoSegment vs) {
+		return this.equals(vs);
 	}
 	
 	// toggles remote availability of videos
-	public void setAvaliability() {
-		if(this.remoteAvaliability = true) {
-			this.remoteAvaliability = false;
+	public void setAvailability() {
+		if(this.remoteAvailability = true) {
+			this.remoteAvailability = false;
 		}
 		else {
-			this.remoteAvaliability = true;
+			this.remoteAvailability = true;
 		}
 	}
+	
 	@Override
 	public String toString() {
 		return "VideoSegment [title=" + title + ", character=" + character + ", url=" + url
-				+ ", remoteAvaliability=" + remoteAvaliability + "]";
+				+ ", remoteAvailability=" + remoteAvailability + "]";
 	}
 }
