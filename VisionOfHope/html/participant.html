@@ -15,6 +15,7 @@
 <script type='text/javascript' src='../js/api.js'></script>
 <script type='text/javascript' src='../js/get_videoSegments.js'></script>
 <script type='text/javascript' src='../js/get_playlist.js'></script>
+<script type='text/javascript' src='../js/get_playlistVideoSegments.js'></script>
 <script type="text/javascript">
 	function initialize() {
 		// get all video segments
@@ -61,9 +62,9 @@
 					<h3>Playlists</h3>
 				</div>
 				<div class="row">
-					<button type="button">Delete Playlist</button>
-					<button type="button">Add Playlist</button>
-					<button type="button" onclick="selectPlaylist()">Select Playlist</button>
+					<input type="button" value="Delete Playlist">
+					<input type="button" value="Add Playlist">
+					<input type="button" onclick="refreshPlaylistVideoSegments()" value="Select Playlist">
 				</div>
 				<div class="row">
 					<div id="playlistList"></div>
@@ -75,6 +76,7 @@
 				<br>
 				<button type="button">DELETE VIDEO</button>
 				<button type="button">Add video</button>
+				<div id="playlist"></div>
 				
 				
 				<!-- 
