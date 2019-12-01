@@ -1,36 +1,54 @@
-function refreshRemoteLibraries() {
-	let request = new XMLHttpRequest();
-	request.open('GET', remoteLibraries_url, true);
-	request.send();
+function addRemoteLibrary() {
+	var libraryName = document.getElementById('remoteLibraryName').value;
+	var libraryUrl = document.getElementById('remoteLibraryUrl').value;
 
-	console.log("sent");
+	var data = {};
+	data["url"] = libraryUrl;
+	data["name"] = libraryName;
 
-	request.onload = function() {
-		if (request.readyState == XMLHttpRequest.DONE) {
-			console.log ("request:" + request.responseText);
-			processRemoteLibrariesListResponse(request.responseText);
+	var js = JSON.stringify(data);
+	console.log("JS:" + js);
+
+	var req = new XMLHttpRequest();
+	req.open("POST", playlistVideoSegments_url, true);
+	req.send(js);
+	req.onloadend = function() {
+		console.log(req);
+		console.log(req.request);
+
+		if (req.readyState == XMLHttpRequest.DONE) {
+			console.log("XHR:" + req.responseText);
+			processPlaylistVideoSegmentsListResponse(data.name,
+					req.responseText);
 		} else {
-			processRemoteLibrariesListResponse("N/A");
+			processPlaylistVideoSegmentsListResponse(data.name, "N/A");
 		}
-	};
+
+	}
 }
 
-function processRemoteLibrariesListResponse(result) {
-	console.log("res:" + result);
+function processPlaylistVideoSegmentsListResponse(name, result) {
 	var js = JSON.parse(result);
-	var remoteLibraryList = document.getElementById('remoteLibraryList');
+	var playlist = document.getElementById('playlist');
 
 	var output = '';
-	output +='<ul style="list-style-type:none;">';
-	for (var i = 0; i < js.listOfRemoteLibraries.length; i++) {
-		var constantJson = js.listOfRemoteLibraries[i];
-		console.log(constantJson);
 
-		var cname = constantJson["name"];
-		output += '<li><input type="radio" name="remoteLibrary" value="' + cname + '">' + cname + '</li>';
+	output += '<div class="row"><h5>' + name
+			+ '<h5></div><div class="row"><ul style="list-style-type:none;">';
+	for (var k = 0; k < js.listOfSegments.length; k++) {
+		var videoIterate = js.listOfSegments[k];
+		var ctitle = videoIterate["title"];
+		var ccharacter = videoIterate["character"];
+		var curl = videoIterate["url"];
+
+		output += '<li><input type="checkbox" name="playlist" value="' + curl
+				+ '"><video width="320" height="240" controls><source src="'
+				+ curl + '" type="video/ogg"></video><br> Line:' + ctitle
+				+ '<br> Character: ' + ccharacter + '</li><br><br>'
 	}
-	output += '</ul>';
-	console.log("final HTML: " + output);
-	remoteLibraryList.innerHTML = output;
-}
+	output += '</ul></div>'
 
+	console.log("final HTML: " + output);
+	playlist.innerHTML = output;
+
+}
