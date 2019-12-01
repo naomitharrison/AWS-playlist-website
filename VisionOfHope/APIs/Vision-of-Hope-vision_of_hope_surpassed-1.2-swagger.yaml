@@ -655,11 +655,11 @@ definitions:
     type: object
     required:
     - url
-    - title
+    - name
     properties:
       url:
         type: string
-      title:
+      name:
         type: string
 
 # Added by API Auto Mocking Plugin
