@@ -4,16 +4,36 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import cs3733.main.AppendPlaylistHandler;
+import cs3733.main.DeletePlaylistHandler;
+import cs3733.main.DeleteVideoSegmentHandler;
+import cs3733.main.ListPlaylistVideoSegmentHandler;
 import cs3733.main.ListPlaylistsHandler;
+import cs3733.main.ListRemoteLibraryHandler;
 import cs3733.main.ListVideoSegmentsHandler;
 import cs3733.main.NewPlaylistHandler;
 import cs3733.main.NewVideoSegmentsHandler;
+import cs3733.main.RemoteLibraryAddHandler;
+import cs3733.main.RemoteLibraryRemoveHandler;
+import cs3733.main.http.AppendPlaylistRequest;
+import cs3733.main.http.AppendPlaylistResponse;
+import cs3733.main.http.DeletePlaylistRequest;
+import cs3733.main.http.DeletePlaylistResponse;
+import cs3733.main.http.DeleteVideoSegmentRequest;
+import cs3733.main.http.DeleteVideoSegmentResponse;
 import cs3733.main.http.ListPlaylistResponse;
+import cs3733.main.http.ListPlaylistVideoSegmentsRequest;
+import cs3733.main.http.ListPlaylistVideoSegmentsResponse;
+import cs3733.main.http.ListRemoteLibrariesResponse;
 import cs3733.main.http.ListVideoSegmentsResponse;
 import cs3733.main.http.NewPlaylistRequest;
 import cs3733.main.http.NewPlaylistResponse;
 import cs3733.main.http.NewVideoSegmentsRequest;
 import cs3733.main.http.NewVideoSegmentsResponse;
+import cs3733.main.http.RemoteLibraryAddRequest;
+import cs3733.main.http.RemoteLibraryAddResponse;
+import cs3733.main.http.RemoteLibraryRemoveRequest;
+import cs3733.main.http.RemoteLibraryRemoveResponse;
 import cs3733.main.model.*;
 
 public class AddAndDelete extends LambdaTest {
@@ -42,17 +62,17 @@ public class AddAndDelete extends LambdaTest {
         assertTrue(hasVideo);
         
         
-        NewVideoSegmentsHandler deleteHandler = new NewVideoSegmentsHandler();
+        DeleteVideoSegmentHandler deleteHandler = new DeleteVideoSegmentHandler();
 
-    	NewVideoSegmentsRequest deleteRequest = new NewVideoSegmentsRequest("testTitle", "testCharater", "Mi43MTgyODE4Mjg=", true);
-    	NewVideoSegmentsResponse deleteResp = deleteHandler.handleRequest(deleteRequest, createContext("name"));
+        DeleteVideoSegmentRequest deleteRequest = new DeleteVideoSegmentRequest("https://cs3733visionofhopesurpassed.s3.anazonaws.com/videos/testTitle");
+        DeleteVideoSegmentResponse deleteResp = deleteHandler.handleRequest(deleteRequest, createContext("link"));
         
     	ListVideoSegmentsHandler listHandler2 = new ListVideoSegmentsHandler();
     	ListVideoSegmentsResponse listResp2 = listHandler2.handleRequest(null, createContext("list"));
     	
         boolean noLongerHasVideo = true;
-        for (VideoSegment vs : listResp.list) {
-        	if (vs.getTitle().equals("testTitle")) { noLongerHasVideo = false; break; }
+        for (VideoSegment vs : listResp2.list) {
+        	if (vs.getUrl().equals("https://cs3733visionofhopesurpassed.s3.anazonaws.com/videos/testTitle")) { noLongerHasVideo = false; break; }
         }
 
         assertEquals(200, deleteResp.statusCode);
@@ -64,7 +84,7 @@ public class AddAndDelete extends LambdaTest {
 	public void Playlist() {
     	NewPlaylistHandler addHandler = new NewPlaylistHandler();
 
-    	NewPlaylistRequest addRequest = new NewPlaylistRequest("testTitle", "testCharater", "Mi43MTgyODE4Mjg=", true);
+    	NewPlaylistRequest addRequest = new NewPlaylistRequest("testTitle");
     	NewPlaylistResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));
         
     	ListPlaylistsHandler listHandler = new ListPlaylistsHandler();
@@ -84,17 +104,17 @@ public class AddAndDelete extends LambdaTest {
         assertTrue(hasVideo);
         
         
-        NewVideoSegmentsHandler deleteHandler = new NewVideoSegmentsHandler();
+        DeletePlaylistHandler deleteHandler = new DeletePlaylistHandler();
 
-    	NewVideoSegmentsRequest deleteRequest = new NewVideoSegmentsRequest("testTitle", "testCharater", "Mi43MTgyODE4Mjg=", true);
-    	NewVideoSegmentsResponse deleteResp = deleteHandler.handleRequest(deleteRequest, createContext("name"));
+        DeletePlaylistRequest deleteRequest = new DeletePlaylistRequest("testName");
+        DeletePlaylistResponse deleteResp = deleteHandler.handleRequest(deleteRequest, createContext("name"));
         
-    	ListVideoSegmentsHandler listHandler2 = new ListVideoSegmentsHandler();
-    	ListVideoSegmentsResponse listResp2 = listHandler2.handleRequest(null, createContext("list"));
+    	ListPlaylistsHandler listHandler2 = new ListPlaylistsHandler();
+    	ListPlaylistResponse listResp2 = listHandler2.handleRequest(null, createContext("list"));
     	
         boolean noLongerHasVideo = true;
-        for (VideoSegment vs : listResp.list) {
-        	if (vs.getTitle().equals("testTitle")) { noLongerHasVideo = false; break; }
+    	for (Playlist p : listResp2.list) {
+        	if (p.getName().equals("testName")) { noLongerHasVideo = false; break; }
         }
 
         assertEquals(200, deleteResp.statusCode);
@@ -104,21 +124,22 @@ public class AddAndDelete extends LambdaTest {
 	
 	@Test
 	public void PlaylistVideoSegment() {
-    	NewVideoSegmentsHandler addHandler = new NewVideoSegmentsHandler();
+    	AppendPlaylistHandler addHandler = new AppendPlaylistHandler();
 
-    	NewVideoSegmentsRequest addRequest = new NewVideoSegmentsRequest("testTitle", "testCharater", "Mi43MTgyODE4Mjg=", true);
-    	NewVideoSegmentsResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));
+    	AppendPlaylistRequest addRequest = new AppendPlaylistRequest("testPlaylistTitle", "testURL");
+    	AppendPlaylistResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));
         
-    	ListVideoSegmentsHandler listHandler = new ListVideoSegmentsHandler();
-    	ListVideoSegmentsResponse listResp = listHandler.handleRequest(null, createContext("list"));
-    	
+    	ListPlaylistVideoSegmentHandler listHandler = new ListPlaylistVideoSegmentHandler();
+    	ListPlaylistVideoSegmentsRequest listRequest = new ListPlaylistVideoSegmentsRequest("testPlaylistTitle");
+    	ListPlaylistVideoSegmentsResponse listResp = listHandler.handleRequest(listRequest, createContext("list"));
+
     	for (VideoSegment vs : listResp.list) {
         	System.out.println(vs.toString());
         }
     	
         boolean hasVideo = false;
-        for (VideoSegment vs : listResp.list) {
-        	if (vs.getTitle().equals("testTitle")) { hasVideo = true; break; }
+    	for (VideoSegment vs : listResp.list) {
+        	if (vs.getUrl().equals("testURL")) { hasVideo = true; break; }
         }
         
         assertEquals(200, addResp.statusCode);
@@ -126,63 +147,65 @@ public class AddAndDelete extends LambdaTest {
         assertTrue(hasVideo);
         
         
-        NewVideoSegmentsHandler deleteHandler = new NewVideoSegmentsHandler();
+        DeletePlaylistHandler deleteHandler = new DeletePlaylistHandler();
 
-    	NewVideoSegmentsRequest deleteRequest = new NewVideoSegmentsRequest("testTitle", "testCharater", "Mi43MTgyODE4Mjg=", true);
-    	NewVideoSegmentsResponse deleteResp = deleteHandler.handleRequest(deleteRequest, createContext("name"));
-        
-    	ListVideoSegmentsHandler listHandler2 = new ListVideoSegmentsHandler();
-    	ListVideoSegmentsResponse listResp2 = listHandler2.handleRequest(null, createContext("list"));
+        DeletePlaylistRequest deleteRequest = new DeletePlaylistRequest("testName");
+        DeletePlaylistResponse deleteResp = deleteHandler.handleRequest(deleteRequest, createContext("name"));
+
+        ListPlaylistVideoSegmentHandler listHandler2 = new ListPlaylistVideoSegmentHandler();
+    	ListPlaylistVideoSegmentsRequest listRequest2 = new ListPlaylistVideoSegmentsRequest("testPlaylistTitle");
+    	ListPlaylistVideoSegmentsResponse listResp2 = listHandler2.handleRequest(listRequest2, createContext("list"));
     	
         boolean noLongerHasVideo = true;
-        for (VideoSegment vs : listResp.list) {
-        	if (vs.getTitle().equals("testTitle")) { noLongerHasVideo = false; break; }
+    	for (VideoSegment vs : listResp2.list) {
+        	if (vs.getTitle().equals("testName")) { noLongerHasVideo = false; break; }
         }
 
         assertEquals(200, deleteResp.statusCode);
         assertEquals(200, listResp2.statusCode);
-        assertTrue(noLongerHasVideo);       
-    }
+        assertTrue(noLongerHasVideo);
+	}
 	
 	@Test
 	public void RemoteLibs() {
-    	NewVideoSegmentsHandler addHandler = new NewVideoSegmentsHandler();
+    	RemoteLibraryAddHandler addHandler = new RemoteLibraryAddHandler();
 
-    	NewVideoSegmentsRequest addRequest = new NewVideoSegmentsRequest("testTitle", "testCharater", "Mi43MTgyODE4Mjg=", true);
-    	NewVideoSegmentsResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));
+    	RemoteLibraryAddRequest addRequest = new RemoteLibraryAddRequest("testTitle", "testURL");
+    	RemoteLibraryAddResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));
         
-    	ListVideoSegmentsHandler listHandler = new ListVideoSegmentsHandler();
-    	ListVideoSegmentsResponse listResp = listHandler.handleRequest(null, createContext("list"));
+    	ListRemoteLibraryHandler listHandler = new ListRemoteLibraryHandler();
+    	ListRemoteLibrariesResponse listResp = listHandler.handleRequest(null, createContext("list"));
     	
-    	for (VideoSegment vs : listResp.list) {
-        	System.out.println(vs.toString());
+    	for (RemoteLib l : listResp.list) {
+        	System.out.println(l.toString());
         }
     	
-        boolean hasVideo = false;
-        for (VideoSegment vs : listResp.list) {
-        	if (vs.getTitle().equals("testTitle")) { hasVideo = true; break; }
+        boolean hasLib = false;
+    	for (RemoteLib l : listResp.list) {
+        	if (l.getName().equals("testTitle")) { hasLib = true; break; }
         }
         
         assertEquals(200, addResp.statusCode);
         assertEquals(200, listResp.statusCode);
-        assertTrue(hasVideo);
+        assertTrue(hasLib);
         
         
-        NewVideoSegmentsHandler deleteHandler = new NewVideoSegmentsHandler();
+        RemoteLibraryRemoveHandler removeHandler = new RemoteLibraryRemoveHandler();
 
-    	NewVideoSegmentsRequest deleteRequest = new NewVideoSegmentsRequest("testTitle", "testCharater", "Mi43MTgyODE4Mjg=", true);
-    	NewVideoSegmentsResponse deleteResp = deleteHandler.handleRequest(deleteRequest, createContext("name"));
+    	RemoteLibraryRemoveRequest removeRequest = new RemoteLibraryRemoveRequest("testTitle", "testURL");
+    	RemoteLibraryRemoveResponse removeResp = removeHandler.handleRequest(removeRequest, createContext("name"));
         
-    	ListVideoSegmentsHandler listHandler2 = new ListVideoSegmentsHandler();
-    	ListVideoSegmentsResponse listResp2 = listHandler2.handleRequest(null, createContext("list"));
+    	ListRemoteLibraryHandler listHandler2 = new ListRemoteLibraryHandler();
+    	ListRemoteLibrariesResponse listResp2 = listHandler.handleRequest(null, createContext("list"));
     	
         boolean noLongerHasVideo = true;
-        for (VideoSegment vs : listResp.list) {
-        	if (vs.getTitle().equals("testTitle")) { noLongerHasVideo = false; break; }
+    	for (RemoteLib l : listResp2.list) {
+        	if (l.getName().equals("testName")) { noLongerHasVideo = false; break; }
         }
 
-        assertEquals(200, deleteResp.statusCode);
+        assertEquals(200, removeResp.statusCode);
         assertEquals(200, listResp2.statusCode);
-    }
+        assertTrue(noLongerHasVideo);
+	}
 
 }
