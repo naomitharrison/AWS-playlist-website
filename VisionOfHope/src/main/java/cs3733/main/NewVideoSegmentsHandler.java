@@ -32,7 +32,7 @@ public class NewVideoSegmentsHandler implements RequestHandler<NewVideoSegmentsR
 	 * @return
 	 */
 	boolean addVideo(VideoSegment vs) throws Exception{
-		if (logger != null) { logger.log("in createConstant"); }
+		if (logger != null) { logger.log("in add to db"); }
 		
 		VideoSegmentsDAO dao = new VideoSegmentsDAO();
 		
@@ -42,7 +42,7 @@ public class NewVideoSegmentsHandler implements RequestHandler<NewVideoSegmentsR
 	}
 	
 	boolean addToS3(VideoSegment vs, byte[] file) throws Exception{
-if (logger != null) { logger.log("in createSystemConstant"); }
+if (logger != null) { logger.log("in add to s3"); }
 		
 		if (s3 == null) {
 			logger.log("attach to S3 request");
