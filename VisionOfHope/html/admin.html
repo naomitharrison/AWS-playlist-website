@@ -15,6 +15,7 @@
 <script type='text/javascript' src='../js/api.js'></script>
 <script type='text/javascript' src='../js/get_videoSegments.js'></script>
 <script type='text/javascript' src='../js/get_remoteLibraries.js'></script>
+<script type='text/javascript' src='../js/add_remoteLibrary.js'></script>
 <script type="text/javascript">
 	function initialize() {
 		// get all video segments
@@ -45,8 +46,9 @@
             <button type="button">Delete Library</button>
             <br> <br>
             <div class="row">
-                <input type="text" placeholder="Remote URL">
-                <button type="button">Add Library</button>
+                <input type="text" id="remoteLibraryName" placeholder="Library Name">
+                <input type="text" id="remoteLibraryURL" placeholder="Remote URL">
+                <input type="button" onclick="addRemoteLibrary()" value="Add Library">
             </div>
         </div>
     </div>
