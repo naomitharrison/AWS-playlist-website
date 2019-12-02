@@ -43,8 +43,8 @@ function processPlaylistVideoSegmentsListResponse(name, result) {
 
 	output += '<div class="row"><h5>' + name
 			+ '<h5></div><div class="row"><ul style="list-style-type:none;">';
-	for (var k = 0; k < js.listOfSegments.length; k++) {
-		var videoIterate = js.listOfSegments[k];
+	for (var k = 0; k < js.list.length; k++) {
+		var videoIterate = js.list[k];
 		var ctitle = videoIterate["title"];
 		var ccharacter = videoIterate["character"];
 		var curl = videoIterate["url"];
