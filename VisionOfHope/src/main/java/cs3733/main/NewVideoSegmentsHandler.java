@@ -95,6 +95,6 @@ if (logger != null) { logger.log("in createSystemConstant"); }
 		
 		return new VideoSegment(title,character, url);
 	}
-	}
+	
 
 }

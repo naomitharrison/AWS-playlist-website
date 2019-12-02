@@ -22,5 +22,6 @@ public class NewVideoSegmentsResponse {
 			return "NewVideoSegmentsResponse(" + name + ")";
 		} else {
 			return "NewVideoSegmentsResponse(" + name + ", statusCode=" + statusCode + ", err=" + error + ")";
-		
+		}
+	}
 }
