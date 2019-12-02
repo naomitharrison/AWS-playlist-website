@@ -182,7 +182,7 @@ public class PlaylistsDAO {
 			resultSet.close();
 
 			// add video segment
-			ps = conn.prepareStatement("delete from playlists were playlist name = '" + name + "');");
+			ps = conn.prepareStatement("delete from playlists were playlistName = '" + name + "');");
 			resultSet = ps.executeQuery();
 
 			ps.close();
