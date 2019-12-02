@@ -17,9 +17,23 @@ public class RemoteLib extends AbstractLibrary {
 	public String getUrl() {
 		return url;
 	}
-	
-	public Boolean equalsRemoteLib(RemoteLib rl) {
-		return this.equals(rl);
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof RemoteLib))
+			return false;
+		RemoteLib other = (RemoteLib) obj;
+		if (url == null) {
+			if (other.url != null)
+				return false;
+		} else if (!url.equals(other.url))
+			return false;
+		return true;
 	}
+	
 	
 }

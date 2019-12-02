@@ -9,6 +9,10 @@ public class ListPlaylistVideoSegmentsRequest {
 	public ListPlaylistVideoSegmentsRequest (String name) {
 		this.playlistName = name;
 	}
+	
+	public ListPlaylistVideoSegmentsRequest() {
+		
+	}
 
 	public String toString() {
 		return "CreateConstant(" + playlistName  + ")";

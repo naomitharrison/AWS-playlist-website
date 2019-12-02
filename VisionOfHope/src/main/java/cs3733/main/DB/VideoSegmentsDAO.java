@@ -75,7 +75,7 @@ public class VideoSegmentsDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in searching videos: " + e.getMessage());
 		}
 
 	}
@@ -107,7 +107,7 @@ public class VideoSegmentsDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in searching videos: " + e.getMessage());
 		}
 
 	}
@@ -147,7 +147,7 @@ public class VideoSegmentsDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in searching videos: " + e.getMessage());
 		}
 	}
 
@@ -175,7 +175,7 @@ public class VideoSegmentsDAO {
 			return vs;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in getting video: " + e.getMessage());
 		}
 	}
 
@@ -212,7 +212,7 @@ public class VideoSegmentsDAO {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in adding video: " + e.getMessage());
 		}
 	}
 
@@ -247,7 +247,7 @@ public class VideoSegmentsDAO {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in deleting video: " + e.getMessage());
 		}
 	}
 
