@@ -225,9 +225,34 @@ public class PlaylistsDAO {
 		}
 	}
 
-	public boolean deleteVideoFromPlaylist(String playlistName, String videoURL) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteVideoFromPlaylist(String playlistName, String videoURL) throws Exception {
+		try {
+			// get videos in where urls are equal
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM playlists where playlistName = '" + playlistName
+					+ "' and videoURL = '" + videoURL + "'");
+			ResultSet resultSet = ps.executeQuery();
+
+			// check if there is a returned row
+			while (resultSet.next()) {
+				// return false if there is something returned
+				return false;
+			}
+			ps.close();
+			resultSet.close();
+
+			// add video segment
+			ps = conn.prepareStatement(
+					"DELETE FROM Playlist where videoURL =  '" + videoURL + "'and playlistName =  '" + playlistName + "';");
+			resultSet = ps.executeQuery();
+
+			ps.close();
+			resultSet.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in getting videos: " + e.getMessage());
+		}
 	}
 
 }
