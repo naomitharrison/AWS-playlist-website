@@ -69,7 +69,7 @@ public class PlaylistsDAO {
 	 */
 	private VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
 		String URL = resultSet.getString("videoURL");
-		System.out.println("SELECT * FROM library where videoURL = '" + URL + "'");
+		//System.out.println("SELECT * FROM library where videoURL = '" + URL + "'");
 		PreparedStatement p = conn.prepareStatement("SELECT * FROM innodb.library where videoURL = '" + URL + "';");
 		ResultSet result = p.executeQuery();
 		String title = "y";
@@ -155,10 +155,9 @@ public class PlaylistsDAO {
 
 			// add video segment
 			ps = conn.prepareStatement("INSERT INTO playlists VALUES (null, '" + name + "', null );");
-			resultSet = ps.executeQuery();
+			ps.execute();
 
 			ps.close();
-			resultSet.close();
 
 			return true;
 		} catch (Exception e) {
@@ -183,11 +182,10 @@ public class PlaylistsDAO {
 
 			// add video segment
 			ps = conn.prepareStatement("delete from playlists were playlistName = '" + name + "');");
-			resultSet = ps.executeQuery();
+			ps.executeUpdate();
 
 			ps.close();
-			resultSet.close();
-
+			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -213,11 +211,10 @@ public class PlaylistsDAO {
 			// add video segment
 			ps = conn.prepareStatement(
 					"INSERT INTO playlists VALUES ( '" + videoURL + "', '" + playlistName + "', null );");
-			resultSet = ps.executeQuery();
+			ps.execute();
 
 			ps.close();
-			resultSet.close();
-
+			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -243,11 +240,10 @@ public class PlaylistsDAO {
 			// add video segment
 			ps = conn.prepareStatement(
 					"DELETE FROM Playlist where videoURL =  '" + videoURL + "'and playlistName =  '" + playlistName + "';");
-			resultSet = ps.executeQuery();
+			ps.executeUpdate();
 
 			ps.close();
-			resultSet.close();
-
+			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -250,10 +250,10 @@ public class VideoSegmentsDAO {
 
 			// delete video segment
 			ps = conn.prepareStatement("delete from library where videoURL = '" + URL + "';");
-			resultSet = ps.executeQuery();
+			ps.executeUpdate();
 
 			ps.close();
-			resultSet.close();
+			
 
 			return true;
 		} catch (Exception e) {

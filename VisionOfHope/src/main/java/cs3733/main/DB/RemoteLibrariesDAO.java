@@ -114,11 +114,11 @@ public class RemoteLibrariesDAO {
 			resultSet.close();
 
 			
-			ps = conn.prepareStatement("delte from remoteLibraries where remoteURL = '" + url + "'");
-			resultSet = ps.executeQuery();
+			ps = conn.prepareStatement("insert into remoteLibraries remoteURL values('" + url + "'");
+		    ps.execute();
 
 			ps.close();
-			resultSet.close();
+			
 
 			return true;
 		} catch (Exception e) {
@@ -144,11 +144,10 @@ try {
 
 			
 			ps = conn.prepareStatement("delte from remoteLibraries where remoteURL = '" + url + "'");
-			resultSet = ps.executeQuery();
+			ps.executeUpdate();
 
 			ps.close();
-			resultSet.close();
-
+			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

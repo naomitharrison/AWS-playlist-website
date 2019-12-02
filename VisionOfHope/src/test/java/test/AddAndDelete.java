@@ -60,7 +60,7 @@ public class AddAndDelete extends LambdaTest {
         assertTrue(noLongerHasVideo);       
     }
 	
-/*	@Test
+/*@Test
 	public void Playlist() {
     	NewPlaylistHandler addHandler = new NewPlaylistHandler();
 
