@@ -16,6 +16,8 @@
 <script type='text/javascript' src='../js/get_videoSegments.js'></script>
 <script type='text/javascript' src='../js/get_playlist.js'></script>
 <script type='text/javascript' src='../js/get_playlistVideoSegments.js'></script>
+<script type='text/javascript' src='../js/search_videoSegments.js'></script>
+<script type='text/javascript' src='../js/delete_videoSegment.js'></script>
 <script type="text/javascript">
 	function initialize() {
 		// get all video segments
@@ -45,7 +47,7 @@
                 <input type="button" onclick="searchVideoSegments()" value="Search">
             </div>
             <div class="row">
-                <button type="button">Delete Video</button>
+                <input type="button" onclick="deleteVideoSegment()" value="Delete Video">
                 <button type="button">Add Video</button>
                 <!-- <button type="button">Show Playlists</button>  -->
             </div>
