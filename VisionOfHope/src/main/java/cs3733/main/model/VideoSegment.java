@@ -34,10 +34,6 @@ public class VideoSegment {
 		return this.remoteAvailability;
 	}
 	
-	public Boolean equalsVideoSegment(VideoSegment vs) {
-		return this.equals(vs);
-	}
-	
 	// toggles remote availability of videos
 	public void setAvailability() {
 		if(this.remoteAvailability = true) {
@@ -52,5 +48,35 @@ public class VideoSegment {
 	public String toString() {
 		return "VideoSegment [title=" + title + ", character=" + character + ", url=" + url
 				+ ", remoteAvailability=" + remoteAvailability + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof VideoSegment))
+			return false;
+		VideoSegment other = (VideoSegment) obj;
+		if (character == null) {
+			if (other.character != null)
+				return false;
+		} else if (!character.equals(other.character))
+			return false;
+		if (remoteAvailability == null) {
+			if (other.remoteAvailability != null)
+				return false;
+		} else if (!remoteAvailability.equals(other.remoteAvailability))
+			return false;
+		if (title == null) {
+			if (other.title != null)
+				return false;
+		} else if (!title.equals(other.title))
+			return false;
+		if (url == null) {
+			if (other.url != null)
+				return false;
+		} else if (!url.equals(other.url))
+			return false;
+		return true;
 	}
 }
