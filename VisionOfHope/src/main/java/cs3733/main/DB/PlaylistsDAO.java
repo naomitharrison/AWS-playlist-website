@@ -122,7 +122,7 @@ public class PlaylistsDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting playlists: " + e.getMessage());
+			throw new Exception("Failed in getting playlist: " + e.getMessage());
 		}
 	}
 
@@ -163,7 +163,7 @@ public class PlaylistsDAO {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in adding playlist: " + e.getMessage());
 		}
 	}
 
@@ -191,7 +191,7 @@ public class PlaylistsDAO {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in deleting playlist: " + e.getMessage());
 		}
 	}
 
@@ -221,7 +221,7 @@ public class PlaylistsDAO {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in adding video: " + e.getMessage());
 		}
 	}
 
@@ -251,7 +251,7 @@ public class PlaylistsDAO {
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in deleting video: " + e.getMessage());
 		}
 	}
 
