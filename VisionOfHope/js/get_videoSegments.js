@@ -49,7 +49,7 @@ function processVideoListResponse(result) {
 		var ctitle = constantJson["title"];
 		var ccharacter = constantJson["character"];
 		var curl = constantJson["url"];
-		output += '<li><input type="checkbox" name="' + curl + '"><video width="320" height="240" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter + '</li><br><br>';
+		output += '<li><input type="radio" name="videoSegment" value="' + curl + '"><video width="320" height="240" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter + '</li><br><br>';
 	}
 	output += '</ul>';
 	videoList.innerHTML = output;
@@ -70,7 +70,7 @@ function processVideoListAdminResponse(result) {
 		let curl = constantJson["url"];
 		let cavailability = constantJson["availability"];
 		output += '<div class="row"><div class="col-sm-8">';
-		output += '<input type="checkbox" name="segment" value="' + curl + '"><video width="300" height="230" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter;
+		output += '<input type="radio" name="videoSegment" value="' + curl + '"><video width="300" height="230" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter;
 		output += '</div><div class="col"><input type="checkbox" name="remote" value="' + curl + '"';
 		if(cavailability == true) {
 			output += ' checked';
