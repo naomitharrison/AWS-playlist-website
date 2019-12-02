@@ -60,7 +60,7 @@ public class AddAndDelete extends LambdaTest {
         assertTrue(noLongerHasVideo);       
     }
 	
-	@Test
+/*	@Test
 	public void Playlist() {
     	NewPlaylistHandler addHandler = new NewPlaylistHandler();
 
@@ -184,5 +184,5 @@ public class AddAndDelete extends LambdaTest {
         assertEquals(200, deleteResp.statusCode);
         assertEquals(200, listResp2.statusCode);
     }
-
+*/
 }

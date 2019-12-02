@@ -200,12 +200,23 @@ public class VideoSegmentsDAO {
 			}
 			ps.close();
 			resultSet.close();
+			
+			System.out.println("no duplicates");
 
+			String avail;
+			if(vs.getAvailability()) {
+				avail = "Y";
+			}else {
+				avail = "N";
+			}
+			
 			// add video segment
 			ps = conn.prepareStatement("INSERT INTO library VALUES ('" + vs.getTitle() + "','" + vs.getCharacter()
-					+ "','" + vs.getUrl() + "','" + vs.getAvailability() + "');");
-			resultSet = ps.executeQuery();
+					+ "','" + vs.getUrl() + "','" + avail + "');");
+			ps.execute();
 
+			System.out.println("added to db");
+			
 			ps.close();
 			resultSet.close();
 
