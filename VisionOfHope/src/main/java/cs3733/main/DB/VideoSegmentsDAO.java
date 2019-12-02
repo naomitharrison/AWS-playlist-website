@@ -122,6 +122,13 @@ public class VideoSegmentsDAO {
 	 * @throws Exception
 	 */
 	public List<VideoSegment> searchVideos(String character, String title) throws Exception {
+		
+		if(character.equals("")) {
+			return listAllVideosWithTitle(title);
+		}else if (title.equals("")) {
+			return listAllVideosByCharacter(character);
+		}		
+		
 		try {
 			List<VideoSegment> videos = new ArrayList<VideoSegment>();
 
