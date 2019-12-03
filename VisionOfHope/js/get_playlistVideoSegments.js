@@ -20,14 +20,13 @@ function refreshPlaylistVideoSegments() {
 
 					if (req.readyState == XMLHttpRequest.DONE) {
 						console.log("XHR:" + req.responseText);
-						processPlaylistVideoSegmentsListResponse(
-								data.name,
+						processPlaylistVideoSegmentsListResponse(data.name,
 								req.responseText);
 					} else {
-						processPlaylistVideoSegmentsListResponse(
-								data.name, "N/A");
+						processPlaylistVideoSegmentsListResponse(data.name,
+								"N/A");
 					}
-				};
+				}
 
 			}
 		}
@@ -38,30 +37,24 @@ function refreshPlaylistVideoSegments() {
 function refreshCurrentPlaylistVideoSegments() {
 	var currentPlaylist = document.getElementsByTagName('playlist').value;
 
-				var data = {};
-				data["name"] = currentPlaylist;
+	var data = {};
+	data["name"] = currentPlaylist;
 
-				var js = JSON.stringify(data);
-				console.log("JS:" + js);
-				var req = new XMLHttpRequest();
-				req.open("POST", playlistVideoSegments_url, true);
-				req.send(js);
-				req.onloadend = function() {
-					console.log(req);
-					console.log(req.request);
+	var js = JSON.stringify(data);
+	console.log("JS:" + js);
+	var req = new XMLHttpRequest();
+	req.open("POST", playlistVideoSegments_url, true);
+	req.send(js);
+	req.onloadend = function() {
+		console.log(req);
+		console.log(req.request);
 
-					if (req.readyState == XMLHttpRequest.DONE) {
-						console.log("XHR:" + req.responseText);
-						processPlaylistVideoSegmentsListResponse(
-								data.name,
-								req.responseText);
-					} else {
-						processPlaylistVideoSegmentsListResponse(
-								data.name, "N/A");
-					}
-				};
-
-			}
+		if (req.readyState == XMLHttpRequest.DONE) {
+			console.log("XHR:" + req.responseText);
+			processPlaylistVideoSegmentsListResponse(data.name,
+					req.responseText);
+		} else {
+			processPlaylistVideoSegmentsListResponse(data.name, "N/A");
 		}
 	}
 
