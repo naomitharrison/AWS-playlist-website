@@ -35,7 +35,7 @@ function refreshPlaylistVideoSegments() {
 }
 
 function refreshCurrentPlaylistVideoSegments() {
-	var currentPlaylist = document.getElementsByTagName('playlist').value;
+	var currentPlaylist = document.getElementById('playlistTitleHeader').innerHTML;
 
 	var data = {};
 	data["name"] = currentPlaylist;
@@ -51,10 +51,10 @@ function refreshCurrentPlaylistVideoSegments() {
 
 		if (req.readyState == XMLHttpRequest.DONE) {
 			console.log("XHR:" + req.responseText);
-			processPlaylistVideoSegmentsListResponse(data.name,
+			processPlaylistVideoSegmentsListResponse(currentPlaylist,
 					req.responseText);
 		} else {
-			processPlaylistVideoSegmentsListResponse(data.name, "N/A");
+			processPlaylistVideoSegmentsListResponse(currentPlaylist, "N/A");
 		}
 	}
 
@@ -67,7 +67,7 @@ function processPlaylistVideoSegmentsListResponse(name, result) {
 	var output = '';
 	var outputTitle = '';
 
-	outputTitle += '<div class="row"><h5>' + name + '</h5></div>';
+	outputTitle += '<div class="row"><h5 id="playlistTitleHeader">' + name + '</h5></div>';
 	output += '<div class="row"><ul style="list-style-type:none;">';
 	for (var k = 0; k < js.list.length; k++) {
 		var videoIterate = js.list[k];
