@@ -61,4 +61,9 @@ public class Playlist {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Playlist [name=" + name + ", playlistVideos=" + playlistVideos + "]";
+	}
 }
