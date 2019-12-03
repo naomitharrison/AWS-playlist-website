@@ -241,21 +241,22 @@ public class VideoSegmentsDAO {
 			ResultSet resultSet = ps.executeQuery();
 
 			// check if there is a returned row
-			while (resultSet.next()) {
-				// return false if there is something returned
-				return false;
+			if (resultSet.next()) {
+				// delete video segment
+				PreparedStatement ps2 = conn.prepareStatement("delete from library where videoURL = '" + URL + "';");
+				ps2.executeUpdate();
+
+				ps2.close();
+				ps.close();
+				resultSet.close();
+				return true;
 			}
 			ps.close();
 			resultSet.close();
 
-			// delete video segment
-			ps = conn.prepareStatement("delete from library where videoURL = '" + URL + "';");
-			ps.executeUpdate();
-
-			ps.close();
 			
 
-			return true;
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Failed in deleting video: " + e.getMessage());
