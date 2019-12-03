@@ -210,11 +210,6 @@ public class PlaylistsDAO {
 					+ "' and videoURL = '" + videoURL + "'");
 			ResultSet resultSet = ps.executeQuery();
 
-			// check if there is a returned row
-			while (resultSet.next()) {
-				// return false if there is something returned
-				return false;
-			}
 			ps.close();
 			resultSet.close();
 

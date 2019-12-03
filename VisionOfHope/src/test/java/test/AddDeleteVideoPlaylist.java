@@ -41,7 +41,9 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 	public void VideoSegment() {
 		
 		createVideo();
+		createVidAgain();
 		createPlaylist();
+		createPlayAgain();
 		addToPlaylist();
 		deleteFromPlaylist();
 		//searches();
@@ -49,6 +51,8 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 		deleteVideo();
 					
 	}
+
+
 
 	private void searches() {
 		searchCharater();
@@ -207,6 +211,26 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 		assertEquals(200, addResp.statusCode);
 		assertEquals(200, listResp.statusCode);
 		assertTrue(hasVideo);		
+	}
+	
+	private void createPlayAgain(){
+		NewPlaylistHandler addHandler = new NewPlaylistHandler();
+
+		NewPlaylistRequest addRequest = new NewPlaylistRequest("testPlaylist");
+		NewPlaylistResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));
+
+		assertEquals(422, addResp.statusCode);
+	}
+	
+	private void createVidAgain() {
+		NewVideoSegmentsHandler addHandler = new NewVideoSegmentsHandler();
+
+		NewVideoSegmentsRequest addRequest = new NewVideoSegmentsRequest("testTitle", "testCharater",
+				"Mi43MTgyODE4Mjg=", true);
+		NewVideoSegmentsResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));	
+		
+		assertEquals(422, addResp.statusCode);
+
 	}
 
 	private void createVideo() {
