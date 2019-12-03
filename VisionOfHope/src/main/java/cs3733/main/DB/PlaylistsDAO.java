@@ -71,7 +71,10 @@ public class PlaylistsDAO {
 	private VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
 		
 		String URL = resultSet.getString("videoURL");
-		if(URL == "") {
+		if(URL.equals("")) {
+			return null;
+		}
+		if(URL == null) {
 			return null;
 		}
 		//System.out.println("SELECT * FROM library where videoURL = '" + URL + "'");
