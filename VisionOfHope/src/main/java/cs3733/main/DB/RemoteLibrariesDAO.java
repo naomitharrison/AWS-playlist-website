@@ -98,9 +98,9 @@ public class RemoteLibrariesDAO {
 		return new VideoSegment(title, character, URL);
 	}
 
-	public boolean addRemoteLib(String name, String url) throws Exception{
+	public boolean addRemoteLib(String name, String url) throws Exception {
 		try {
-			
+
 			PreparedStatement ps = conn
 					.prepareStatement("SELECT * FROM remoteLibraries where remoteURL = '" + url + "'");
 			ResultSet resultSet = ps.executeQuery();
@@ -113,12 +113,11 @@ public class RemoteLibrariesDAO {
 			ps.close();
 			resultSet.close();
 
-			
-			ps = conn.prepareStatement("insert into remoteLibraries remoteURL values('" + url + "'");
-		    ps.execute();
+			ps = conn
+					.prepareStatement("INSERT INTO remoteLibraries VALUES('', '" + url + "', '" + name + "', '', '');");
+			ps.execute();
 
 			ps.close();
-			
 
 			return true;
 		} catch (Exception e) {
@@ -128,27 +127,27 @@ public class RemoteLibrariesDAO {
 	}
 
 	public boolean deleteRemoteLib(String name, String url) throws Exception {
-try {
-			
+		try {
+
 			PreparedStatement ps = conn
 					.prepareStatement("SELECT * FROM remoteLibraries where remoteURL = '" + url + "'");
 			ResultSet resultSet = ps.executeQuery();
 
 			// check if there is a returned row
 			while (resultSet.next()) {
-				// return false if there is something returned
-				return false;
+				PreparedStatement ps2 = conn
+						.prepareStatement("delete from remoteLibraries where remoteURL = '" + url + "'");
+				ps2.executeUpdate();
+				ps2.close();
+
+				ps.close();
+				resultSet.close();
+				return true;
 			}
 			ps.close();
 			resultSet.close();
 
-			
-			ps = conn.prepareStatement("delte from remoteLibraries where remoteURL = '" + url + "'");
-			ps.executeUpdate();
-
-			ps.close();
-			
-			return true;
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Failed in deleting remote library: " + e.getMessage());
