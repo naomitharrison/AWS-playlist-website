@@ -12,4 +12,8 @@ public class DeletePlaylistRequest {
 	public DeletePlaylistRequest (String n) {
 		this.name = n;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 }
