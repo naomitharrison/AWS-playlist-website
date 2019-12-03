@@ -9,15 +9,18 @@ import cs3733.main.model.VideoSegment;
 
 public class ListRemoteLibrariesResponse {
 
-	public final List<RemoteLib> list;
-	public final int statusCode;
-	public final String error;
+	public  List<RemoteLib> list;
+	public  int statusCode;
+	public  String error;
 	
 	public String toString() {
 		if(list==null) {
 			return "EmptyRemoteLib";
 		}
 		return "AllRemoteLib(" + list.size() + ")";
+	}
+	public ListRemoteLibrariesResponse() {
+		
 	}
 
 	public ListRemoteLibrariesResponse(List<RemoteLib> list, int code) {
