@@ -5,7 +5,7 @@ public class DeletePlaylistVideoSegmentRequest {
 	String url;
 	
 	public String getName() {return name; }
-	public String url() {return url; }
+	public String getUrl() {return url; }
 	
 	public DeletePlaylistVideoSegmentRequest () {
 		
