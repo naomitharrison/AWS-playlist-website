@@ -55,7 +55,7 @@ if (logger != null) { logger.log("in add to s3"); }
 		omd.setContentLength(file.length);
 		
 		// makes the object publicly visible
-		PutObjectResult res = s3.putObject(new PutObjectRequest("cs3733visionofhopesurpassed", bucket + vs.getTitle(), bais, omd)
+		PutObjectResult res = s3.putObject(new PutObjectRequest("cs3733visionofhopesurpassed", bucket + vs.getTitle() + ".ogg", bais, omd)
 				.withCannedAcl(CannedAccessControlList.PublicRead));
 		
 		// if we ever get here, then whole thing was stored
