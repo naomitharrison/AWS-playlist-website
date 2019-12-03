@@ -1,7 +1,11 @@
 package cs3733.main.http;
 
+import java.util.List;
+
+import cs3733.main.model.VideoSegment;
+
 public class VideoSegmentSearchResponse {
-	public  String search;
+	List<VideoSegment> searchResult;
 	public  int statusCode;
 	public String error;
 	
@@ -9,23 +13,23 @@ public class VideoSegmentSearchResponse {
 		
 	}
 
-	public VideoSegmentSearchResponse(String s, int statusCode) {
-		this.search = s;
+	public VideoSegmentSearchResponse(List<VideoSegment> s, int statusCode) {
+		this.searchResult = s;
 		this.statusCode = statusCode;
 		this.error = "";
 	}
 
-	public VideoSegmentSearchResponse(String s, int statusCode, String errorMessage) {
+	public VideoSegmentSearchResponse(List<VideoSegment> s, int statusCode, String errorMessage) {
 		this.statusCode = statusCode;
 		this.error = errorMessage;
-		this.search = s;
+		this.searchResult = s;
 	}
 
 	public String toString() {
 		if (statusCode / 100 == 2) { // too cute?
-			return "RemoteLibraryAddResponse(" + search + ")";
+			return "RemoteLibraryAddResponse(" + searchResult + ")";
 		} else {
-			return "RemoteLibraryAddResponseError(" + search + ", statusCode=" + statusCode + ", err=" + error + ")";
+			return "RemoteLibraryAddResponseError(" + searchResult + ", statusCode=" + statusCode + ", err=" + error + ")";
 		}
 	}
 }

@@ -25,20 +25,20 @@ public class VideoSegmentSearchHandler implements RequestHandler<VideoSegmentSea
 		VideoSegmentsDAO dao = new VideoSegmentsDAO();
 
 		boolean videos = false;
-
+		List<VideoSegment> searchResult = null;
+		
 		try {
-			List<VideoSegment> searchResult = null;
 			searchResult = dao.searchVideos(req.getCharacter(), req.getString());
 			if (searchResult != null) { videos = true; }
 		} catch (Exception e) {
-			response = new VideoSegmentSearchResponse(req.getSearch(), 403,"Unable to search: " + req.getSearch() + "(" + e.getMessage() + ")");
+			response = new VideoSegmentSearchResponse(searchResult, 403,"Unable to search: " + req.getSearch() + "(" + e.getMessage() + ")");
 		}
 
 		if (videos) {
-			response = new VideoSegmentSearchResponse(req.getSearch(), 200);
+			response = new VideoSegmentSearchResponse(searchResult, 200);
 		} 
 		else {
-			response = new VideoSegmentSearchResponse(req.getSearch(), 422, "Unable to search");
+			response = new VideoSegmentSearchResponse(searchResult, 422, "Unable to search");
 		}
 
 		return response;
