@@ -18,6 +18,11 @@
 <script type='text/javascript' src='../js/get_playlistVideoSegments.js'></script>
 <script type='text/javascript' src='../js/search_videoSegments.js'></script>
 <script type='text/javascript' src='../js/delete_videoSegment.js'></script>
+<script type='text/javascript' src='../js/add_playlist.js'></script>
+<script type='text/javascript' src='../js/delete_playlist.js'></script>
+<script type='text/javascript' src='../js/add_videoSegment.js'></script>
+<script type='text/javascript' src='../js/append_playlist.js'></script>
+<script type='text/javascript' src='../js/removeVideo_Playlist.js'></script>
 <script type="text/javascript">
 	function initialize() {
 		// get all video segments
@@ -48,9 +53,39 @@
             </div>
             <div class="row">
                 <input type="button" onclick="deleteVideoSegment()" value="Delete Video">
-                <button type="button">Add Video</button>
                 <!-- <button type="button">Show Playlists</button>  -->
             </div>
+            <div class="row">
+            	<input type="text" placeholder="Video Title" id="videoSegmentTitle">
+            	<input type="text" placeholder="Character" id="videoSegmentCharacter">
+            	<input name="base64Encoding" id="Base64" hidden value=""/>
+            	Select a constant in file: <input type="file" id="videoFile" name="videoFile">
+            	<input type="button" id="addVideoButton" value="Add Video" disabled onClick="addVideoSegment()">
+           	</div>
+           	<script>
+           		<!-- prepares base64-encoded string and enables button  -->
+  				function getBase64(file) {
+					var reader = new FileReader();
+					reader.readAsDataURL(file);
+
+					reader.onload = function () {
+	  				document.getElementById('Base64').value = reader.result;
+	  				document.getElementById('addVideoButton').disabled = false;
+					};
+  				}
+
+				function handleFileSelect(evt) {
+    				var files = evt.target.files; 
+    				if (files[0].size > 1000000) {  
+    					document.getElementById('Base64').value = "";
+    					alert("File size too large to use:" + files[0].size + " bytes");
+    				} else {
+    					getBase64(files[0]);
+    				}
+ 	 			}
+  
+  				document.getElementById('videoFile').addEventListener('change', handleFileSelect, false);
+			</script>
             <div class="row">
                 <div id="videoSegmentList"></div>
             </div>
@@ -64,9 +99,12 @@
                 <h3>Playlists</h3>
             </div>
             <div class="row">
-                <input type="button" value="Delete Playlist">
-                <input type="button" value="Add Playlist">
+                <input type="button" onclick="deletePlaylist()" value="Delete Playlist">
                 <input type="button" onclick="refreshPlaylistVideoSegments()" value="Select Playlist">
+            </div>
+            <div class="row">
+            	<input type="text" placeholder="Playlist Name" id="playlistName">
+            	<input type="button" onclick="addPlaylist()" value="Add Playlist">
             </div>
             <div class="row">
                 <div id="playlistList"></div>
@@ -76,8 +114,8 @@
             <h3>Selected Playlist</h3>
             <h5>Playlist A</h5>
             <br>
-            <button type="button">DELETE VIDEO</button>
-            <button type="button">Add video</button>
+            <input type="button" onclick="removeVideoPlaylist()" value="Remove Video">
+            <input type="button" onclick="appendPlaylist()" value="Append Video">
             <div id="playlist"></div>
 
 

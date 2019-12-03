@@ -24,7 +24,7 @@ function deleteVideoSegment() {
 								req.responseText);
 					} else {
 						processDeleteVideoSegmentResponse(
-								data.name, "N/A");
+								 "N/A");
 					}
 				};
 
