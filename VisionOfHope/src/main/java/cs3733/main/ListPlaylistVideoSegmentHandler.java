@@ -26,6 +26,7 @@ public class ListPlaylistVideoSegmentHandler implements RequestHandler<ListPlayl
 		PlaylistsDAO dao = new PlaylistsDAO();
 		
 		// check if playlist exists
+		logger.log(playlistName);
 		Playlist playlist = dao.getPlaylist(playlistName);
 		if(playlist != null) {
 			logger.log(playlist.toString());
