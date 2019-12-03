@@ -4,27 +4,27 @@ public class AppendPlaylistRequest {
 	
 	
 
-	String playlistName;
-	String videoURL;
+	String name;
+	String url;
 	
 	public AppendPlaylistRequest() {
 		
 	}
 	
-	public String getPlaylistName() {return playlistName; }
-	public String getVideoURL() {return videoURL; }
+	public String getName() {return name; }
+	public String getUrl() {return url; }
 	
 	public AppendPlaylistRequest (String name, String url) {
-		this.playlistName = name;
-		this.videoURL = url;
+		this.name = name;
+		this.url = url;
 	}
 
-	public void setPlaylistName(String playlistName) {
-		this.playlistName = playlistName;
+	public void setPlaylistName(String name) {
+		this.name = name;
 	}
 
-	public void setVideoURL(String videoURL) {
-		this.videoURL = videoURL;
+	public void setVideoURL(String url) {
+		this.url = url;
 	}
 
 }
