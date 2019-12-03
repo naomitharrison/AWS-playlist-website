@@ -12,6 +12,12 @@ public class VideoSegmentSearchRequest {
 		return response;
 	}
 	
+	public void setCharacter(String character) {
+		this.character = character;
+	}
+	public void setString(String string) {
+		this.string = string;
+	}
 	public VideoSegmentSearchRequest () {
 		
 	}

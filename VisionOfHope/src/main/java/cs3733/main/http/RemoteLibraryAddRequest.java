@@ -4,6 +4,12 @@ public class RemoteLibraryAddRequest {
 	 String name;
 	 String URL;
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setURL(String uRL) {
+		URL = uRL;
+	}
 	public String getName() {return name; }
 	public String getURL() {return URL; }
 	
