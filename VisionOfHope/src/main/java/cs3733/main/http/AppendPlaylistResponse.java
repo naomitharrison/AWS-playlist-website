@@ -1,10 +1,14 @@
 package cs3733.main.http;
 
 public class AppendPlaylistResponse {
-	public final String playlistName;
-	public final int statusCode;
-	public final String error;
-
+	public  String playlistName;
+	public  int statusCode;
+	public  String error;
+	
+	public AppendPlaylistResponse() {
+		
+	}
+	
 	public AppendPlaylistResponse(String name, int statusCode) {
 		this.playlistName = name;
 		this.statusCode = statusCode;

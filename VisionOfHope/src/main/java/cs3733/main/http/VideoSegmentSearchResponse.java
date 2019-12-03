@@ -1,9 +1,13 @@
 package cs3733.main.http;
 
 public class VideoSegmentSearchResponse {
-	public final String search;
-	public final int statusCode;
-	public final String error;
+	public  String search;
+	public  int statusCode;
+	public String error;
+	
+	public VideoSegmentSearchResponse() {
+		
+	}
 
 	public VideoSegmentSearchResponse(String s, int statusCode) {
 		this.search = s;

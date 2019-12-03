@@ -14,6 +14,7 @@ import cs3733.main.ListPlaylistsHandler;
 import cs3733.main.ListVideoSegmentsHandler;
 import cs3733.main.NewPlaylistHandler;
 import cs3733.main.NewVideoSegmentsHandler;
+import cs3733.main.VideoSegmentSearchHandler;
 import cs3733.main.http.AppendPlaylistRequest;
 import cs3733.main.http.AppendPlaylistResponse;
 import cs3733.main.http.DeletePlaylistRequest;
@@ -30,6 +31,8 @@ import cs3733.main.http.NewPlaylistRequest;
 import cs3733.main.http.NewPlaylistResponse;
 import cs3733.main.http.NewVideoSegmentsRequest;
 import cs3733.main.http.NewVideoSegmentsResponse;
+import cs3733.main.http.VideoSegmentSearchRequest;
+import cs3733.main.http.VideoSegmentSearchResponse;
 import cs3733.main.model.*;
 
 public class AddDeleteVideoPlaylist extends LambdaTest {
@@ -41,9 +44,37 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 		createPlaylist();
 		addToPlaylist();
 		deleteFromPlaylist();
+		//searches();
 		deletePlaylist();
 		deleteVideo();
 					
+	}
+
+	private void searches() {
+		searchCharater();
+		searchTitle();
+		searchBoth();
+	}
+
+	private void searchBoth() {
+		VideoSegmentSearchHandler searchHandler = new VideoSegmentSearchHandler();
+		
+		VideoSegmentSearchRequest searchRequest = new VideoSegmentSearchRequest("testCharacter","testTitle");
+		VideoSegmentSearchResponse searchResponse = searchHandler.handleRequest(searchRequest, createContext("name"));		
+	}
+
+	private void searchTitle() {
+		VideoSegmentSearchHandler searchHandler = new VideoSegmentSearchHandler();
+		
+		VideoSegmentSearchRequest searchRequest = new VideoSegmentSearchRequest("","testTitle");
+		VideoSegmentSearchResponse searchResponse = searchHandler.handleRequest(searchRequest, createContext("name"));		
+	}
+
+	private void searchCharater() {
+		VideoSegmentSearchHandler searchHandler = new VideoSegmentSearchHandler();
+		
+		VideoSegmentSearchRequest searchRequest = new VideoSegmentSearchRequest("testCharacter","");
+		VideoSegmentSearchResponse searchResponse = searchHandler.handleRequest(searchRequest, createContext("name"));
 	}
 
 	private void deleteVideo() {
