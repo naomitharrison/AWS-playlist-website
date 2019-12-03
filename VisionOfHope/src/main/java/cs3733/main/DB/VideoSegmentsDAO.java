@@ -61,7 +61,7 @@ public class VideoSegmentsDAO {
 		try {
 			List<VideoSegment> videos = new ArrayList<VideoSegment>();
 
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where title = '" + title + "'");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoName = '" + title + "'");
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -75,7 +75,7 @@ public class VideoSegmentsDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in searching videos: " + e.getMessage());
 		}
 
 	}
@@ -92,7 +92,8 @@ public class VideoSegmentsDAO {
 		try {
 			List<VideoSegment> videos = new ArrayList<VideoSegment>();
 
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where character = '" + character + "'");
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM library where videoCharacter = '" + character + "'");
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -106,7 +107,7 @@ public class VideoSegmentsDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in searching videos: " + e.getMessage());
 		}
 
 	}
@@ -121,11 +122,18 @@ public class VideoSegmentsDAO {
 	 * @throws Exception
 	 */
 	public List<VideoSegment> searchVideos(String character, String title) throws Exception {
+		
+		if(character.equals("")) {
+			return listAllVideosWithTitle(title);
+		}else if (title.equals("")) {
+			return listAllVideosByCharacter(character);
+		}		
+		
 		try {
 			List<VideoSegment> videos = new ArrayList<VideoSegment>();
 
 			PreparedStatement ps = conn.prepareStatement(
-					"SELECT * FROM library where character = '" + character + "' title = '" + title + "'");
+					"SELECT * FROM library where videoCharacter = '" + character + "' and videoName = '" + title + "'");
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
@@ -139,12 +147,41 @@ public class VideoSegmentsDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in searching videos: " + e.getMessage());
+		}
+	}
+
+	/**
+	 * returns video with the given URL
+	 * 
+	 * @param URL
+	 * @return
+	 * @throws Exception
+	 */
+	public VideoSegment getVideo(String URL) throws Exception {
+		try {
+			VideoSegment vs = null;
+
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoURL = '" + URL + "'");
+			ResultSet resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+				vs = generateVideoSegment(resultSet);
+
+			}
+			resultSet.close();
+			ps.close();
+
+			return vs;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in getting video: " + e.getMessage());
 		}
 	}
 
 	/**
 	 * adds given video segment
+	 * 
 	 * @param vs
 	 * @return
 	 * @throws Exception
@@ -152,56 +189,77 @@ public class VideoSegmentsDAO {
 	public boolean addVideo(VideoSegment vs) throws Exception {
 		try {
 			// get videos in where urls are equal
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoURL = '" + vs.getUrl() + "'");
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM library where videoURL = '" + vs.getUrl() + "'");
 			ResultSet resultSet = ps.executeQuery();
-			
+
 			// check if there is a returned row
-			while(resultSet.next()) {
+			while (resultSet.next()) {
 				// return false if there is something returned
 				return false;
 			}
 			ps.close();
 			resultSet.close();
 			
-			// add video segment
-			ps = conn.prepareStatement("INSERT INTO library VALUES ('" + vs.getTitle() +"','" + vs.getCharacter() + "','" + vs.getUrl() + "','" + vs.getAvailability() + "');");
-			resultSet = ps.executeQuery();
+			System.out.println("no duplicates");
+
+			String avail;
+			if(vs.getAvailability()) {
+				avail = "Y";
+			}else {
+				avail = "N";
+			}
 			
+			// add video segment
+			ps = conn.prepareStatement("INSERT INTO library VALUES ('" + vs.getTitle() + "','" + vs.getCharacter()
+					+ "','" + vs.getUrl() + "','" + avail + "');");
+			ps.execute();
+
+			System.out.println("added to db");
+			
+			ps.close();
+			resultSet.close();
+
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in adding video: " + e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * deletes given video segment
+	 * 
 	 * @param vs
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean deleteVideo(VideoSegment vs) throws Exception {
+	public boolean deleteVideo(String URL) throws Exception {
 		try {
 			// get videos in where urls are equal
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoURL = '" + vs.getUrl() + "'");
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoURL = '" + URL + "'");
 			ResultSet resultSet = ps.executeQuery();
-			
+
 			// check if there is a returned row
-			while(resultSet.next()) {
-				// return false if there is something returned
-				return false;
+			if (resultSet.next()) {
+				// delete video segment
+				PreparedStatement ps2 = conn.prepareStatement("delete from library where videoURL = '" + URL + "';");
+				ps2.executeUpdate();
+
+				ps2.close();
+				ps.close();
+				resultSet.close();
+				return true;
 			}
 			ps.close();
 			resultSet.close();
+
 			
-			// delete video segment
-			ps = conn.prepareStatement("delete from library where videoURL = '" + vs.getUrl() + "';");
-			resultSet = ps.executeQuery();
-			
-			return true;
+
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in deleting video: " + e.getMessage());
 		}
 	}
 

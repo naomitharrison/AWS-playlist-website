@@ -58,7 +58,7 @@ public class RemoteLibrariesDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in getting remote libraries: " + e.getMessage());
 		}
 
 	}
@@ -96,5 +96,62 @@ public class RemoteLibrariesDAO {
 		character = resultSet.getString("videoCharacter");
 		URL = resultSet.getString("videoURL");
 		return new VideoSegment(title, character, URL);
+	}
+
+	public boolean addRemoteLib(String name, String url) throws Exception{
+		try {
+			
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM remoteLibraries where remoteURL = '" + url + "'");
+			ResultSet resultSet = ps.executeQuery();
+
+			// check if there is a returned row
+			while (resultSet.next()) {
+				// return false if there is something returned
+				return false;
+			}
+			ps.close();
+			resultSet.close();
+
+			
+			ps = conn.prepareStatement("insert into remoteLibraries remoteURL values('" + url + "'");
+		    ps.execute();
+
+			ps.close();
+			
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in adding remote library: " + e.getMessage());
+		}
+	}
+
+	public boolean deleteRemoteLib(String name, String url) throws Exception {
+try {
+			
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM remoteLibraries where remoteURL = '" + url + "'");
+			ResultSet resultSet = ps.executeQuery();
+
+			// check if there is a returned row
+			while (resultSet.next()) {
+				// return false if there is something returned
+				return false;
+			}
+			ps.close();
+			resultSet.close();
+
+			
+			ps = conn.prepareStatement("delte from remoteLibraries where remoteURL = '" + url + "'");
+			ps.executeUpdate();
+
+			ps.close();
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in deleting remote library: " + e.getMessage());
+		}
 	}
 }

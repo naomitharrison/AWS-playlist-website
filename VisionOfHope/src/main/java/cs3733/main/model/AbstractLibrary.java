@@ -53,4 +53,24 @@ public abstract class AbstractLibrary {
 		return VideoSegments.add(vs);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof AbstractLibrary))
+			return false;
+		AbstractLibrary other = (AbstractLibrary) obj;
+		if (VideoSegments == null) {
+			if (other.VideoSegments != null)
+				return false;
+		} else if (!VideoSegments.equals(other.VideoSegments))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		return true;
+	}
+
 }

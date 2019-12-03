@@ -27,15 +27,10 @@ function processPlaylistListResponse(result) {
 		console.log(constantJson);
 		
 		var cname = constantJson["name"];
-		output += '<li><input type="radio" name="' + cname + '">' + cname + '</li>';
+		output += '<li><input type="radio" name="playlist" value="' + cname + '">' + cname + '</li>';
 	}
 	output += '</ul>';
 	console.log("final HTML: " + output);
 	playlistList.innerHTML = output;
 }
 
-function getPlaylist(){
-	
-
-	
-}

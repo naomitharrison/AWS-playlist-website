@@ -25,9 +25,8 @@ public class NewPlaylistHandler implements RequestHandler<NewPlaylistRequest,New
 
 		PlaylistsDAO dao = new PlaylistsDAO();
 
-		Playlist playlist = new Playlist(req.getName());
 		try {
-			if (dao.addPlaylist(playlist)) {
+			if (dao.addPlaylist(req.getName())) {
 				response = new NewPlaylistResponse(req.getName(), 200);
 			} else {
 				response = new NewPlaylistResponse(req.getName(), 422, "Unable to create playlist.");

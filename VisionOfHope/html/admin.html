@@ -14,67 +14,74 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script type='text/javascript' src='../js/api.js'></script>
 <script type='text/javascript' src='../js/get_videoSegments.js'></script>
+<script type='text/javascript' src='../js/get_remoteLibraries.js'></script>
+<script type='text/javascript' src='../js/add_remoteLibrary.js'></script>
+<script type='text/javascript' src='../js/delete_videoSegment.js'></script>
 <script type="text/javascript">
 	function initialize() {
 		// get all video segments
 		refreshAdminVideoSegments();
+		refreshRemoteLibraries();
 	}
 </script>
 </head>
 <body onload="initialize()">
-	<div class="jumbotron text-center">
-		<h1>Star Trek Video Mashup</h1>
-	</div>
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<h3>Remote Library Tools</h3>
-				<div class="row">
-					<input type="checkbox" name="rl1"> Library 1
-				</div>
-				<div class="row">
-					<input type="checkbox" name="rl2"> Library 2
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<h3>Options</h3>
-				<button type="button">Delete Library</button>
-				<br> <br>
-				<div class="row">
-				<input type="text" placeholder="Remote URL">
-				<button type="button">Add Library</button>
-				</div>
-			</div>
-		</div>
-		<br> <br>
-		<hr size="4" noshade>
-		<br> <br>
-		<div class="row">
-			<div class="col">
-				<h3>Video Segment Tools</h3>
-				<div class="row">
-					<div class="col-sm-8"><h5>Video Segment</h5></div>
-                    <div class="col"><h5>Remote Availability</h5></div>
-				</div>
-                <br> <br>
-				<div id="adminVideoSegmentList"></div>
-				<!--  <div class="row">
-					<div class="col-sm-8">
-						<input type="checkbox" name="vs1"> <br> Sample Title
-						<br> Sample Character
-					</div>
-					<div class="col">
-						<input type="checkbox" name="rem1">
-					</div>
-				</div> -->
-			</div>
-			<div class="col-sm-4">
-				<h3>Options</h3>
-				<button type="button">Delete Video</button>
-				<br> <br>
-				<button type="button">Save Remote Availability</button>
-			</div>
-		</div>
+<div class="jumbotron text-center">
+    <h1>Star Trek Video Mashup</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3>Remote Library Tools</h3>
+            <div id="remoteLibraryList"></div>
+
+            <!-- <div class="row">
+                <input type="checkbox" name="rl1"> Library 1
+            </div>
+            <div class="row">
+                <input type="checkbox" name="rl2"> Library 2
+            </div> -->
+        </div>
+        <div class="col-sm-4">
+            <h3>Options</h3>
+            <button type="button">Delete Library</button>
+            <br> <br>
+            <div class="row">
+                <input type="text" id="remoteLibraryName" placeholder="Library Name">
+                <input type="text" id="remoteLibraryURL" placeholder="Remote URL">
+                <input type="button" onclick="addRemoteLibrary()" value="Add Library">
+            </div>
+        </div>
+    </div>
+    <br> <br>
+    <hr size="4" noshade>
+    <br> <br>
+    <div class="row">
+        <div class="col">
+            <h3>Video Segment Tools</h3>
+            <div class="row">
+                <div class="col-sm-8"><h5>Video Segment</h5></div>
+                <div class="col"><h5>Remote Availability</h5></div>
+            </div>
+            <br> <br>
+            <div id="adminVideoSegmentList"></div>
+            <!--  <div class="row">
+                <div class="col-sm-8">
+                    <input type="checkbox" name="vs1"> <br> Sample Title
+                    <br> Sample Character
+                </div>
+                <div class="col">
+                    <input type="checkbox" name="rem1">
+                </div>
+            </div> -->
+        </div>
+        <div class="col-sm-4">
+            <h3>Options</h3>
+            <input type="button" onclick="adminDeleteVideoSegment()" value="Delete Video">
+            <br> <br>
+            <button type="button">Save Remote Availability</button>
+        </div>
+    </div>
 
 
-	</div>
+</div>

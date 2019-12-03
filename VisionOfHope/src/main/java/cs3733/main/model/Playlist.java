@@ -41,4 +41,29 @@ public class Playlist {
 	public String getName() {
 		return name;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Playlist))
+			return false;
+		Playlist other = (Playlist) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (playlistVideos == null) {
+			if (other.playlistVideos != null)
+				return false;
+		} else if (!playlistVideos.equals(other.playlistVideos))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Playlist [name=" + name + ", playlistVideos=" + playlistVideos + "]";
+	}
 }
