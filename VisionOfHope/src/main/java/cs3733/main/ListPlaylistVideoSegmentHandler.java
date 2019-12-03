@@ -46,7 +46,8 @@ public class ListPlaylistVideoSegmentHandler implements RequestHandler<ListPlayl
 		ListPlaylistVideoSegmentsResponse response;
 		try {
 			// get all video segments associated with a playlist in the database
-			List<VideoSegment> list = getPlaylistVideoSegments(input.getPlaylistName());
+			logger.log(input.getName());
+			List<VideoSegment> list = getPlaylistVideoSegments(input.getName());
 			response = new ListPlaylistVideoSegmentsResponse(list, 200);
 		} catch (Exception e) {
 			response = new ListPlaylistVideoSegmentsResponse(403, e.getMessage());
