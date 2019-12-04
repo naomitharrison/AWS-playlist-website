@@ -5,10 +5,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.amazonaws.services.lambda.runtime.LambdaLogger;
+
 import cs3733.main.model.Playlist;
 import cs3733.main.model.VideoSegment;
 
 public class PlaylistsDAO {
+	public LambdaLogger logger;
 
 	java.sql.Connection conn;
 
@@ -213,6 +216,8 @@ public class PlaylistsDAO {
 					+ "' and videoURL = '" + videoURL + "'");
 			ResultSet resultSet = ps.executeQuery();
 
+			logger.log("select playlist: "+playlistName);
+
 			ps.close();
 			resultSet.close();
 
@@ -221,13 +226,14 @@ public class PlaylistsDAO {
 					"INSERT INTO playlists VALUES ( '" + videoURL + "', '" + playlistName + "', null );");
 			ps.execute();
 
+			logger.log("intert into playlist: "+ videoURL + " , " + playlistName);
 			ps.close();
 			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Failed in adding video: " + e.getMessage());
-		}
+		} 
 	}
 
 	public boolean deleteVideoFromPlaylist(String playlistName, String videoURL) throws Exception {

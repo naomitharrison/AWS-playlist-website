@@ -27,11 +27,14 @@ public class AppendPlaylistHandler implements RequestHandler<AppendPlaylistReque
 		
 		// check if playlist exists
 		Playlist playlist = dao.getPlaylist(playlistName);
+		logger.log("dao.getPlaylist"+playlist);
 		if(playlist != null) {
+			logger.log("if playlist != null");
 			return dao.addVideoToPlaylist(playlistName, videoURL);
 		}
 		else {
-			return false;
+			logger.log("if playlist == null");
+			return false; 
 		}
 	}
 	
