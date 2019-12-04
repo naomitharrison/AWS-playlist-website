@@ -7,7 +7,7 @@ function deletePlaylist() {
 
 			if (playlistSegmentSelection[i].checked) {
 				var data = {};
-				data["playlistName"] = playlistSegmentSelection[i].value;
+				data["name"] = playlistSegmentSelection[i].value;
 
 				var js = JSON.stringify(data);
 				console.log("JS:" + js);
