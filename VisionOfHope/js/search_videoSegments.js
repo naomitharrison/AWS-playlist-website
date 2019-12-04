@@ -1,4 +1,95 @@
 function searchVideoSegments() {
+    refreshVideoSegmentsForSearch();
+}
+
+function processSearchResponse(js) {
+    var characterSearch = document.getElementById('characterSearch').value;
+    var titleSearch = document.getElementById('titleSearch').value;
+    // console.log("char:" + characterSearch);
+    // console.log("title:" + titleSearch);
+    let libraryVideos = JSON.parse(js);
+
+    var searchResult = {};
+    searchResult["list"] = [];
+
+    if (characterSearch != "") {
+        searchResult = searchByCharacter(characterSearch, searchResult, libraryVideos);
+    } else {
+        searchResult["list"] = libraryVideos["list"];
+    }
+
+    // var newJs = JSON.stringify(searchResult);
+    // console.log("res:" + newJs);
+
+    if (titleSearch != "") {
+        searchResult = searchByTitle(titleSearch, searchResult);
+    }
+
+    // newJs = JSON.stringify(searchResult);
+    // console.log("res:" + newJs);
+
+    processSearchVideoSegmentsResponse(searchResult);
+
+}
+
+function searchByCharacter(character, searchResult, libraryVideos) {
+    var newSearchResult = {};
+    newSearchResult["list"] = [];
+
+    for (var i = 0; i < libraryVideos.list.length; i++) {
+        var constantJson = libraryVideos.list[i];
+        var ctitle = constantJson["title"];
+		var ccharacter = constantJson["character"];
+		var curl = constantJson["url"];
+
+		if(ccharacter === character) {
+		    var newEntry = {title: ctitle, character: ccharacter, url: curl};
+		    newSearchResult["list"].push(newEntry);
+        }
+    }
+    return newSearchResult;
+}
+
+function searchByTitle(title, searchResult) {
+    var newSearchResult = {};
+    newSearchResult["list"] = [];
+
+    for (var i = 0; i < searchResult.list.length; i++) {
+        var constantJson = searchResult.list[i];
+        var ctitle = constantJson["title"];
+		var ccharacter = constantJson["character"];
+		var curl = constantJson["url"];
+
+		if(ctitle.includes(title)) {
+		    var newEntry = {title: ctitle, character: ccharacter, url: curl};
+		    newSearchResult["list"].push(newEntry);
+        }
+    }
+    return newSearchResult;
+}
+
+function processSearchVideoSegmentsResponse(result) {
+	//console.log("res:" + result);
+	//var js = JSON.parse(result);
+	var videoList = document.getElementById('videoSegmentList');
+
+	var output = '';
+	output +='<ul style="list-style-type:none;">';
+	for (var i = 0; i < result.list.length; i++) { // listOfSegments
+		var constantJson = result.list[i];
+		console.log(constantJson);
+
+		var ctitle = constantJson["title"];
+		var ccharacter = constantJson["character"];
+		var curl = constantJson["url"];
+		output += '<li><input type="checkbox" name="' + curl + '"><video width="320" height="240" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter + '</li><br><br>';
+	}
+	output += '</ul>';
+	videoList.innerHTML = output;
+}
+
+/*
+function searchVideoSegments() {
     var characterSearch = document.getElementById('characterSearch').value;
     var titleSearch = document.getElementById('titleSearch').value;
 
@@ -26,23 +117,5 @@ function searchVideoSegments() {
         }
     }
 }
+*/
 
-function processSearchVideoSegmentsResponse(result) {
-	console.log("res:" + result);
-	var js = JSON.parse(result);
-	var videoList = document.getElementById('videoSegmentList');
-
-	var output = '';
-	output +='<ul style="list-style-type:none;">';
-	for (var i = 0; i < js.listOfSegments.length; i++) { // listOfSegments
-		var constantJson = js.listOfSegments[i];
-		console.log(constantJson);
-
-		var ctitle = constantJson["title"];
-		var ccharacter = constantJson["character"];
-		var curl = constantJson["url"];
-		output += '<li><input type="checkbox" name="' + curl + '"><video width="320" height="240" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter + '</li><br><br>';
-	}
-	output += '</ul>';
-	videoList.innerHTML = output;
-}
