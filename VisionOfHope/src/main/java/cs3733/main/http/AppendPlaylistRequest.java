@@ -2,8 +2,6 @@ package cs3733.main.http;
 
 public class AppendPlaylistRequest {
 	
-	
-
 	String name;
 	String videoUrl;
 	
@@ -19,11 +17,11 @@ public class AppendPlaylistRequest {
 		this.videoUrl = videoUrl;
 	}
 
-	public void setPlaylistName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setVideoURL(String videoUrl) {
+	public void setVideoUrl(String videoUrl) {
 		this.videoUrl = videoUrl;
 	}
 
