@@ -34,7 +34,7 @@ public class AppendPlaylistHandler implements RequestHandler<AppendPlaylistReque
 		}
 		else {
 			logger.log("if playlist == null");
-			return false;
+			return false; 
 		}
 	}
 	
