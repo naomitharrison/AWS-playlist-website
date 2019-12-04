@@ -36,4 +36,5 @@ function deletePlaylist() {
 
 function processDeletePlaylistResponse(result) {
 	refreshPlaylists();
+	refreshPlaylistVideoSegments();
 }

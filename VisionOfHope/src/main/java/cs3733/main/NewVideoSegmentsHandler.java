@@ -53,6 +53,7 @@ if (logger != null) { logger.log("in add to s3"); }
 		ByteArrayInputStream bais = new ByteArrayInputStream(file);
 		ObjectMetadata omd = new ObjectMetadata();
 		omd.setContentLength(file.length);
+		omd.setContentType("audio/ogg");
 		
 		// makes the object publicly visible
 		PutObjectResult res = s3.putObject(new PutObjectRequest("cs3733visionofhopesurpassed", bucket + vs.getTitle() + ".ogg", bais, omd)
