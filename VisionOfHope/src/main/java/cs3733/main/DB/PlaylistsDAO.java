@@ -233,7 +233,7 @@ public class PlaylistsDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Failed in adding video: " + e.getMessage());
-		}
+		} 
 	}
 
 	public boolean deleteVideoFromPlaylist(String playlistName, String videoURL) throws Exception {
