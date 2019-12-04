@@ -115,8 +115,10 @@ public class PlaylistsDAO {
 	 */
 	public Playlist getPlaylist(String playlistName) throws Exception {
 		try {
+			logger.log("in getPlaylist: "+playlistName);
 			Playlist playlist = new Playlist(playlistName);
 
+			logger.log("created playlist: "+playlist);
 			// all playlist names are unique
 			PreparedStatement ps = conn
 					.prepareStatement("SELECT * FROM playlists where playlistname = '" + playlist.getName() + "'");
