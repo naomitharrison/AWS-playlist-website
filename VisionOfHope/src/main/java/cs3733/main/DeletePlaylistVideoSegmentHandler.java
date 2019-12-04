@@ -19,7 +19,7 @@ public class DeletePlaylistVideoSegmentHandler implements RequestHandler<DeleteP
 	 * @throws Exception 
 	 */
 	boolean deletePlaylistVideo(String playlistName, String videoURL) throws Exception {
-		logger.log("in appendPlaylist");
+		logger.log("in DeletePlaylistVideo");
 		PlaylistsDAO dao = new PlaylistsDAO();
 		
 		// check if playlist exists
@@ -36,7 +36,7 @@ public class DeletePlaylistVideoSegmentHandler implements RequestHandler<DeleteP
 	public DeletePlaylistVideoSegmentResponse handleRequest(DeletePlaylistVideoSegmentRequest req, Context context) {
 
 		logger = context.getLogger();
-		logger.log("Loading Java Lambda handler to list all playlist video segments");
+		logger.log("Loading Java Lambda handler to delete playlist video segments");
 
 		DeletePlaylistVideoSegmentResponse response;
 		try {
