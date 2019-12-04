@@ -1,3 +1,22 @@
+function refreshVideoSegmentsForSearch() {
+	let request = new XMLHttpRequest();
+	request.open('GET', videos_url, true);
+	request.send();
+
+	console.log("sent");
+
+	request.onload = function() {
+		if (request.readyState == XMLHttpRequest.DONE) {
+			console.log ("request:" + request.responseText);
+
+			processSearchResponse(request.responseText);
+
+		} else {
+			processSearchResponse("N/A");
+		}
+	}
+}
+
 function refreshVideoSegments() {
 	let request = new XMLHttpRequest();
 	request.open('GET', videos_url, true);
@@ -14,7 +33,7 @@ function refreshVideoSegments() {
 		} else {
 			processVideoListResponse("N/A");
 		}
-	};
+	}
 }
 
 function refreshAdminVideoSegments() {
