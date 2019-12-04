@@ -89,7 +89,7 @@ if (logger != null) { logger.log("in add to s3"); }
 		// TODO Auto-generated method stub
 		String character = req.getCharacter();
 		String title = req.getTitle();
-		String url = "https://cs3733visionofhopesurpassed.s3.anazonaws.com/videos/";
+		String url = "https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/";
 		String urlTitle = title;
 		urlTitle = urlTitle.replace(" ", "+");
 		url = url + urlTitle + ".ogg";
