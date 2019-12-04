@@ -42,7 +42,7 @@ public class PlaylistsDAO {
 			ps.close();
 
 			for (Playlist playlist : playlists) {
-				ps = conn.prepareStatement("SELECT * FROM playlists where playlistname = '" + playlist.getName() + "'");
+				ps = conn.prepareStatement("SELECT * FROM playlists where playlistname = '" + playlist.getName() + "' and videoURL <> ''");
 				resultSet = ps.executeQuery();
 
 				while (resultSet.next()) {
