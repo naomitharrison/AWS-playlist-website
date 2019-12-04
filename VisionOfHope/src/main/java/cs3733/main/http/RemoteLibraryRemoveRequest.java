@@ -2,16 +2,16 @@ package cs3733.main.http;
 
 public class RemoteLibraryRemoveRequest {
 	 String name;
-	 String URL;
+	 String url;
 	
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setURL(String uRL) {
-		URL = uRL;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 	public String getName() {return name; }
-	public String getURL() {return URL; }
+	public String getUrl() {return url; }
 	
 	public RemoteLibraryRemoveRequest() {
 		
@@ -19,7 +19,7 @@ public class RemoteLibraryRemoveRequest {
 	
 	public RemoteLibraryRemoveRequest (String name, String url) {
 		this.name = name;
-		this.URL = url;
+		this.url = url;
 	}
 
 }
