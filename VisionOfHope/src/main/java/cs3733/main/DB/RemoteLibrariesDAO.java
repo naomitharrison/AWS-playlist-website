@@ -100,7 +100,7 @@ public class RemoteLibrariesDAO {
 
 	public boolean addRemoteLib(String name, String url) throws Exception {
 		try {
-
+			System.out.println("name in addRemoteLib: " + url);
 			PreparedStatement ps = conn
 					.prepareStatement("SELECT * FROM remoteLibraries where remoteURL = '" + url + "'");
 			ResultSet resultSet = ps.executeQuery();
@@ -110,6 +110,7 @@ public class RemoteLibrariesDAO {
 				// return false if there is something returned
 				return false;
 			}
+
 			ps.close();
 			resultSet.close();
 

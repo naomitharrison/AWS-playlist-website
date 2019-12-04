@@ -7,11 +7,11 @@ public class RemoteLibraryAddRequest {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public void setURL(String url) {
+	public void setUrl(String url) {
 		this.url = url;
 	}
 	public String getName() {return name; }
-	public String getURL() {return url; }
+	public String getUrl() {return url; }
 	
 	public RemoteLibraryAddRequest() {
 		
