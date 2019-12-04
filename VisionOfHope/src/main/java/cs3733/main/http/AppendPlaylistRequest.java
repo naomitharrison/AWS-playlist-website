@@ -5,26 +5,26 @@ public class AppendPlaylistRequest {
 	
 
 	String name;
-	String url;
+	String videoUrl;
 	
 	public AppendPlaylistRequest() {
 		
 	}
 	
 	public String getName() {return name; }
-	public String getUrl() {return url; }
+	public String getVideoUrl() {return videoUrl; }
 	
-	public AppendPlaylistRequest (String name, String url) {
+	public AppendPlaylistRequest (String name, String videoUrl) {
 		this.name = name;
-		this.url = url;
+		this.videoUrl = videoUrl;
 	}
 
 	public void setPlaylistName(String name) {
 		this.name = name;
 	}
 
-	public void setVideoURL(String url) {
-		this.url = url;
+	public void setVideoURL(String videoUrl) {
+		this.videoUrl = videoUrl;
 	}
 
 }

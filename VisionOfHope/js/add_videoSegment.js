@@ -36,6 +36,7 @@ function processaddVideoSegmentResponse(result) {
     var videoTitle = document.getElementById('videoSegmentTitle').value;
     var videoCharacter = document.getElementById('videoSegmentCharacter').value;
     var videoBase64 = document.getElementById('Base64').value.split(',');
+    document.getElementById('videoFile').value = '';
 
     videoTitle.value = '';
     videoCharacter.value = '';

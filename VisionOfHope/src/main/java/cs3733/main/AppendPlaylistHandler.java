@@ -44,7 +44,7 @@ public class AppendPlaylistHandler implements RequestHandler<AppendPlaylistReque
 		AppendPlaylistResponse response;
 		try {
 			// get all video segments associated with a playlist in the database
-			appendPlaylist(req.getName(), req.getUrl());
+			appendPlaylist(req.getName(), req.getVideoUrl());
 			response = new AppendPlaylistResponse(req.getName(), 200);
 		} catch (Exception e) {
 			response = new AppendPlaylistResponse(req.getName(), 403, e.getMessage());

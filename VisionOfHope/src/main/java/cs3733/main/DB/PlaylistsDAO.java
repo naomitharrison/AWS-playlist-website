@@ -45,7 +45,7 @@ public class PlaylistsDAO {
 			ps.close();
 
 			for (Playlist playlist : playlists) {
-				ps = conn.prepareStatement("SELECT * FROM playlists where playlistname = '" + playlist.getName() + "'");
+				ps = conn.prepareStatement("SELECT * FROM playlists where playlistname = '" + playlist.getName() + "' and videoURL <> ''");
 				resultSet = ps.executeQuery();
 
 				while (resultSet.next()) {
@@ -74,7 +74,10 @@ public class PlaylistsDAO {
 	private VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
 		
 		String URL = resultSet.getString("videoURL");
-		if(URL == "") {
+		if(URL.equals("")) {
+			return null;
+		}
+		if(URL == null) {
 			return null;
 		}
 		//System.out.println("SELECT * FROM library where videoURL = '" + URL + "'");
