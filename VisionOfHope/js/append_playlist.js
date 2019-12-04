@@ -1,5 +1,5 @@
 function appendPlaylist() {
-	var currentPlaylist = document.getElementsByTagName('playlist').value;
+	var currentPlaylist = document.getElementById('playlistTitleHeader').innerHTML;
 	var videoSegmentSelection = document.getElementsByTagName('input');
 	
 	var data = {};
