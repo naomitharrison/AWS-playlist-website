@@ -22,7 +22,7 @@ public class AppendPlaylistHandler implements RequestHandler<AppendPlaylistReque
 	 * @throws Exception 
 	 */
 	boolean appendPlaylist(String playlistName, String videoURL) throws Exception {
-		logger.log("in appendPlaylist");
+		logger.log("in appendPlaylist: "+playlistName);
 		PlaylistsDAO dao = new PlaylistsDAO();
 		
 		// check if playlist exists
@@ -44,6 +44,7 @@ public class AppendPlaylistHandler implements RequestHandler<AppendPlaylistReque
 		logger = context.getLogger();
 		logger.log("Loading Java Lambda handler to list all playlist video segments");
 
+		logger.log("in handleRequest: "+req.getVideoUrl());
 		AppendPlaylistResponse response;
 		try {
 			// get all video segments associated with a playlist in the database
