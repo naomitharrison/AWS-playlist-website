@@ -41,10 +41,10 @@ public class DeletePlaylistVideoSegmentHandler implements RequestHandler<DeleteP
 		DeletePlaylistVideoSegmentResponse response;
 		try {
 			// get all video segments associated with a playlist in the database
-			deletePlaylistVideo(req.getName(), req.getUrl());
-			response = new DeletePlaylistVideoSegmentResponse(req.getName(), 200);
+			deletePlaylistVideo(req.getplaylistName(), req.getvideoUrl());
+			response = new DeletePlaylistVideoSegmentResponse(req.getplaylistName(), 200);
 		} catch (Exception e) {
-			response = new DeletePlaylistVideoSegmentResponse(req.getName(), 403, e.getMessage());
+			response = new DeletePlaylistVideoSegmentResponse(req.getplaylistName(), 403, e.getMessage());
 		}		
 		return response;
 	}
