@@ -25,6 +25,7 @@ public class DeletePlaylistVideoSegmentHandler implements RequestHandler<DeleteP
 		// check if playlist exists
 		Playlist playlist = dao.getPlaylist(playlistName);
 		logger.log(playlistName);
+		logger.log(videoURL);
 		if(playlist != null) {
 			return dao.deleteVideoFromPlaylist(playlistName, videoURL);
 		}
