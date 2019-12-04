@@ -18,7 +18,7 @@ public class DeletePlaylistVideoSegmentRequest {
 	public void setPlaylistName(String playlistName) {
 		this.playlistName = playlistName;
 	}
-	public void setVideoURL(String videoUrl) {
+	public void setVideoUrl(String videoUrl) {
 		this.videoUrl = videoUrl;
 	}
 

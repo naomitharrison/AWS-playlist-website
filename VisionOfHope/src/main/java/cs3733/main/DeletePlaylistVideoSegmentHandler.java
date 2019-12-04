@@ -18,16 +18,16 @@ public class DeletePlaylistVideoSegmentHandler implements RequestHandler<DeleteP
 	 * find playlist video segments in RDS
 	 * @throws Exception 
 	 */
-	boolean deletePlaylistVideo(String playlistName, String videoUrl) throws Exception {
+	boolean deletePlaylistVideo(String playlistName, String videoURL) throws Exception {
 		logger.log("in DeletePlaylistVideo");
 		PlaylistsDAO dao = new PlaylistsDAO();
 		
 		// check if playlist exists
 		Playlist playlist = dao.getPlaylist(playlistName);
 		logger.log(playlistName);
-		logger.log(videoUrl);
+		logger.log(videoURL);
 		if(playlist != null) {
-			return dao.deleteVideoFromPlaylist(playlistName, videoUrl);
+			return dao.deleteVideoFromPlaylist(playlistName, videoURL);
 		}
 		else {
 			return false;
