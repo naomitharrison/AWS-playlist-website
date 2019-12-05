@@ -58,6 +58,7 @@ function processVideoListResponse(result) {
 	console.log("res:" + result);
 	var js = JSON.parse(result);
 	var videoList = document.getElementById('videoSegmentList');
+	var libraryHeader = document.getElementById('LibraryHeader');
 
 	var output = '';
 	output +='<ul style="list-style-type:none;">';
@@ -72,6 +73,7 @@ function processVideoListResponse(result) {
 	}
 	output += '</ul>';
 	videoList.innerHTML = output;
+	libraryHeader.innerHTML = '<h3>Local Library</h3>';
 }
 
 function processVideoListAdminResponse(result) {
