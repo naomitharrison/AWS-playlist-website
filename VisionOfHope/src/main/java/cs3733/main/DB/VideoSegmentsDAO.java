@@ -50,129 +50,35 @@ public class VideoSegmentsDAO {
 	}
 
 	/**
-	 * lists all videos with specified title in local library
-	 * 
-	 * @param title
-	 * @return
-	 * @throws Exception
-	 */
-	public List<VideoSegment> listAllVideosWithTitle(String title) throws Exception {
-
-		try {
-			List<VideoSegment> videos = new ArrayList<VideoSegment>();
-
-			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoName = '" + title + "'");
-			ResultSet resultSet = ps.executeQuery();
-
-			while (resultSet.next()) {
-				VideoSegment vs = generateVideoSegment(resultSet);
-				videos.add(vs);
-			}
-			resultSet.close();
-			ps.close();
-
-			return videos;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Failed in searching videos: " + e.getMessage());
-		}
-
-	}
-
-	/**
-	 * lists all videos by specified character in local library
-	 * 
-	 * @param character
-	 * @return
-	 * @throws Exception
-	 */
-	public List<VideoSegment> listAllVideosByCharacter(String character) throws Exception {
-
-		try {
-			List<VideoSegment> videos = new ArrayList<VideoSegment>();
-
-			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM library where videoCharacter = '" + character + "'");
-			ResultSet resultSet = ps.executeQuery();
-
-			while (resultSet.next()) {
-				VideoSegment vs = generateVideoSegment(resultSet);
-				videos.add(vs);
-			}
-			resultSet.close();
-			ps.close();
-
-			return videos;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Failed in searching videos: " + e.getMessage());
-		}
-
-	}
-
-	/**
-	 * lists all videos by specified character and with specified title in local
-	 * library
-	 * 
-	 * @param character
-	 * @param title
-	 * @return
-	 * @throws Exception
-	 */
-	public List<VideoSegment> searchVideos(String character, String title) throws Exception {
-		
-		if(character.equals("")) {
-			return listAllVideosWithTitle(title);
-		}else if (title.equals("")) {
-			return listAllVideosByCharacter(character);
-		}		
-		
-		try {
-			List<VideoSegment> videos = new ArrayList<VideoSegment>();
-
-			PreparedStatement ps = conn.prepareStatement(
-					"SELECT * FROM library where videoCharacter = '" + character + "' and videoName = '" + title + "'");
-			ResultSet resultSet = ps.executeQuery();
-
-			while (resultSet.next()) {
-				VideoSegment vs = generateVideoSegment(resultSet);
-				videos.add(vs);
-			}
-			resultSet.close();
-			ps.close();
-
-			return videos;
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new Exception("Failed in searching videos: " + e.getMessage());
-		}
-	}
-
-	/**
 	 * returns video with the given URL
 	 * 
 	 * @param URL
 	 * @return
 	 * @throws Exception
 	 */
-	public VideoSegment getVideo(String URL) throws Exception {
+	public boolean changeRemoteAvail(String URL, boolean avail) throws Exception {
 		try {
-			VideoSegment vs = null;
-
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM library where videoURL = '" + URL + "'");
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
-				vs = generateVideoSegment(resultSet);
-
+				PreparedStatement ps2;
+				if (avail) {
+					ps2 = conn.prepareStatement(
+							"Update library set videoRemoteStatus = 'Y' WHERE videoURL = '" + URL + "'");
+				} else {
+					ps2 = conn.prepareStatement(
+							"Update library set videoRemoteStatus = 'N' WHERE videoURL = '" + URL + "'");
+				}
+				ps2.executeUpdate();
+				ps2.close();
+				
+				return true;
 			}
 			resultSet.close();
 			ps.close();
 
-			return vs;
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Failed in getting video: " + e.getMessage());
@@ -200,23 +106,23 @@ public class VideoSegmentsDAO {
 			}
 			ps.close();
 			resultSet.close();
-			
+
 			System.out.println("no duplicates");
 
 			String avail;
-			if(vs.getAvailability()) {
+			if (vs.getAvailability()) {
 				avail = "Y";
-			}else {
+			} else {
 				avail = "N";
 			}
-			
+
 			// add video segment
 			ps = conn.prepareStatement("INSERT INTO library VALUES ('" + vs.getTitle() + "','" + vs.getCharacter()
 					+ "','" + vs.getUrl() + "','" + avail + "');");
 			ps.execute();
 
 			System.out.println("added to db");
-			
+
 			ps.close();
 			resultSet.close();
 
@@ -254,8 +160,6 @@ public class VideoSegmentsDAO {
 			ps.close();
 			resultSet.close();
 
-			
-
 			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -275,12 +179,24 @@ public class VideoSegmentsDAO {
 		String URL = "";
 		String title = "";
 		String character = "";
+		String avail = "";
+		boolean isAvail;
 
 		title = resultSet.getString("videoName");
 		character = resultSet.getString("videoCharacter");
 		URL = resultSet.getString("videoURL");
+		avail = resultSet.getString("videoRemoteStatus");
 
-		return new VideoSegment(title, character, URL);
+		if(avail.equals("Y")) {
+			isAvail = true;
+		}else {
+			isAvail = false;
+		}
+
+		VideoSegment vs = new VideoSegment(title, character, URL);
+		vs.setAvailability(isAvail);
+		
+		return vs;
 	}
 
 }

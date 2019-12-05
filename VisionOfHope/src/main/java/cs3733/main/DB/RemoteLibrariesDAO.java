@@ -74,7 +74,7 @@ public class RemoteLibrariesDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	private VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
+	/*private VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
 		String URL = "";
 		String title = "";
 		String character = "";
@@ -83,7 +83,7 @@ public class RemoteLibrariesDAO {
 		character = resultSet.getString("videoCharacter");
 		URL = resultSet.getString("videoURL");
 		return new VideoSegment(title, character, URL);
-	}
+	}*/
 
 	public boolean addRemoteLib(String name, String url) throws Exception {
 		try {

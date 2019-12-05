@@ -44,6 +44,10 @@ public class VideoSegment {
 		}
 	}
 	
+	public void setAvailability(boolean avail) {
+		remoteAvailability = avail;
+	}
+	
 	@Override
 	public String toString() {
 		return "VideoSegment [title=" + title + ", character=" + character + ", url=" + url
