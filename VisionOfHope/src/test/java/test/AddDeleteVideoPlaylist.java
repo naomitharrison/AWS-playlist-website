@@ -52,7 +52,7 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 		DeleteVideoSegmentHandler deleteHandler = new DeleteVideoSegmentHandler();
 
 		DeleteVideoSegmentRequest deleteRequest = new DeleteVideoSegmentRequest(
-				"https://cs3733visionofhopesurpassed.s3.anazonaws.com/videos/testTitle.ogg");
+				"https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/testTitle.ogg");
 		DeleteVideoSegmentResponse deleteResp = deleteHandler.handleRequest(deleteRequest, createContext("name"));
 
 		ListVideoSegmentsHandler listHandler = new ListVideoSegmentsHandler();
@@ -104,7 +104,7 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 	private void deleteFromPlaylist() {
 		DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegmentHandler();
 		
-		DeletePlaylistVideoSegmentRequest deleteRequest = new DeletePlaylistVideoSegmentRequest("testPlaylist","https://cs3733visionofhopesurpassed.s3.anazonaws.com/videos/testTitle.ogg");
+		DeletePlaylistVideoSegmentRequest deleteRequest = new DeletePlaylistVideoSegmentRequest("testPlaylist","https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/testTitle.ogg");
 		DeletePlaylistVideoSegmentResponse deleteResponse = deleteHandler.handleRequest(deleteRequest,createContext("name"));
 		
 		ListPlaylistVideoSegmentsRequest listRequest = new ListPlaylistVideoSegmentsRequest("testPlaylist");
@@ -131,7 +131,7 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 	private void addToPlaylist() {
 		AppendPlaylistHandler appendHandler = new AppendPlaylistHandler();
 		
-		AppendPlaylistRequest appendRequest = new AppendPlaylistRequest("testPlaylist","https://cs3733visionofhopesurpassed.s3.anazonaws.com/videos/testTitle.ogg");
+		AppendPlaylistRequest appendRequest = new AppendPlaylistRequest("testPlaylist","https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/testTitle.ogg");
 		AppendPlaylistResponse appendResponse = appendHandler.handleRequest(appendRequest,createContext("name"));
 		
 		ListPlaylistVideoSegmentsRequest listRequest = new ListPlaylistVideoSegmentsRequest("testPlaylist");
@@ -163,9 +163,9 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 		ListPlaylistsHandler listHandler = new ListPlaylistsHandler();
 		ListPlaylistResponse listResp = listHandler.handleRequest(null, createContext("list"));
 
-		for (Playlist p : listResp.list) {
+		/*for (Playlist p : listResp.list) {
 			System.out.println(p.toString());
-		}
+		}*/
 
 		boolean hasVideo = false;
 		for (Playlist p : listResp.list) {
