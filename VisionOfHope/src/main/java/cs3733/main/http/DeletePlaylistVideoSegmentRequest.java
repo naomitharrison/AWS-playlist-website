@@ -4,22 +4,22 @@ public class DeletePlaylistVideoSegmentRequest {
 	String playlistName;
 	String videoUrl;
 	
-	public String getplaylistName() {return playlistName; }
-	public String getvideoUrl() {return videoUrl; }
+	public String getPlaylistName() {return playlistName; }
+	public String getVideoUrl() {return videoUrl; }
 	
 	public DeletePlaylistVideoSegmentRequest () {
 		
 	}
 	
-	public DeletePlaylistVideoSegmentRequest (String name, String url) {
-		this.playlistName = name;
-		this.videoUrl = url;
+	public DeletePlaylistVideoSegmentRequest (String playlistName, String videoUrl) {
+		this.playlistName = playlistName;
+		this.videoUrl = videoUrl;
 	}
-	public void setPlaylistName(String name) {
-		this.playlistName = name;
+	public void setPlaylistName(String playlistName) {
+		this.playlistName = playlistName;
 	}
-	public void setVideoURL(String url) {
-		this.videoUrl = url;
+	public void setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
 	}
 
 
