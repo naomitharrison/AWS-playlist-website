@@ -53,8 +53,18 @@ public class ListRemoteLibrariesTest extends LambdaTest {
 	@Test
 	public void testAddAndRemove() throws IOException {
 		createRemoteLib();
+		createAgain();
 		removeRemoteLib();
 
+	}
+
+	private void createAgain() {
+		RemoteLibraryAddHandler addHandler = new RemoteLibraryAddHandler();
+
+		RemoteLibraryAddRequest addRequest = new RemoteLibraryAddRequest("testLibName", "testLibURL");
+		RemoteLibraryAddResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));
+		
+		assertEquals(422, addResp.statusCode);
 	}
 
 	private void createRemoteLib() {
