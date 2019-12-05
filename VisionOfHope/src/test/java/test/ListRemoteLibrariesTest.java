@@ -99,7 +99,7 @@ public class ListRemoteLibrariesTest extends LambdaTest {
 
 		assertEquals(200, removeResp.statusCode);
 		assertEquals(200, listResp.statusCode);
-		assertFalse(noLongerHasLib);
+		assertTrue(noLongerHasLib);
 	}
 
 }
