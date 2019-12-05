@@ -51,5 +51,4 @@ public class RemoteStatusHandler implements RequestHandler<RemoteStatusRequest,R
 	}
 }
 
-}
 
