@@ -28,13 +28,13 @@ public class RemoteLibraryRemoveHandler implements RequestHandler<RemoteLibraryR
 		RemoteLibrariesDAO dao = new RemoteLibrariesDAO();
 
 		try {
-			if (dao.deleteRemoteLib(req.getName(), req.getUrl())) {
-				response = new RemoteLibraryRemoveResponse(req.getName(), 200);
+			if (dao.deleteRemoteLib(req.getUrl())) {
+				response = new RemoteLibraryRemoveResponse(req.getUrl(), 200);
 			} else {
-				response = new RemoteLibraryRemoveResponse(req.getName(), 422, "Unable to create remote lib.");
+				response = new RemoteLibraryRemoveResponse(req.getUrl(), 422, "Unable to create remote lib.");
 			}
 		} catch (Exception e) {
-			response = new RemoteLibraryRemoveResponse(req.getName(), 403, "Unable to create remote lib: " + req.getName() + "(" + e.getMessage() + ")");
+			response = new RemoteLibraryRemoveResponse(req.getUrl(), 403, "Unable to create remote lib: " + req.getUrl() + "(" + e.getMessage() + ")");
 		}
 
 		return response;

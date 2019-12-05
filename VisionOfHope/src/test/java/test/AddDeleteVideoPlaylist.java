@@ -243,9 +243,12 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		ListVideoSegmentsHandler listHandler = new ListVideoSegmentsHandler();
 		ListVideoSegmentsResponse listResp = listHandler.handleRequest(null, createContext("list"));
 
+		System.out.println("********************");
+
 		for (VideoSegment vs : listResp.list) {
 			System.out.println(vs.toString());
 		}
+		System.out.println("**********************");
 
 		boolean hasVideo = false;
 		for (VideoSegment vs : listResp.list) {
@@ -253,6 +256,7 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 				hasVideo = true;
 			}
 		}
+		System.out.println("they get here");
 
 		assertEquals(200, addResp.statusCode);
 		assertEquals(200, listResp.statusCode);

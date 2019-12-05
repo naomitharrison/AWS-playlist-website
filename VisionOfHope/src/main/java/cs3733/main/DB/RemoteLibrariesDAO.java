@@ -41,19 +41,6 @@ public class RemoteLibrariesDAO {
 			resultSet.close();
 			ps.close();
 
-			for (RemoteLib remote : remotes) {
-				ps = conn.prepareStatement(
-						"SELECT * FROM innodb.remoteLibraries where remoteURL = '" + remote.getUrl() + "'");
-				resultSet = ps.executeQuery();
-
-				while (resultSet.next()) {
-					VideoSegment vs = generateVideoSegment(resultSet);
-					remote.addVideo(vs);
-				}
-				resultSet.close();
-				ps.close();
-			}
-
 			return remotes;
 
 		} catch (Exception e) {
@@ -127,7 +114,7 @@ public class RemoteLibrariesDAO {
 		}
 	}
 
-	public boolean deleteRemoteLib(String name, String url) throws Exception {
+	public boolean deleteRemoteLib(String url) throws Exception {
 		try {
 
 			PreparedStatement ps = conn
