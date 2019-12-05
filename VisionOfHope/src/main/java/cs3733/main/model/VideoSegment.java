@@ -50,7 +50,7 @@ public class VideoSegment {
 				+ ", remoteAvailability=" + remoteAvailability + "]";
 	}
 
-	@Override
+	/*@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -78,5 +78,5 @@ public class VideoSegment {
 		} else if (!url.equals(other.url))
 			return false;
 		return true;
-	}
+	}*/
 }

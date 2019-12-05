@@ -42,6 +42,7 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 		createPlaylist();
 		createPlayAgain();
 		addToPlaylist();
+		addToPlaylistAgain();
 		deleteFromPlaylist();
 		//deleteFromPlaylistAgain();
 		deletePlaylist();
@@ -50,7 +51,16 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 		deleteVideoAgain();
 					
 	}
-
+	
+	private void addToPlaylistAgain() {
+		AppendPlaylistHandler appendHandler = new AppendPlaylistHandler();
+		
+		AppendPlaylistRequest appendRequest = new AppendPlaylistRequest("tesPlaylist","https://cs3733visionofhopesurpassed.s3.anazonaws.com/videos/testTitle.ogg");
+		AppendPlaylistResponse appendResponse = appendHandler.handleRequest(appendRequest,createContext("name"));
+		
+		assertEquals(422, appendResponse.statusCode);
+	}
+	
 	private void deleteVideoAgain() {
 		DeleteVideoSegmentHandler deleteHandler = new DeleteVideoSegmentHandler();
 
