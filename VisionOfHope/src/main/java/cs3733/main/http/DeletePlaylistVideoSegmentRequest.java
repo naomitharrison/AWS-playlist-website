@@ -1,15 +1,25 @@
 package cs3733.main.http;
 
 public class DeletePlaylistVideoSegmentRequest {
-	final String playlistName;
-	final String videoURL;
+	String playlistName;
+	String videoUrl;
 	
 	public String getPlaylistName() {return playlistName; }
-	public String getVideoURL() {return videoURL; }
+	public String getVideoUrl() {return videoUrl; }
 	
-	public DeletePlaylistVideoSegmentRequest (String name, String url) {
-		this.playlistName = name;
-		this.videoURL = url;
+	public DeletePlaylistVideoSegmentRequest () {
+		
+	}
+	
+	public DeletePlaylistVideoSegmentRequest (String playlistName, String videoUrl) {
+		this.playlistName = playlistName;
+		this.videoUrl = videoUrl;
+	}
+	public void setPlaylistName(String playlistName) {
+		this.playlistName = playlistName;
+	}
+	public void setVideoUrl(String videoUrl) {
+		this.videoUrl = videoUrl;
 	}
 
 

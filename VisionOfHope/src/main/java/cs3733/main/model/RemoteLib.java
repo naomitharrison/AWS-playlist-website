@@ -1,13 +1,15 @@
 package cs3733.main.model;
 
-public class RemoteLib extends AbstractLibrary {
+import java.util.ArrayList;
+
+public class RemoteLib {
 	
 	String url;
-
-
+	String name;
+	ArrayList<VideoSegment> VideoSegments;
 
 	public RemoteLib(String name, String url) {
-		super(name);
+		this.name = name;
 		this.url =url;		
 	}
 	
@@ -18,8 +20,26 @@ public class RemoteLib extends AbstractLibrary {
 		return url;
 	}
 	
-	public Boolean equalsRemoteLib(RemoteLib rl) {
-		return this.equals(rl);
+	public boolean addVideo(VideoSegment vs) {
+		return VideoSegments.add(vs);
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (!(obj instanceof RemoteLib))
+			return false;
+		RemoteLib other = (RemoteLib) obj;
+		if (url == null) {
+			if (other.url != null)
+				return false;
+		} else if (!url.equals(other.url))
+			return false;
+		return true;
+	}
+	
 	
 }

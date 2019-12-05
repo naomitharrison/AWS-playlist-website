@@ -2,15 +2,24 @@ package cs3733.main.http;
 
 public class ListPlaylistVideoSegmentsRequest {
 
-	String playlistName;
+	String name;
 	
-	public String getPlaylistName( ) { return playlistName; }
+	public String getName( ) { return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 	
 	public ListPlaylistVideoSegmentsRequest (String name) {
-		this.playlistName = name;
+		this.name = name;
+	}
+	
+	public ListPlaylistVideoSegmentsRequest() {
+		
 	}
 
 	public String toString() {
-		return "CreateConstant(" + playlistName  + ")";
+		return "ListPlaylistVideoSegments(" + name  + ")";
 	}
 }

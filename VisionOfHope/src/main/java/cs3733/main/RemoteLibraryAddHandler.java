@@ -11,16 +11,16 @@ import cs3733.main.http.NewPlaylistResponse;
 import cs3733.main.http.RemoteLibraryAddRequest;
 import cs3733.main.http.RemoteLibraryAddResponse;
 
-public class RemoteLibraryAddHandler implements RequestHandler<RemoteLibraryAddRequest,RemoteLibraryAddResponse>{
+public class RemoteLibraryAddHandler implements RequestHandler<RemoteLibraryAddRequest, RemoteLibraryAddResponse> {
 
-	//need to make sure that playlist names are unique
+	// need to make sure that playlist names are unique
 
 	public LambdaLogger logger = null;
-	
+
 	@Override
 	public RemoteLibraryAddResponse handleRequest(RemoteLibraryAddRequest req, Context context) {
 		logger = context.getLogger();
-		logger.log("Loading Java Lambda handler to create remote lib");
+		logger.log("Loading Java Lambda handler to create remote lib: " + req.getUrl());
 
 		RemoteLibraryAddResponse response = null;
 		logger.log(req.toString());
@@ -28,13 +28,16 @@ public class RemoteLibraryAddHandler implements RequestHandler<RemoteLibraryAddR
 		RemoteLibrariesDAO dao = new RemoteLibrariesDAO();
 
 		try {
-			if (dao.addRemoteLib(req.getName(), req.getURL())) {
+			logger.log("about to go into dao: " + req.getUrl());
+			boolean working = dao.addRemoteLib(req.getName(), req.getUrl());
+			if (working) {
 				response = new RemoteLibraryAddResponse(req.getName(), 200);
 			} else {
 				response = new RemoteLibraryAddResponse(req.getName(), 422, "Unable to create remote lib.");
 			}
 		} catch (Exception e) {
-			response = new RemoteLibraryAddResponse(req.getName(), 403, "Unable to create remote lib: " + req.getName() + "(" + e.getMessage() + ")");
+			response = new RemoteLibraryAddResponse(req.getName(), 403,
+					"Unable to create remote lib: " + req.getName() + "(" + e.getMessage() + ")");
 		}
 
 		return response;

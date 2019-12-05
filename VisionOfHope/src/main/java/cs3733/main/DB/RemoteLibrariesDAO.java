@@ -41,24 +41,11 @@ public class RemoteLibrariesDAO {
 			resultSet.close();
 			ps.close();
 
-			for (RemoteLib remote : remotes) {
-				ps = conn.prepareStatement(
-						"SELECT * FROM innodb.remoteLibraries where remoteURL = '" + remote.getUrl() + "'");
-				resultSet = ps.executeQuery();
-
-				while (resultSet.next()) {
-					VideoSegment vs = generateVideoSegment(resultSet);
-					remote.addVideo(vs);
-				}
-				resultSet.close();
-				ps.close();
-			}
-
 			return remotes;
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in getting remote libraries: " + e.getMessage());
 		}
 
 	}
@@ -98,13 +85,60 @@ public class RemoteLibrariesDAO {
 		return new VideoSegment(title, character, URL);
 	}
 
-	public boolean addRemoteLib(String name, String url) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addRemoteLib(String name, String url) throws Exception {
+		try {
+			System.out.println("name in addRemoteLib: " + url);
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM remoteLibraries where remoteURL = '" + url + "'");
+			ResultSet resultSet = ps.executeQuery();
+
+			// check if there is a returned row
+			while (resultSet.next()) {
+				// return false if there is something returned
+				return false;
+			}
+
+			ps.close();
+			resultSet.close();
+
+			ps = conn
+					.prepareStatement("INSERT INTO remoteLibraries VALUES('', '" + url + "', '" + name + "', '', '');");
+			ps.execute();
+
+			ps.close();
+
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in adding remote library: " + e.getMessage());
+		}
 	}
 
-	public boolean deleteRemoteLib(String name, String url) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteRemoteLib(String url) throws Exception {
+		try {
+
+			PreparedStatement ps = conn
+					.prepareStatement("SELECT * FROM remoteLibraries where remoteURL = '" + url + "'");
+			ResultSet resultSet = ps.executeQuery();
+
+			// check if there is a returned row
+			while (resultSet.next()) {
+				PreparedStatement ps2 = conn
+						.prepareStatement("delete from remoteLibraries where remoteURL = '" + url + "'");
+				ps2.executeUpdate();
+				ps2.close();
+
+				ps.close();
+				resultSet.close();
+				return true;
+			}
+			ps.close();
+			resultSet.close();
+
+			return false;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in deleting remote library: " + e.getMessage());
+		}
 	}
 }

@@ -53,9 +53,10 @@ if (logger != null) { logger.log("in add to s3"); }
 		ByteArrayInputStream bais = new ByteArrayInputStream(file);
 		ObjectMetadata omd = new ObjectMetadata();
 		omd.setContentLength(file.length);
+		omd.setContentType("audio/ogg");
 		
 		// makes the object publicly visible
-		PutObjectResult res = s3.putObject(new PutObjectRequest("cs3733wpi", bucket + vs.getTitle(), bais, omd)
+		PutObjectResult res = s3.putObject(new PutObjectRequest("cs3733visionofhopesurpassed", bucket + vs.getTitle() + ".ogg", bais, omd)
 				.withCannedAcl(CannedAccessControlList.PublicRead));
 		
 		// if we ever get here, then whole thing was stored
@@ -88,7 +89,7 @@ if (logger != null) { logger.log("in add to s3"); }
 		// TODO Auto-generated method stub
 		String character = req.getCharacter();
 		String title = req.getTitle();
-		String url = "https://cs3733visionofhopesurpassed.s3.anazonaws.com/videos/";
+		String url = "https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/";
 		String urlTitle = title;
 		urlTitle = urlTitle.replace(" ", "+");
 		url = url + urlTitle + ".ogg";

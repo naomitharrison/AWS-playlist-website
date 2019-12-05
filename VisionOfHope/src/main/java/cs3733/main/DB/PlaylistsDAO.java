@@ -42,12 +42,13 @@ public class PlaylistsDAO {
 			ps.close();
 
 			for (Playlist playlist : playlists) {
-				ps = conn.prepareStatement("SELECT * FROM playlists where playlistname = '" + playlist.getName() + "'");
+				ps = conn.prepareStatement("SELECT * FROM playlists where playlistname = '" + playlist.getName() + "' and videoURL <> ''");
 				resultSet = ps.executeQuery();
 
 				while (resultSet.next()) {
 					VideoSegment vs = generateVideoSegment(resultSet);
-					playlist.appendEntry(vs);
+					if(vs!=null)
+						playlist.appendEntry(vs);
 				}
 				resultSet.close();
 				ps.close();
@@ -68,8 +69,15 @@ public class PlaylistsDAO {
 	 * @throws Exception
 	 */
 	private VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
+		
 		String URL = resultSet.getString("videoURL");
-		System.out.println("SELECT * FROM library where videoURL = '" + URL + "'");
+		if(URL.equals("")) {
+			return null;
+		}
+		if(URL == null) {
+			return null;
+		}
+		//System.out.println("SELECT * FROM library where videoURL = '" + URL + "'");
 		PreparedStatement p = conn.prepareStatement("SELECT * FROM innodb.library where videoURL = '" + URL + "';");
 		ResultSet result = p.executeQuery();
 		String title = "y";
@@ -113,7 +121,8 @@ public class PlaylistsDAO {
 
 			while (resultSet.next()) {
 				VideoSegment vs = generateVideoSegment(resultSet);
-				playlist.appendEntry(vs);
+				if(vs!=null)
+					playlist.appendEntry(vs);
 			}
 			resultSet.close();
 			ps.close();
@@ -122,7 +131,7 @@ public class PlaylistsDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting playlists: " + e.getMessage());
+			throw new Exception("Failed in getting playlist: " + e.getMessage());
 		}
 	}
 
@@ -154,16 +163,15 @@ public class PlaylistsDAO {
 			resultSet.close();
 
 			// add video segment
-			ps = conn.prepareStatement("INSERT INTO playlists VALUES (null, '" + name + "', null );");
-			resultSet = ps.executeQuery();
+			ps = conn.prepareStatement("INSERT INTO playlists VALUES ('', '" + name + "', '' );");
+			ps.execute();
 
 			ps.close();
-			resultSet.close();
 
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in adding playlist: " + e.getMessage());
 		}
 	}
 
@@ -175,23 +183,26 @@ public class PlaylistsDAO {
 
 			// check if there is a returned row
 			while (resultSet.next()) {
-				// return false if there is something returned
-				return false;
+				ps.close();
+				resultSet.close();
+
+				// add video segment
+				PreparedStatement ps2 = conn.prepareStatement("delete from playlists where playlistName = '" + name + "';");
+				ps2.executeUpdate();
+
+				ps2.close();
+				ps.close();
+				resultSet.close();
+				
+				return true;
 			}
 			ps.close();
 			resultSet.close();
-
-			// add video segment
-			ps = conn.prepareStatement("delete from playlists were playlistName = '" + name + "');");
-			resultSet = ps.executeQuery();
-
-			ps.close();
-			resultSet.close();
-
-			return true;
+			
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in deleting playlist: " + e.getMessage());
 		}
 	}
 
@@ -202,56 +213,50 @@ public class PlaylistsDAO {
 					+ "' and videoURL = '" + videoURL + "'");
 			ResultSet resultSet = ps.executeQuery();
 
-			// check if there is a returned row
-			while (resultSet.next()) {
-				// return false if there is something returned
-				return false;
-			}
+
 			ps.close();
 			resultSet.close();
 
 			// add video segment
 			ps = conn.prepareStatement(
 					"INSERT INTO playlists VALUES ( '" + videoURL + "', '" + playlistName + "', null );");
-			resultSet = ps.executeQuery();
+			ps.execute();
 
 			ps.close();
-			resultSet.close();
-
+			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
-		}
+			throw new Exception("Failed in adding video: " + e.getMessage());
+		} 
 	}
 
 	public boolean deleteVideoFromPlaylist(String playlistName, String videoURL) throws Exception {
 		try {
 			// get videos in where urls are equal
+			System.out.println(videoURL);
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM playlists where playlistName = '" + playlistName
-					+ "' and videoURL = '" + videoURL + "'");
+					+ "' and videoURL = '" + videoURL + "';");
 			ResultSet resultSet = ps.executeQuery();
 
 			// check if there is a returned row
 			while (resultSet.next()) {
-				// return false if there is something returned
-				return false;
+				PreparedStatement ps2 = conn.prepareStatement(
+						"DELETE FROM playlists where videoURL =  '" + videoURL + "' and playlistName =  '" + playlistName + "';");
+				ps2.executeUpdate();
+
+				ps2.close();
+				ps.close();
+				resultSet.close();
+				return true;
 			}
 			ps.close();
 			resultSet.close();
-
-			// add video segment
-			ps = conn.prepareStatement(
-					"DELETE FROM Playlist where videoURL =  '" + videoURL + "'and playlistName =  '" + playlistName + "';");
-			resultSet = ps.executeQuery();
-
-			ps.close();
-			resultSet.close();
-
-			return true;
+			
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in deleting video: " + e.getMessage());
 		}
 	}
 

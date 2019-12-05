@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -21,9 +22,9 @@ public class ListPlaylistVideoSegmentsTest extends LambdaTest {
     public void testGetList() throws IOException {
     	ListPlaylistVideoSegmentHandler handler = new ListPlaylistVideoSegmentHandler();
 
-    	ListPlaylistVideoSegmentsRequest request = new ListPlaylistVideoSegmentsRequest("first Playlist");
+    	ListPlaylistVideoSegmentsRequest request = new ListPlaylistVideoSegmentsRequest("test");
     	ListPlaylistVideoSegmentsResponse resp = handler.handleRequest(request, createContext("list"));
-        
+       
         boolean hasVideo = false;
         
         for (VideoSegment vs : resp.list) {
@@ -34,6 +35,42 @@ public class ListPlaylistVideoSegmentsTest extends LambdaTest {
         }
         assertTrue(hasVideo);
         assertEquals(200, resp.statusCode);
+    }
+    
+    @Test
+    public void testGetListBadVideo() throws IOException {
+    	ListPlaylistVideoSegmentHandler handler = new ListPlaylistVideoSegmentHandler();
+
+    	ListPlaylistVideoSegmentsRequest request = new ListPlaylistVideoSegmentsRequest("test");
+    	ListPlaylistVideoSegmentsResponse resp = handler.handleRequest(request, createContext("list"));
+       
+        boolean hasVideo = false;
+        
+        for (VideoSegment vs : resp.list) {
+        	System.out.println(vs.toString());
+        }
+        for (VideoSegment vs : resp.list) {
+        	if (vs.getTitle().equals("nonexistantTitle")) { hasVideo = true; break; }
+        }
+        assertFalse(hasVideo);
+    }
+    
+    @Test
+    public void testGetListBadPlaylist() throws IOException {
+    	ListPlaylistVideoSegmentHandler handler = new ListPlaylistVideoSegmentHandler();
+
+    	ListPlaylistVideoSegmentsRequest request = new ListPlaylistVideoSegmentsRequest("nonexistantPlaylist");
+    	ListPlaylistVideoSegmentsResponse resp = handler.handleRequest(request, createContext("list"));
+       
+        boolean hasVideo = false;
+        
+        for (VideoSegment vs : resp.list) {
+        	System.out.println(vs.toString());
+        }
+        for (VideoSegment vs : resp.list) {
+        	if (vs.getTitle().equals("Only a god can breathe life into the dead")) { hasVideo = true; break; }
+        }
+        assertFalse(hasVideo);
     }
     
 

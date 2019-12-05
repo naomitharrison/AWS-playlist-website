@@ -1,9 +1,13 @@
 package cs3733.main.http;
 
 public class DeletePlaylistResponse {
-	public final String name;
-	public final int statusCode;
-	public final String error;
+	public String name;
+	public int statusCode;
+	public String error;
+	
+	public DeletePlaylistResponse() {
+		
+	}
 
 	public DeletePlaylistResponse(String name, int statusCode) {
 		this.name = name;

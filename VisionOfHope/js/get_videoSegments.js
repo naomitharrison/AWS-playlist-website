@@ -1,3 +1,22 @@
+function refreshVideoSegmentsForSearch() {
+	let request = new XMLHttpRequest();
+	request.open('GET', videos_url, true);
+	request.send();
+
+	console.log("sent");
+
+	request.onload = function() {
+		if (request.readyState == XMLHttpRequest.DONE) {
+			console.log ("request:" + request.responseText);
+
+			processSearchResponse(request.responseText);
+
+		} else {
+			processSearchResponse("N/A");
+		}
+	}
+}
+
 function refreshVideoSegments() {
 	let request = new XMLHttpRequest();
 	request.open('GET', videos_url, true);
@@ -14,7 +33,7 @@ function refreshVideoSegments() {
 		} else {
 			processVideoListResponse("N/A");
 		}
-	};
+	}
 }
 
 function refreshAdminVideoSegments() {
@@ -39,6 +58,7 @@ function processVideoListResponse(result) {
 	console.log("res:" + result);
 	var js = JSON.parse(result);
 	var videoList = document.getElementById('videoSegmentList');
+	var libraryHeader = document.getElementById('LibraryHeader');
 
 	var output = '';
 	output +='<ul style="list-style-type:none;">';
@@ -53,6 +73,7 @@ function processVideoListResponse(result) {
 	}
 	output += '</ul>';
 	videoList.innerHTML = output;
+	libraryHeader.innerHTML = '<h3>Local Library</h3>';
 }
 
 function processVideoListAdminResponse(result) {

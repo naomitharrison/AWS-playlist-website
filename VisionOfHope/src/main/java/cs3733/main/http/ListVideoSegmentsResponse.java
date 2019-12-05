@@ -7,10 +7,13 @@ import cs3733.main.model.VideoSegment;
 
 public class ListVideoSegmentsResponse {
 
-	public final List<VideoSegment> list;
-	public final int statusCode;
-	public final String error;
+	public  List<VideoSegment> list;
+	public  int statusCode;
+	public  String error;
 	
+	public ListVideoSegmentsResponse() {
+		
+	}
 	
 	public ListVideoSegmentsResponse(List<VideoSegment> list, int code) {
 		// TODO Auto-generated constructor stub

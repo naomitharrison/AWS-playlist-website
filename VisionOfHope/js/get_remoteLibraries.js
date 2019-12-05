@@ -22,12 +22,13 @@ function processRemoteLibrariesListResponse(result) {
 
 	var output = '';
 	output +='<ul style="list-style-type:none;">';
-	for (var i = 0; i < js.listOfRemoteLibraries.length; i++) {
-		var constantJson = js.listOfRemoteLibraries[i];
+	for (var i = 0; i < js.list.length; i++) {
+		var constantJson = js.list[i];
 		console.log(constantJson);
 
 		var cname = constantJson["name"];
-		output += '<li><input type="radio" name="remoteLibrary" value="' + cname + '">' + cname + '</li>';
+		var curl = constantJson["url"];
+		output += '<li><input type="radio" name="remoteLibrary" value="' + curl + '">' + cname + '</li>';
 	}
 	output += '</ul>';
 	console.log("final HTML: " + output);

@@ -75,7 +75,7 @@ public class VideoSegmentsDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in searching videos: " + e.getMessage());
 		}
 
 	}
@@ -107,7 +107,7 @@ public class VideoSegmentsDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in searching videos: " + e.getMessage());
 		}
 
 	}
@@ -147,7 +147,7 @@ public class VideoSegmentsDAO {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in searching videos: " + e.getMessage());
 		}
 	}
 
@@ -175,7 +175,7 @@ public class VideoSegmentsDAO {
 			return vs;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in getting video: " + e.getMessage());
 		}
 	}
 
@@ -200,19 +200,30 @@ public class VideoSegmentsDAO {
 			}
 			ps.close();
 			resultSet.close();
+			
+			System.out.println("no duplicates");
 
+			String avail;
+			if(vs.getAvailability()) {
+				avail = "Y";
+			}else {
+				avail = "N";
+			}
+			
 			// add video segment
 			ps = conn.prepareStatement("INSERT INTO library VALUES ('" + vs.getTitle() + "','" + vs.getCharacter()
-					+ "','" + vs.getUrl() + "','" + vs.getAvailability() + "');");
-			resultSet = ps.executeQuery();
+					+ "','" + vs.getUrl() + "','" + avail + "');");
+			ps.execute();
 
+			System.out.println("added to db");
+			
 			ps.close();
 			resultSet.close();
 
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in adding video: " + e.getMessage());
 		}
 	}
 
@@ -230,24 +241,25 @@ public class VideoSegmentsDAO {
 			ResultSet resultSet = ps.executeQuery();
 
 			// check if there is a returned row
-			while (resultSet.next()) {
-				// return false if there is something returned
-				return false;
+			if (resultSet.next()) {
+				// delete video segment
+				PreparedStatement ps2 = conn.prepareStatement("delete from library where videoURL = '" + URL + "';");
+				ps2.executeUpdate();
+
+				ps2.close();
+				ps.close();
+				resultSet.close();
+				return true;
 			}
 			ps.close();
 			resultSet.close();
 
-			// delete video segment
-			ps = conn.prepareStatement("delete from library where videoURL = '" + URL + "';");
-			resultSet = ps.executeQuery();
+			
 
-			ps.close();
-			resultSet.close();
-
-			return true;
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new Exception("Failed in getting videos: " + e.getMessage());
+			throw new Exception("Failed in deleting video: " + e.getMessage());
 		}
 	}
 
