@@ -53,7 +53,6 @@ public class ListPlaylistVideoSegmentsTest extends LambdaTest {
         	if (vs.getTitle().equals("nonexistantTitle")) { hasVideo = true; break; }
         }
         assertFalse(hasVideo);
-        assertEquals(403, resp.statusCode);
     }
     
     @Test
@@ -72,7 +71,6 @@ public class ListPlaylistVideoSegmentsTest extends LambdaTest {
         	if (vs.getTitle().equals("Only a god can breathe life into the dead")) { hasVideo = true; break; }
         }
         assertFalse(hasVideo);
-        assertEquals(403, resp.statusCode);
     }
     
 
