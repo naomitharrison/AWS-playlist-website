@@ -7,7 +7,7 @@ function addVideoSegment() {
     data["title"] = videoTitle;
     data["character"] = videoCharacter;
     data["base64EncodedValue"] = videoBase64[1];
-    
+
 
     var js = JSON.stringify(data);
     console.log("JS:" + js);
@@ -33,12 +33,12 @@ function addVideoSegment() {
 
 function processaddVideoSegmentResponse(result) {
     refreshVideoSegments();
-    var videoTitle = document.getElementById('videoSegmentTitle').value;
-    var videoCharacter = document.getElementById('videoSegmentCharacter').value;
-    var videoBase64 = document.getElementById('Base64').value.split(',');
+    document.getElementById('videoSegmentTitle').value = '';
+    document.getElementById('videoSegmentCharacter').value = '';
+    // var videoBase64 = document.getElementById('Base64').value.split(',');
     document.getElementById('videoFile').value = '';
 
-    videoTitle.value = '';
-    videoCharacter.value = '';
-    videoBase64.value = '';
+    // videoTitle.value = '';
+    // videoCharacter.value = '';
+    // videoBase64.value = '';
 }
