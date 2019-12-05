@@ -66,6 +66,7 @@ function processPlaylistVideoSegmentsListResponse(name, result) {
 
 	var output = '';
 	var outputTitle = '';
+	var id = 0;
 
 	outputTitle += '<div class="row"><h5 id="playlistTitleHeader">' + name + '</h5></div>';
 	output += '<div class="row"><ul style="list-style-type:none;">';
@@ -75,12 +76,22 @@ function processPlaylistVideoSegmentsListResponse(name, result) {
 		var ccharacter = videoIterate["character"];
 		var curl = videoIterate["url"];
 
-		output += '<li><input type="radio" name="playlistVideoSegment" value="' + curl
+		output += '<li><input type="radio" name="playlistVideoSegment" id="' + id + '" value="' + curl
 				+ '"><video width="320" height="240" controls><source src="'
 				+ curl + '" type="video/ogg"></video><br> Line:' + ctitle
 				+ '<br> Character: ' + ccharacter + '</li><br><br>'
+		id++;
 	}
 	output += '</ul></div>';
+	output += '<script>';
+	id = 0;
+	for (var l = 0; l < js.list.length; l++){
+		output += '<br> var num' + id + '= document.getElementById("' + id + 
+				'"); <br><br> num' + id + '.addEventListener("ended", function() {num' + id++
+				+ '.play();});'
+		id++;
+	}
+	output += '</script>';
 
 	console.log("final List HTML: " + output);
 	console.log("final Title HTML: " + outputTitle);
