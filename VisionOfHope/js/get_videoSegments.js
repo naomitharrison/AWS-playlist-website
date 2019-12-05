@@ -92,7 +92,7 @@ function processVideoListAdminResponse(result) {
 		let cavailability = constantJson["availability"];
 		output += '<div class="row"><div class="col-sm-8">';
 		output += '<input type="radio" name="videoSegment" value="' + curl + '"><video width="300" height="230" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter;
-		output += '</div><div class="col"><input type="checkbox" name="remote" value="' + curl + '"';
+		output += '</div><div class="col"><input type="checkbox" name="remoteStatus" value="' + curl + '"';
 		if(cavailability == true) {
 			output += ' checked';
 		}

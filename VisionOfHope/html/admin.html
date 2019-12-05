@@ -18,6 +18,7 @@
 <script type='text/javascript' src='../js/add_remoteLibrary.js'></script>
 <script type='text/javascript' src='../js/delete_videoSegment.js'></script>
 <script type='text/javascript' src='../js/delete_remoteLibrary.js'></script>
+<script type='text/javascript' src='/static/js/toggleRemote_videoSegment.js'></script>
 <script type="text/javascript">
 	function initialize() {
 		// get all video segments
@@ -80,7 +81,7 @@
             <h3>Options</h3>
             <input type="button" onclick="adminDeleteVideoSegment()" value="Delete Video">
             <br> <br>
-            <button type="button">Save Remote Availability</button>
+            <input type="button" onclick="toggleRemoteStatus()" value="Save Remote Availability">
         </div>
     </div>
 
