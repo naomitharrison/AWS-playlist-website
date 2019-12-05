@@ -55,7 +55,20 @@ public class ListRemoteLibrariesTest extends LambdaTest {
 		createRemoteLib();
 		createAgain();
 		removeRemoteLib();
+		removeAgain();
 
+	}
+
+	private void removeAgain() {
+		RemoteLibraryRemoveHandler removeHandler = new RemoteLibraryRemoveHandler();
+
+		RemoteLibraryRemoveRequest removeRequest = new RemoteLibraryRemoveRequest("testLibURL");
+		RemoteLibraryRemoveResponse removeResp = removeHandler.handleRequest(removeRequest, createContext("name"));
+		
+		System.out.println(removeRequest.toString());
+		System.out.println(removeResp.toString());
+		
+		assertEquals(422, removeResp.statusCode);
 	}
 
 	private void createAgain() {
@@ -63,6 +76,9 @@ public class ListRemoteLibrariesTest extends LambdaTest {
 
 		RemoteLibraryAddRequest addRequest = new RemoteLibraryAddRequest("testLibName", "testLibURL");
 		RemoteLibraryAddResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));
+		
+		System.out.println(addRequest.toString());
+		System.out.println(addResp.toString());
 		
 		assertEquals(422, addResp.statusCode);
 	}
@@ -73,9 +89,15 @@ public class ListRemoteLibrariesTest extends LambdaTest {
 		RemoteLibraryAddRequest addRequest = new RemoteLibraryAddRequest("testLibName", "testLibURL");
 		RemoteLibraryAddResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));
 
+		ListRemoteLibrariesRequest listRequest = new ListRemoteLibrariesRequest();
 		ListRemoteLibraryHandler listHandler = new ListRemoteLibraryHandler();
-		ListRemoteLibrariesResponse listResp = listHandler.handleRequest(null, createContext("list"));
+		ListRemoteLibrariesResponse listResp = listHandler.handleRequest(listRequest, createContext("list"));
 
+		System.out.println(addRequest.toString());
+		System.out.println(addResp.toString());
+		System.out.println(listRequest.toString());
+		System.out.println(listResp.toString());
+		
 		boolean hasLib = false;
 		for (RemoteLib rl : listResp.list) {
 			if (rl.getName().equals(addRequest.getName())) {
@@ -99,6 +121,9 @@ public class ListRemoteLibrariesTest extends LambdaTest {
 		ListRemoteLibraryHandler listHandler = new ListRemoteLibraryHandler();
 		ListRemoteLibrariesResponse listResp = listHandler.handleRequest(null, createContext("list"));
 
+		System.out.println(removeRequest.toString());
+		System.out.println(removeResp.toString());
+		
 		boolean noLongerHasLib = true;
 		for (RemoteLib rl : listResp.list) {
 			if (rl.getUrl().equals(removeRequest.getUrl())) {
