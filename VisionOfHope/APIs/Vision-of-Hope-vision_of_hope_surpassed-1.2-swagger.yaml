@@ -242,33 +242,6 @@ paths:
           description: invalid input, object invalid
           schema:
             $ref: '#/definitions/ErrorResponse'
-  /searchVideoSegments: 
-    post:
-      tags:
-      - participant
-      summary: request to search video segments
-      description: Requests to create a search from base64 string title and/or base64 string character
-      operationId: searchVideoSegments
-      consumes:
-      - application/json
-      produces:
-      - application/json
-      parameters:
-      - in: body
-        name: VideoSegmentSearchRequest
-        description: Search for a video segment in local and remote libraries
-        required: false
-        schema:
-          $ref: '#/definitions/VideoSegmentSearchRequest'
-      responses:
-        200:
-          description: search completed
-          schema:
-            $ref: '#/definitions/VideoSegmentSearchResponse'
-        400:
-          description: invalid input, search invalid
-          schema:
-            $ref: '#/definitions/ErrorResponse'
   /videoSegmentRemoteStatus:
     post:
       tags:
@@ -372,25 +345,6 @@ paths:
           description: invalid input, object invalid
           schema:
             $ref: '#/definitions/ErrorResponse'
-  /remoteVideoSegments:
-    get:
-      tags:
-        - participant
-      summary: request a list of all remotely available video segments
-      description: Returns a list of all remotely available video segments
-      operationId: getRemoteVideoSegments
-      produces:
-      - application/json
-      parameters: []
-      responses:
-        200:
-          description: list of remote libraries returned
-          schema:
-            $ref: '#/definitions/ListRemoteVideoSegmentsResponse'
-        403:
-          description: Database connection failed
-          schema:
-            $ref: '#/definitions/ErrorResponse'
     
 definitions:
   NewPlaylistRequest:
@@ -475,25 +429,6 @@ definitions:
     properties:
       videoUrl:
         type: string
-  VideoSegmentSearchRequest:
-    type: object
-    required:
-    - title
-    - character
-    properties:
-      title:
-        type: string
-      character:
-        type: string
-  VideoSegmentSearchResponse:
-    type: object
-    required:
-    - listOfSegments
-    properties:
-      listOfSegments:
-        type: array
-        items:
-          $ref: '#/definitions/VideoSegment'
   RemoteStatusRequest:
     type: object
     required:
@@ -612,15 +547,6 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/RemoteLibrary'
-  ListRemoteVideoSegmentsResponse:
-    type: object
-    required:
-    - listOfSegments
-    properties:
-      listOfSegments:
-        type: array
-        items:
-          $ref : '#/definitions/VideoSegment'
   ErrorResponse:
     type: object
     required:
