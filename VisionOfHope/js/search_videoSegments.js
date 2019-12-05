@@ -72,8 +72,10 @@ function processSearchVideoSegmentsResponse(result) {
 	//console.log("res:" + result);
 	//var js = JSON.parse(result);
 	var videoList = document.getElementById('videoSegmentList');
+	var libraryHeader = document.getElementById('LibraryHeader');
 
 	var output = '';
+	output += '<div class="row"><input type="button" id="switchToLibrary" value="Open Local Library" onclick="refreshVideoSegments()"></div>';
 	output +='<ul style="list-style-type:none;">';
 	for (var i = 0; i < result.list.length; i++) { // listOfSegments
 		var constantJson = result.list[i];
@@ -82,10 +84,11 @@ function processSearchVideoSegmentsResponse(result) {
 		var ctitle = constantJson["title"];
 		var ccharacter = constantJson["character"];
 		var curl = constantJson["url"];
-		output += '<li><input type="checkbox" name="' + curl + '"><video width="320" height="240" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter + '</li><br><br>';
+		output += '<li><input type="radio" name="videoSegment" value="' + curl + '"><video width="320" height="240" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter + '</li><br><br>';
 	}
 	output += '</ul>';
 	videoList.innerHTML = output;
+	libraryHeader.innerHTML = '<h3>Remote and Local Search</h3>';
 }
 
 /*
