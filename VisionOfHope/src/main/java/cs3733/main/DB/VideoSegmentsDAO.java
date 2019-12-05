@@ -49,6 +49,32 @@ public class VideoSegmentsDAO {
 
 	}
 
+	public List<VideoSegment> getRemoteVideoSegments() throws Exception {
+
+		try {
+			List<VideoSegment> videos = new ArrayList<VideoSegment>();
+
+			PreparedStatement ps = conn.prepareStatement("SELECT * FROM innodb.library");
+			ResultSet resultSet = ps.executeQuery();
+
+			while (resultSet.next()) {
+				VideoSegment vs = generateVideoSegment(resultSet);
+				if(vs.getAvailability()) {
+					videos.add(vs);
+				}
+			}
+			resultSet.close();
+			ps.close();
+
+			return videos;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Failed in getting videos: " + e.getMessage());
+		}
+
+	}
+
 	/**
 	 * returns video with the given URL
 	 * 
@@ -72,7 +98,7 @@ public class VideoSegmentsDAO {
 				}
 				ps2.executeUpdate();
 				ps2.close();
-				
+
 				return true;
 			}
 			resultSet.close();
@@ -187,15 +213,15 @@ public class VideoSegmentsDAO {
 		URL = resultSet.getString("videoURL");
 		avail = resultSet.getString("videoRemoteStatus");
 
-		if(avail.equals("Y")) {
+		if (avail.equals("Y")) {
 			isAvail = true;
-		}else {
+		} else {
 			isAvail = false;
 		}
 
 		VideoSegment vs = new VideoSegment(title, character, URL);
 		vs.setAvailability(isAvail);
-		
+
 		return vs;
 	}
 
