@@ -11,5 +11,6 @@ var deleteVideoSegment_url = base_url + "videoSegmentRemove"; // POST
 var deletePlaylist_url = base_url + "playlistRemove"; // POST
 var appendPlaylist_url = base_url + "playlistVideoSegmentAppend"; // POST
 var removeVideoPlaylist_url = base_url + "playlistVideoSegmentRemove"; // POST
+var removeRemoteLibrary_url = base_url + "remoteLibraryRemove"; // POST
 
 
