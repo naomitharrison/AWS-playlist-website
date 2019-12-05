@@ -17,23 +17,6 @@ public class Playlist {
 		return this.playlistVideos.add(vs);
 	}
 	
-	public boolean equalsPlaylist(Playlist pl) {
-		return this.equals(pl);
-	}
-	
-	public boolean removeEntry(VideoSegment vs) {
-		Iterator<VideoSegment> videos = this.playlistVideos.iterator(); 
-		Boolean Success = false;
-		while(videos.hasNext()) {
-			VideoSegment currentVS = videos.next();
-			if(currentVS.equals(vs)) {
-				videos.remove();
-				Success = true;
-			}
-		}
-		return Success;
-	}
-	
 	public ArrayList<VideoSegment> getPlaylistVideos(){
 		return this.playlistVideos;
 	}
@@ -42,7 +25,7 @@ public class Playlist {
 		return name;
 	}
 
-	@Override
+/*	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -60,7 +43,7 @@ public class Playlist {
 		} else if (!playlistVideos.equals(other.playlistVideos))
 			return false;
 		return true;
-	}
+	}*/
 
 	@Override
 	public String toString() {

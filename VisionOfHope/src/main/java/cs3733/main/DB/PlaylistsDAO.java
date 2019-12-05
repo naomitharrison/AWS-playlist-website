@@ -74,9 +74,7 @@ public class PlaylistsDAO {
 		if(URL.equals("")) {
 			return null;
 		}
-		if(URL == null) {
-			return null;
-		}
+
 		//System.out.println("SELECT * FROM library where videoURL = '" + URL + "'");
 		PreparedStatement p = conn.prepareStatement("SELECT * FROM innodb.library where videoURL = '" + URL + "';");
 		ResultSet result = p.executeQuery();
@@ -210,21 +208,26 @@ public class PlaylistsDAO {
 		try {
 			// get videos in where urls are equal
 			PreparedStatement ps = conn.prepareStatement("SELECT * FROM playlists where playlistName = '" + playlistName
-					+ "' and videoURL = '" + videoURL + "'");
+					+ "'");
 			ResultSet resultSet = ps.executeQuery();
 
+			while(resultSet.next()) {
+				PreparedStatement ps2 = conn.prepareStatement(
+						"INSERT INTO playlists VALUES ( '" + videoURL + "', '" + playlistName + "', null );");
+				ps2.execute();
+
+				ps2.close();
+				
+				ps.close();
+				resultSet.close();
+				
+				return true;
+			}
 
 			ps.close();
 			resultSet.close();
-
-			// add video segment
-			ps = conn.prepareStatement(
-					"INSERT INTO playlists VALUES ( '" + videoURL + "', '" + playlistName + "', null );");
-			ps.execute();
-
-			ps.close();
 			
-			return true;
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Failed in adding video: " + e.getMessage());

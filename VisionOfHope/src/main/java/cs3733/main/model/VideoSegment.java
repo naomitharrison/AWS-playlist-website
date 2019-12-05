@@ -44,13 +44,17 @@ public class VideoSegment {
 		}
 	}
 	
+	public void setAvailability(boolean avail) {
+		remoteAvailability = avail;
+	}
+	
 	@Override
 	public String toString() {
 		return "VideoSegment [title=" + title + ", character=" + character + ", url=" + url
 				+ ", remoteAvailability=" + remoteAvailability + "]";
 	}
 
-	@Override
+	/*@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -78,5 +82,5 @@ public class VideoSegment {
 		} else if (!url.equals(other.url))
 			return false;
 		return true;
-	}
+	}*/
 }
