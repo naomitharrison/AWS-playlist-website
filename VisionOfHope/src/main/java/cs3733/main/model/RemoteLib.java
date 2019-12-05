@@ -1,13 +1,15 @@
 package cs3733.main.model;
 
-public class RemoteLib extends AbstractLibrary {
+import java.util.ArrayList;
+
+public class RemoteLib {
 	
 	String url;
-
-
+	String name;
+	ArrayList<VideoSegment> VideoSegments;
 
 	public RemoteLib(String name, String url) {
-		super(name);
+		this.name = name;
 		this.url =url;		
 	}
 	
@@ -16,6 +18,10 @@ public class RemoteLib extends AbstractLibrary {
 	}
 	public String getUrl() {
 		return url;
+	}
+	
+	public boolean addVideo(VideoSegment vs) {
+		return VideoSegments.add(vs);
 	}
 
 	@Override

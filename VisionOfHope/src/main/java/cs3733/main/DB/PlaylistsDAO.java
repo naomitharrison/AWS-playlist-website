@@ -42,7 +42,7 @@ public class PlaylistsDAO {
 			ps.close();
 
 			for (Playlist playlist : playlists) {
-				ps = conn.prepareStatement("SELECT * FROM playlists where playlistname = '" + playlist.getName() + "'");
+				ps = conn.prepareStatement("SELECT * FROM playlists where playlistname = '" + playlist.getName() + "' and videoURL <> ''");
 				resultSet = ps.executeQuery();
 
 				while (resultSet.next()) {
@@ -71,6 +71,9 @@ public class PlaylistsDAO {
 	private VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
 		
 		String URL = resultSet.getString("videoURL");
+		if(URL.equals("")) {
+			return null;
+		}
 		if(URL == null) {
 			return null;
 		}
@@ -210,11 +213,7 @@ public class PlaylistsDAO {
 					+ "' and videoURL = '" + videoURL + "'");
 			ResultSet resultSet = ps.executeQuery();
 
-			// check if there is a returned row
-			while (resultSet.next()) {
-				// return false if there is something returned
-				return false;
-			}
+
 			ps.close();
 			resultSet.close();
 
@@ -229,7 +228,7 @@ public class PlaylistsDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("Failed in adding video: " + e.getMessage());
-		}
+		} 
 	}
 
 	public boolean deleteVideoFromPlaylist(String playlistName, String videoURL) throws Exception {

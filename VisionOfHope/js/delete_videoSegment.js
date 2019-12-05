@@ -7,7 +7,7 @@ function deleteVideoSegment() {
 
 			if (videoSegmentSelection[i].checked) {
 				var data = {};
-				data["videoUrl"] = videoSegmentSelection[i].value;
+				data["url"] = videoSegmentSelection[i].value;
 
 				var js = JSON.stringify(data);
 				console.log("JS:" + js);

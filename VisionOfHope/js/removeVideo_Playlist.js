@@ -1,12 +1,12 @@
 function removeVideoPlaylist() {
-	var currentPlaylist = document.getElementsByTagName('playlist').value;
+	var currentPlaylist = document.getElementById('playlistTitleHeader').innerHTML;
 	var playlistVideoSegmentSelection = document.getElementsByTagName('input');
-	
+
 	var data = {};
-	data["name"] = currentPlaylist;
+	data["playlistName"] = currentPlaylist;
 	for (var i = 0; i < playlistVideoSegmentSelection.length; i++) {
 		if (playlistVideoSegmentSelection[i].type == "radio"
-				&& playlistVideoSegmentSelection[i].name == "videoSegment") {
+				&& playlistVideoSegmentSelection[i].name == "playlistVideoSegment") {
 
 			if (playlistVideoSegmentSelection[i].checked) {
 				data["videoUrl"] = playlistVideoSegmentSelection[i].value;
@@ -28,7 +28,7 @@ function removeVideoPlaylist() {
 						processRemoveVideoPlaylistResponse(
 								 "N/A");
 					}
-				};
+				}
 
 			}
 		}

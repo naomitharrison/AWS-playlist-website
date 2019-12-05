@@ -40,7 +40,7 @@ if (logger != null) { logger.log("in delete from s3"); }
 		name = name.substring(60,name.length()-4);
 		//System.out.println(name);
 		
-		s3.deleteObject("cs3733visionofhopesurpassed","videos/" + name);
+		s3.deleteObject("cs3733visionofhopesurpassed","videos/" + name + ".ogg");
 		
 
 		return true;
