@@ -17,6 +17,7 @@
 <script type='text/javascript' src='../js/get_remoteLibraries.js'></script>
 <script type='text/javascript' src='../js/add_remoteLibrary.js'></script>
 <script type='text/javascript' src='../js/delete_videoSegment.js'></script>
+<script type='text/javascript' src='../js/delete_remoteLibrary.js'></script>
 <script type="text/javascript">
 	function initialize() {
 		// get all video segments
@@ -44,7 +45,7 @@
         </div>
         <div class="col-sm-4">
             <h3>Options</h3>
-            <button type="button">Delete Library</button>
+            <input type="button" onclick="deleteRemoteLibrary()" value="Delete Library">
             <br> <br>
             <div class="row">
                 <input type="text" id="remoteLibraryName" placeholder="Library Name">

@@ -27,7 +27,8 @@ function processRemoteLibrariesListResponse(result) {
 		console.log(constantJson);
 
 		var cname = constantJson["name"];
-		output += '<li><input type="radio" name="remoteLibrary" value="' + cname + '">' + cname + '</li>';
+		var curl = constantJson["url"];
+		output += '<li><input type="radio" name="remoteLibrary" value="' + curl + '">' + cname + '</li>';
 	}
 	output += '</ul>';
 	console.log("final HTML: " + output);
