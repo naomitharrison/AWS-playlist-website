@@ -127,7 +127,7 @@ public class RemoteLibrariesDAO {
 		}
 	}
 
-	public boolean deleteRemoteLib(String name, String url) throws Exception {
+	public boolean deleteRemoteLib(String url) throws Exception {
 		try {
 
 			PreparedStatement ps = conn
