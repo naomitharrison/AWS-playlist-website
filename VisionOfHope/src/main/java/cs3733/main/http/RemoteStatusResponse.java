@@ -2,9 +2,9 @@ package cs3733.main.http;
 
 public class RemoteStatusResponse {
 	
-	int statusCode;
-	String error;
-	String[] urls;
+	public int statusCode;
+	public String error;
+	public String[] urls;
 
 	public RemoteStatusResponse() {
 		

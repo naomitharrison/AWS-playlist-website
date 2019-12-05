@@ -40,11 +40,11 @@ public class RemoteStatusHandler implements RequestHandler<RemoteStatusRequest,R
 			if (working) {
 				response = new RemoteStatusResponse(req.getVideoUrls(), 200);
 			} else {
-				response = new RemoteStatusResponse(req.getVideoUrls(), 422, "Unable to create remote lib.");
+				response = new RemoteStatusResponse(req.getVideoUrls(), 422, "Unable to change remote status.");
 			}
 		} catch (Exception e) {
 			response = new RemoteStatusResponse(req.getVideoUrls(), 403,
-					"Unable to create remote lib: " + req.getVideoUrls() + "(" + e.getMessage() + ")");
+					"Unable to change remote status: " + req.getVideoUrls() + "(" + e.getMessage() + ")");
 		}
 
 		return response;
