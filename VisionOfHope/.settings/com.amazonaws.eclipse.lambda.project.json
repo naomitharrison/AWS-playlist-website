@@ -1,1 +1,5 @@
+<<<<<<< HEAD
+{"lastDeploymentHandler":"cs3733.main.RemoteLibraryRemoveHandler","lastInvokeHandler":null,"handlerMetadata":{"cs3733.main.RemoteLibraryRemoveHandler":{"deployment":{"regionId":"us-east-1","awsLambdaFunctionName":"RemoteLibraryRemoveHandler","awsIamRoleName":"Developer","awsS3BucketName":"cs3733visionofhopesurpassed","memory":0,"timeout":0},"invoke":null}},"lastInvokedHandlerDeployed":false}
+=======
 {"lastDeploymentHandler":"cs3733.main.DeletePlaylistVideoSegmentHandler","lastInvokeHandler":null,"handlerMetadata":{"cs3733.main.DeletePlaylistVideoSegmentHandler":{"deployment":{"regionId":"us-east-1","awsLambdaFunctionName":"DeletePlaylistVideoSegmentHandler","awsIamRoleName":"Developer","awsS3BucketName":"cs3733visionofhopesurpassed","memory":0,"timeout":0},"invoke":null}},"lastInvokedHandlerDeployed":false}
+>>>>>>> branch 'master' of https://github.com/lcreid1/visionofhopesurpassed.git
