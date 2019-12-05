@@ -43,9 +43,42 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 		createPlayAgain();
 		addToPlaylist();
 		deleteFromPlaylist();
+		//deleteFromPlaylistAgain();
 		deletePlaylist();
+		deletePlaylistAgain();
 		deleteVideo();
+		deleteVideoAgain();
 					
+	}
+
+	private void deleteVideoAgain() {
+		DeleteVideoSegmentHandler deleteHandler = new DeleteVideoSegmentHandler();
+
+		DeleteVideoSegmentRequest deleteRequest = new DeleteVideoSegmentRequest(
+				"https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/testTitle.ogg");
+		DeleteVideoSegmentResponse deleteResp = deleteHandler.handleRequest(deleteRequest, createContext("name"));
+		
+		assertEquals(422, deleteResp.statusCode);
+		
+	}
+
+	private void deleteFromPlaylistAgain() {
+DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegmentHandler();
+		
+		DeletePlaylistVideoSegmentRequest deleteRequest = new DeletePlaylistVideoSegmentRequest("testPlaylist","https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/testTitle.ogg");
+		DeletePlaylistVideoSegmentResponse deleteResponse = deleteHandler.handleRequest(deleteRequest,createContext("name"));
+		
+		assertEquals(422, deleteResponse.statusCode);
+	}
+
+	private void deletePlaylistAgain() {
+		DeletePlaylistHandler deleteHandler = new DeletePlaylistHandler();
+
+		DeletePlaylistRequest deleteRequest = new DeletePlaylistRequest("testPlaylist");
+		DeletePlaylistResponse deleteResp = deleteHandler.handleRequest(deleteRequest, createContext("name"));
+		
+		assertEquals(422, deleteResp.statusCode);
+		
 	}
 
 	private void deleteVideo() {
