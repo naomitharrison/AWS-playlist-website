@@ -7,8 +7,8 @@ function toggleRemoteStatus() {
     for (var i = 0; i < remoteStatusSelection.length; i++) {
         if (remoteStatusSelection[i].type == "checkbox"
             && remoteStatusSelection[i].name == "remoteStatus") {
-            data["checkboxes"].push({"checkbox": remoteStatusSelection[i].checked});
-            data["videoUrls"].push({"url": remoteStatusSelection[i].value});
+            data["checkboxes"].push(remoteStatusSelection[i].checked);
+            data["videoUrls"].push(remoteStatusSelection[i].value);
         }
     }
 

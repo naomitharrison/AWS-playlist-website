@@ -50,18 +50,18 @@
                 <input type="text" placeholder="Search Character" id="characterSearch"> <input
                     type="text" placeholder="Search Text" id="titleSearch">
                 <input type="button" onclick="searchVideoSegments()" value="Search">
-            </div>
+            </div> <br>
             <div class="row">
                 <input type="button" onclick="deleteVideoSegment()" value="Delete Video">
                 <!-- <button type="button">Show Playlists</button>  -->
-            </div>
+            </div> <br>
             <div class="row">
             	<input type="text" placeholder="Video Title" id="videoSegmentTitle">
             	<input type="text" placeholder="Character" id="videoSegmentCharacter">
             	<input name="base64Encoding" id="Base64" hidden value=""/>
             	Select a video segment file: <input type="file" id="videoFile" name="videoFile">
             	<input type="button" id="addVideoButton" value="Add Video" disabled onClick="addVideoSegment()">
-           	</div>
+           	</div><br>
            	<script>
            		<!-- prepares base64-encoded string and enables button  -->
   				function getBase64(file) {
@@ -101,11 +101,11 @@
             <div class="row">
                 <input type="button" onclick="deletePlaylist()" value="Delete Playlist">
                 <input type="button" onclick="refreshPlaylistVideoSegments()" value="Select Playlist">
-            </div>
+            </div> <br>
             <div class="row">
             	<input type="text" placeholder="Playlist Name" id="playlistName">
             	<input type="button" onclick="addPlaylist()" value="Add Playlist">
-            </div>
+            </div> <br>
             <div class="row">
                 <div id="playlistList"></div>
             </div>
@@ -114,8 +114,12 @@
             <h3>Selected Playlist</h3>
             <div id="playlistTitle"></div>
             <br>
-            <input type="button" onclick="removeVideoPlaylist()" value="Remove Video">
-            <input type="button" onclick="appendPlaylist()" value="Append Video">
+            <div class="row">
+                <input type="button" onclick="removeVideoPlaylist()" value="Remove Video">
+            </div> <br>
+            <div class="row">
+                <input type="button" onclick="appendPlaylist()" value="Append Video">
+            </div> <br>
             <div id="playlist"></div>
 
 
