@@ -21,7 +21,7 @@ import cs3733.main.http.ListVideoSegmentsRequest;
 import cs3733.main.http.ListVideoSegmentsResponse;
 import cs3733.main.model.VideoSegment;
 
-public class ListVideoSegmentsHandler implements RequestHandler<Object,ListVideoSegmentsResponse>{
+public class ListVideoSegmentsHandler implements RequestHandler<ListVideoSegmentsRequest,ListVideoSegmentsResponse>{
 
 	public LambdaLogger logger;
 
@@ -90,7 +90,7 @@ public class ListVideoSegmentsHandler implements RequestHandler<Object,ListVideo
 //	}
 	
 	@Override
-	public ListVideoSegmentsResponse handleRequest(Object input, Context context)  {
+	public ListVideoSegmentsResponse handleRequest(ListVideoSegmentsRequest input, Context context)  {
 		logger = context.getLogger();
 		logger.log("Loading Java Lambda handler to list all video segments");
 

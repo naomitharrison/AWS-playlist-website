@@ -14,6 +14,7 @@ import cs3733.main.ListPlaylistsHandler;
 import cs3733.main.ListVideoSegmentsHandler;
 import cs3733.main.NewPlaylistHandler;
 import cs3733.main.NewVideoSegmentsHandler;
+import cs3733.main.RemoteStatusHandler;
 import cs3733.main.http.AppendPlaylistRequest;
 import cs3733.main.http.AppendPlaylistResponse;
 import cs3733.main.http.DeletePlaylistRequest;
@@ -22,14 +23,18 @@ import cs3733.main.http.DeletePlaylistVideoSegmentRequest;
 import cs3733.main.http.DeletePlaylistVideoSegmentResponse;
 import cs3733.main.http.DeleteVideoSegmentRequest;
 import cs3733.main.http.DeleteVideoSegmentResponse;
+import cs3733.main.http.ListPlaylistRequest;
 import cs3733.main.http.ListPlaylistResponse;
 import cs3733.main.http.ListPlaylistVideoSegmentsRequest;
 import cs3733.main.http.ListPlaylistVideoSegmentsResponse;
+import cs3733.main.http.ListVideoSegmentsRequest;
 import cs3733.main.http.ListVideoSegmentsResponse;
 import cs3733.main.http.NewPlaylistRequest;
 import cs3733.main.http.NewPlaylistResponse;
 import cs3733.main.http.NewVideoSegmentsRequest;
 import cs3733.main.http.NewVideoSegmentsResponse;
+import cs3733.main.http.RemoteStatusRequest;
+import cs3733.main.http.RemoteStatusResponse;
 import cs3733.main.model.*;
 
 public class AddDeleteVideoPlaylist extends LambdaTest {
@@ -47,16 +52,50 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 		//deleteFromPlaylistAgain();
 		deletePlaylist();
 		deletePlaylistAgain();
+		changeRemoteStatus();
+		changeRemoteStatusAgain();
 		deleteVideo();
 		deleteVideoAgain();
 					
 	}
 	
+	private void changeRemoteStatusAgain() {
+		RemoteStatusHandler remoteHandler = new RemoteStatusHandler();
+		
+		String urls[] = {"https://cs3733visionofhopesurpassed.s3.anazonaws.com/videos/testTitle.ogg"};
+		boolean avail[] = {true};
+		RemoteStatusRequest remoteRequest = new RemoteStatusRequest(avail,urls);
+		RemoteStatusResponse remoteResponse = remoteHandler.handleRequest(remoteRequest,createContext("name"));
+		
+		System.out.println(remoteRequest.toString());
+		System.out.println(remoteResponse.toString());
+		
+		assertEquals(422, remoteResponse.statusCode);
+		
+	}
+
+	private void changeRemoteStatus() {
+		RemoteStatusHandler remoteHandler = new RemoteStatusHandler();
+		
+		String urls[] = {"https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/testTitle.ogg"};
+		boolean avail[] = {false};
+		RemoteStatusRequest remoteRequest = new RemoteStatusRequest(avail,urls);
+		RemoteStatusResponse remoteResponse = remoteHandler.handleRequest(remoteRequest,createContext("name"));
+		
+		System.out.println(remoteRequest.toString());
+		System.out.println(remoteResponse.toString());
+		
+		assertEquals(200, remoteResponse.statusCode);
+	}
+
 	private void addToPlaylistAgain() {
 		AppendPlaylistHandler appendHandler = new AppendPlaylistHandler();
 		
 		AppendPlaylistRequest appendRequest = new AppendPlaylistRequest("tesPlaylist","https://cs3733visionofhopesurpassed.s3.anazonaws.com/videos/testTitle.ogg");
 		AppendPlaylistResponse appendResponse = appendHandler.handleRequest(appendRequest,createContext("name"));
+		
+		System.out.println(appendRequest.toString());
+		System.out.println(appendResponse.toString());
 		
 		assertEquals(422, appendResponse.statusCode);
 	}
@@ -67,6 +106,9 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 		DeleteVideoSegmentRequest deleteRequest = new DeleteVideoSegmentRequest(
 				"https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/testTitle.ogg");
 		DeleteVideoSegmentResponse deleteResp = deleteHandler.handleRequest(deleteRequest, createContext("name"));
+		
+		System.out.println(deleteRequest.toString());
+		System.out.println(deleteResp.toString());
 		
 		assertEquals(422, deleteResp.statusCode);
 		
@@ -87,6 +129,9 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		DeletePlaylistRequest deleteRequest = new DeletePlaylistRequest("testPlaylist");
 		DeletePlaylistResponse deleteResp = deleteHandler.handleRequest(deleteRequest, createContext("name"));
 		
+		System.out.println(deleteRequest.toString());
+		System.out.println(deleteResp.toString());
+		
 		assertEquals(422, deleteResp.statusCode);
 		
 	}
@@ -101,10 +146,9 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		ListVideoSegmentsHandler listHandler = new ListVideoSegmentsHandler();
 		ListVideoSegmentsResponse listResp = listHandler.handleRequest(null, createContext("list"));
 
-		for (VideoSegment vs : listResp.list) {
-			System.out.println(vs.toString());
-		}
-
+		System.out.println(deleteRequest.toString());
+		System.out.println(deleteResp.toString());
+		
 		boolean noLongerHasVideo = true;
 		for (VideoSegment vs : listResp.list) {
 			if (vs.getTitle().equals("testTitle")) {
@@ -127,6 +171,9 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		ListPlaylistsHandler listHandler = new ListPlaylistsHandler();
 		ListPlaylistResponse listResp = listHandler.handleRequest(null, createContext("list"));
 
+		System.out.println(deleteRequest.toString());
+		System.out.println(deleteResp.toString());
+		
 		for (Playlist p : listResp.list) {
 			System.out.println(p.toString());
 		}
@@ -153,11 +200,10 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		ListPlaylistVideoSegmentsRequest listRequest = new ListPlaylistVideoSegmentsRequest("testPlaylist");
 		ListPlaylistVideoSegmentHandler listHandler = new ListPlaylistVideoSegmentHandler();
 		ListPlaylistVideoSegmentsResponse listResp = listHandler.handleRequest(listRequest, createContext("list"));
-		
-		for (VideoSegment vs : listResp.list) {
-			System.out.println(vs.toString());
-		}
 
+		System.out.println(deleteRequest.toString());
+		System.out.println(deleteResponse.toString());
+		
 		boolean hasVideo = true;
 		for (VideoSegment vs : listResp.list) {
 			if (vs.getTitle().equals("testTitle")) {
@@ -181,9 +227,10 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		ListPlaylistVideoSegmentHandler listHandler = new ListPlaylistVideoSegmentHandler();
 		ListPlaylistVideoSegmentsResponse listResp = listHandler.handleRequest(listRequest, createContext("list"));
 		
-		for (VideoSegment vs : listResp.list) {
-			System.out.println(vs.toString());
-		}
+		System.out.println(appendRequest.toString());
+		System.out.println(appendResponse.toString());
+		System.out.println(listRequest.toString());
+		System.out.println(listResp.toString());
 
 		boolean hasVideo = false;
 		for (VideoSegment vs : listResp.list) {
@@ -202,14 +249,16 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 
 		NewPlaylistRequest addRequest = new NewPlaylistRequest("testPlaylist");
 		NewPlaylistResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));
-
+		
+		ListPlaylistRequest listRequest = new ListPlaylistRequest();
 		ListPlaylistsHandler listHandler = new ListPlaylistsHandler();
-		ListPlaylistResponse listResp = listHandler.handleRequest(null, createContext("list"));
+		ListPlaylistResponse listResp = listHandler.handleRequest(listRequest, createContext("list"));
 
-		/*for (Playlist p : listResp.list) {
-			System.out.println(p.toString());
-		}*/
-
+		System.out.println(addRequest.toString());
+		System.out.println(addResp.toString());
+		System.out.println(listRequest.toString());
+		System.out.println(listResp.toString());
+		
 		boolean hasVideo = false;
 		for (Playlist p : listResp.list) {
 			if (p.getName().equals("testPlaylist")) {
@@ -229,6 +278,9 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		NewPlaylistRequest addRequest = new NewPlaylistRequest("testPlaylist");
 		NewPlaylistResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));
 
+		System.out.println(addRequest.toString());
+		System.out.println(addResp.toString());
+		
 		assertEquals(422, addResp.statusCode);
 	}
 	
@@ -238,6 +290,9 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		NewVideoSegmentsRequest addRequest = new NewVideoSegmentsRequest("testTitle", "testCharater",
 				"Mi43MTgyODE4Mjg=", true);
 		NewVideoSegmentsResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));	
+		
+		System.out.println(addRequest.toString());
+		System.out.println(addResp.toString());
 		
 		assertEquals(422, addResp.statusCode);
 
@@ -250,16 +305,15 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 				"Mi43MTgyODE4Mjg=", true);
 		NewVideoSegmentsResponse addResp = addHandler.handleRequest(addRequest, createContext("name"));
 
+		ListVideoSegmentsRequest listRequest = new ListVideoSegmentsRequest();
 		ListVideoSegmentsHandler listHandler = new ListVideoSegmentsHandler();
-		ListVideoSegmentsResponse listResp = listHandler.handleRequest(null, createContext("list"));
+		ListVideoSegmentsResponse listResp = listHandler.handleRequest(listRequest, createContext("list"));
 
-		System.out.println("********************");
-
-		for (VideoSegment vs : listResp.list) {
-			System.out.println(vs.toString());
-		}
-		System.out.println("**********************");
-
+		System.out.println(addRequest.toString());
+		System.out.println(addResp.toString());
+		System.out.println(listRequest.toString());
+		System.out.println(listResp.toString());
+		
 		boolean hasVideo = false;
 		for (VideoSegment vs : listResp.list) {
 			if (vs.getTitle().equals("testTitle")) {

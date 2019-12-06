@@ -1,6 +1,6 @@
 // all access driven through BASE. Must end with a SLASH
 // be sure you change to accommodate your specific API Gateway entry point
-var base_url = "https://82ql26euih.execute-api.us-east-1.amazonaws.com/G_3_3/"; 
+var base_url = "  https://w0bv9ygw0b.execute-api.us-east-1.amazonaws.com/G_3_5/"; 
 
 var videos_url    = base_url + "videoSegments";   // GET + POST
 var playlists_url = base_url + "playlists";     // GET + POST
