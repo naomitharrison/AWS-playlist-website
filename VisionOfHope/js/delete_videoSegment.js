@@ -73,6 +73,7 @@ function adminDeleteVideoSegment() {
 
 function processDeleteVideoSegmentResponse(result) {
 	refreshVideoSegments();
+	refreshCurrentPlaylistVideos();
 }
 
 function processAdminDeleteVideoSegmentResponse(result) {
