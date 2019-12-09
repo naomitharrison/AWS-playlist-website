@@ -1,21 +1,47 @@
 function searchVideoSegments() {
-    refreshVideoSegmentsForSearch();
+    var videoList = document.getElementById('videoSegmentList');
+    while (videoList.firstChild) {
+    	videoList.removeChild(videoList.firstChild);
+  	}
+  	videoList.innerHtml = '<div class="row"><input type="button" id="switchToLibrary" value="Open Local Library" onclick="refreshVideoSegments()"></div>';
+
+    var libraryHeader = document.getElementById('LibraryHeader');
+	libraryHeader.innerHTML = '<h3>Remote and Local Search</h3>';
+
+	var characterSearch = document.getElementById('characterSearch').value;
+    var titleSearch = document.getElementById('titleSearch').value;
+    document.getElementById('characterSearch').value = '';
+    document.getElementById('titleSearch').value = '';
+
+	refreshVideoSegmentsForSearch(characterSearch, titleSearch);
+	getRemoteLibrariesForSearch(characterSearch, titleSearch);
 }
 
-function processSearchResponse(js) {
-    var characterSearch = document.getElementById('characterSearch').value;
-    var titleSearch = document.getElementById('titleSearch').value;
+function getRemoteLibraryVideoSegments(remoteLibraries, characterSearch, titleSearch) {
+	console.log(remoteLibraries);
+	let libraries = JSON.parse(remoteLibraries);
+
+	for(var i = 0; i < libraries.list.length; i++) {
+		var library = libraries.list[i];
+		getRemoteVideoSegmentsForSearch(library.url, characterSearch, titleSearch);
+	}
+}
+
+function processSearchResponse(result, characterSearch, titleSearch) {
+	console.log(result);
+
+	let libraryVideos = JSON.parse(result);
+
     // console.log("char:" + characterSearch);
     // console.log("title:" + titleSearch);
-    let libraryVideos = JSON.parse(js);
 
     var searchResult = {};
-    searchResult["list"] = [];
+    searchResult["segments"] = [];
 
     if (characterSearch != "") {
         searchResult = searchByCharacter(characterSearch, searchResult, libraryVideos);
     } else {
-        searchResult["list"] = libraryVideos["list"];
+        searchResult["segments"] = libraryVideos["segments"];
     }
 
     // var newJs = JSON.stringify(searchResult);
@@ -34,17 +60,17 @@ function processSearchResponse(js) {
 
 function searchByCharacter(character, searchResult, libraryVideos) {
     var newSearchResult = {};
-    newSearchResult["list"] = [];
+    newSearchResult["segments"] = [];
 
-    for (var i = 0; i < libraryVideos.list.length; i++) {
-        var constantJson = libraryVideos.list[i];
-        var ctitle = constantJson["title"];
+    for (var i = 0; i < libraryVideos.segments.length; i++) {
+        var constantJson = libraryVideos.segments[i];
+        var ctitle = constantJson["text"];
 		var ccharacter = constantJson["character"];
 		var curl = constantJson["url"];
 
 		if(ccharacter === character) {
-		    var newEntry = {title: ctitle, character: ccharacter, url: curl};
-		    newSearchResult["list"].push(newEntry);
+		    var newEntry = {text: ctitle, character: ccharacter, url: curl};
+		    newSearchResult["segments"].push(newEntry);
         }
     }
     return newSearchResult;
@@ -52,17 +78,17 @@ function searchByCharacter(character, searchResult, libraryVideos) {
 
 function searchByTitle(title, searchResult) {
     var newSearchResult = {};
-    newSearchResult["list"] = [];
+    newSearchResult["segments"] = [];
 
-    for (var i = 0; i < searchResult.list.length; i++) {
-        var constantJson = searchResult.list[i];
-        var ctitle = constantJson["title"];
+    for (var i = 0; i < searchResult.segments.length; i++) {
+        var constantJson = searchResult.segments[i];
+        var ctitle = constantJson["text"];
 		var ccharacter = constantJson["character"];
 		var curl = constantJson["url"];
 
 		if(ctitle.includes(title)) {
-		    var newEntry = {title: ctitle, character: ccharacter, url: curl};
-		    newSearchResult["list"].push(newEntry);
+		    var newEntry = {text: ctitle, character: ccharacter, url: curl};
+		    newSearchResult["segments"].push(newEntry);
         }
     }
     return newSearchResult;
@@ -72,23 +98,23 @@ function processSearchVideoSegmentsResponse(result) {
 	//console.log("res:" + result);
 	//var js = JSON.parse(result);
 	var videoList = document.getElementById('videoSegmentList');
-	var libraryHeader = document.getElementById('LibraryHeader');
 
 	var output = '';
-	output += '<div class="row"><input type="button" id="switchToLibrary" value="Open Local Library" onclick="refreshVideoSegments()"></div>';
+
 	output +='<ul style="list-style-type:none;">';
-	for (var i = 0; i < result.list.length; i++) { // listOfSegments
-		var constantJson = result.list[i];
+	for (var i = 0; i < result.segments.length; i++) { // listOfSegments
+		var constantJson = result.segments[i];
 		console.log(constantJson);
 
-		var ctitle = constantJson["title"];
+		var ctitle = constantJson["text"];
 		var ccharacter = constantJson["character"];
 		var curl = constantJson["url"];
 		output += '<li><input type="radio" name="videoSegment" value="' + curl + '"><video width="320" height="240" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter + '</li><br><br>';
 	}
 	output += '</ul>';
-	videoList.innerHTML = output;
-	libraryHeader.innerHTML = '<h3>Remote and Local Search</h3>';
+	var newElement = document.createElement('div');
+	newElement.innerHTML = output;
+	videoList.appendChild(newElement);
 }
 
 /*

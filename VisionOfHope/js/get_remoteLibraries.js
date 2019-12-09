@@ -15,6 +15,46 @@ function refreshRemoteLibraries() {
 	};
 }
 
+function getRemoteLibrariesForSearch(characterSearch, titleSearch) {
+	let request = new XMLHttpRequest();
+	request.open('GET', remoteLibraries_url, true);
+	request.send();
+
+	console.log("sent");
+
+	request.onload = function() {
+		if (request.readyState == XMLHttpRequest.DONE) {
+			console.log ("request:" + request.responseText);
+			getRemoteLibraryVideoSegments(request.responseText, characterSearch, titleSearch);
+		} else {
+			getRemoteLibraryVideoSegments("N/A", characterSearch, titleSearch);
+		}
+	};
+}
+
+
+
+
+function getRemoteVideoSegmentsForSearch(fullURL, characterSearch, titleSearch) {
+	let parts = fullURL.split("?apikey=");
+	console.log(parts);
+	var request = new XMLHttpRequest();
+	request.open("GET", parts[0], true);
+	request.setRequestHeader("x-api-key", parts[1]);
+
+	request.send();
+	console.log("sent");
+
+	request.onloadend = function () {
+		if (request.readyState == XMLHttpRequest.DONE) {
+			console.log ("XHR:" + request.responseText);
+			processSearchResponse(request.responseText, characterSearch, titleSearch);
+		} else {
+			processSearchResponse("N/A", characterSearch, titleSearch);
+		}
+	}
+}
+
 function processRemoteLibrariesListResponse(result) {
 	console.log("res:" + result);
 	var js = JSON.parse(result);
