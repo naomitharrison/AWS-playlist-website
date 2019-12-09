@@ -16,8 +16,6 @@ import com.amazonaws.util.json.Jackson;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import cs3733.main.DB.VideoSegmentsDAO;
-import cs3733.main.http.RemoteStatusRequest;
-import cs3733.main.http.RemoteStatusResponse;
 
 public class RemoteStatusHandler implements RequestStreamHandler {
 
@@ -79,20 +77,20 @@ public class RemoteStatusHandler implements RequestStreamHandler {
         	node = Jackson.fromJsonString(node.get("body").asText(), JsonNode.class);
         }
         
+        //create list params
     	boolean[] checkboxes;
     	String[] videoUrls;
     	
-    	String param = node.get("checkboxes").asText();
-    	boolean error = false;
-		try {
-			checkboxes = Double.parseDouble(param); //yeah ok but how do i get an array of boolean?
+    	JsonNode boxes = node.get("checkboxes");
+    	JsonNode urls = node.get("videoUrls");
+    	for(int j = 0; j<urls.size(); j++) {
+            videoUrls[j] = urls.get(j).asText();
+        }
+    	for(int k = 0; k<urls.size(); k++) {
+    		checkboxes[k] = boxes.get(k).asBoolean();
     	}
     	
-		param = node.get("videoUrls").asText();
-		try {
-			videoUrls = param; //how does this output? array?? do i have to manually separate it? :(
-    	}
-
+    	
 		VideoSegmentsDAO dao = new VideoSegmentsDAO();
 
 //		RemoteStatusResponse response;
@@ -128,7 +126,7 @@ public class RemoteStatusHandler implements RequestStreamHandler {
 	String response = "{ \n" + "  \"isBase64Encoded\" : false, \n" + "  \"statusCode\"      : " + statusCode + ", \n"
 			+ "  \"headers\" : { \n " + "     \"Access-Control-Allow-Origin\" : \"*\", \n"
 			+ "     \"Access-Control-Allow-Method\"  : \"GET,POST,OPTIONS\" \n" + "  }, \n" + "  \"body\" : \""
-			+ "{ \\\"result\\\" : \\\"" + videoUrls + "\\\" }" + "\" \n" + "}"; //videoUrls seems like the wrong thing to put here
+			+ "{ \\\"result\\\" : \\\"" + result + "\\\" }" + "\" \n" + "}"; //does this need to be changed?
 
 	// write out.
 	pw.print(response);pw.close(); //is this gonna send the information?? i dont understand how it works
