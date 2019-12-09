@@ -7,7 +7,7 @@ import cs3733.main.model.VideoSegment;
 
 public class RemoteVideoSegmentsResponse {
 
-	public  List<VideoSegment> list;
+	public  List<VideoSegment> segments;
 	public  int statusCode;
 	public  String error;
 	
@@ -15,25 +15,25 @@ public class RemoteVideoSegmentsResponse {
 		
 	}
 	
-	public RemoteVideoSegmentsResponse(List<VideoSegment> list, int code) {
+	public RemoteVideoSegmentsResponse(List<VideoSegment> segments, int code) {
 		// TODO Auto-generated constructor stub
-		this.list = list;
+		this.segments = segments;
 		this.statusCode = code;
 		this.error = "";
 	}
 
 	public RemoteVideoSegmentsResponse(int code, String errorMessage) {
 		// TODO Auto-generated constructor stub
-		this.list = new ArrayList<VideoSegment>();
+		this.segments = new ArrayList<VideoSegment>();
 		this.statusCode = code;
 		this.error = errorMessage;
 	}
 	
 	public String toString() {
-		if(list==null) {
+		if(segments==null) {
 			return "EmptyRemoteVideoSegments";
 		}
-		return "RemoteVideoSegments(" + list.size() + ")";
+		return "RemoteVideoSegments(" + segments.size() + ")";
 	}
 
 }
