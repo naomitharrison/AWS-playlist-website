@@ -5,6 +5,6 @@ public class RemoteVideoSegmentsRequest {
 	RemoteVideoSegmentsRequest(){}
 	
 	public String toString() {
-		return "List()";
+		return "segments()";
 	}
 }
