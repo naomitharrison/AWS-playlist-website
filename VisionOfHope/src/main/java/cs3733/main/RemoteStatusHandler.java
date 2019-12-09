@@ -90,7 +90,7 @@ public class RemoteStatusHandler implements RequestStreamHandler {
     	
 		param = node.get("videoUrls").asText();
 		try {
-			videoUrls = param; //turn array of strings(?? how does this output?) into multiple strings
+			videoUrls = param; //how does this output? array?? do i have to manually separate it? :(
     	}
 
 		VideoSegmentsDAO dao = new VideoSegmentsDAO();
