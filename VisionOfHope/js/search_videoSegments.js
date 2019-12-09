@@ -109,7 +109,7 @@ function processSearchVideoSegmentsResponse(result) {
 		var ctitle = constantJson["text"];
 		var ccharacter = constantJson["character"];
 		var curl = constantJson["url"];
-		output += '<li><input type="radio" name="videoSegment" value="' + curl + '"><video width="320" height="240" controls><source src="' + curl +'" type="video/ogg"></video><br> Line:' + ctitle + '<br> Character: ' + ccharacter + '</li><br><br>';
+		output += '<li><input type="radio" name="videoSegment" value="' + curl + '"><video width="320" height="240" controls><source src="' + curl +'" type="video/ogg"></video><br> Line: ' + ctitle + '<br> Character: ' + ccharacter + '</li><br><br>';
 	}
 	output += '</ul>';
 	var newElement = document.createElement('div');
