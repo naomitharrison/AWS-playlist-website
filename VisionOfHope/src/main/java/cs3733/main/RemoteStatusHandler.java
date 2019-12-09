@@ -85,7 +85,7 @@ public class RemoteStatusHandler implements RequestStreamHandler {
     	String param = node.get("checkboxes").asText();
     	boolean error = false;
 		try {
-			checkboxes = Double.parseDouble(param); //???
+			checkboxes = Double.parseDouble(param); //yeah ok but how do i get an array of boolean?
     	}
     	
 		param = node.get("videoUrls").asText();
