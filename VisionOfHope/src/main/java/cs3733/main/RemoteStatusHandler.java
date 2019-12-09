@@ -78,15 +78,15 @@ public class RemoteStatusHandler implements RequestStreamHandler {
         }
         
         //create list params
-    	boolean[] checkboxes;
-    	String[] videoUrls;
-    	
     	JsonNode boxes = node.get("checkboxes");
     	JsonNode urls = node.get("videoUrls");
+    	boolean[] checkboxes = new boolean[urls.size()];
+    	String[] videoUrls = new String[urls.size()];
+    	
     	for(int j = 0; j<urls.size(); j++) {
             videoUrls[j] = urls.get(j).asText();
         }
-    	for(int k = 0; k<urls.size(); k++) {
+    	for(int k = 0; k<boxes.size(); k++) {
     		checkboxes[k] = boxes.get(k).asBoolean();
     	}
     	
@@ -126,10 +126,10 @@ public class RemoteStatusHandler implements RequestStreamHandler {
 	String response = "{ \n" + "  \"isBase64Encoded\" : false, \n" + "  \"statusCode\"      : " + statusCode + ", \n"
 			+ "  \"headers\" : { \n " + "     \"Access-Control-Allow-Origin\" : \"*\", \n"
 			+ "     \"Access-Control-Allow-Method\"  : \"GET,POST,OPTIONS\" \n" + "  }, \n" + "  \"body\" : \""
-			+ "{ \\\"result\\\" : \\\"" + result + "\\\" }" + "\" \n" + "}"; //does this need to be changed?
+			+ "{ \\\"result\\\" : \\\"" + "ok" + "\\\" }" + "\" \n" + "}"; 
 
 	// write out.
-	pw.print(response);pw.close(); //is this gonna send the information?? i dont understand how it works
+	pw.print(response);pw.close(); 
 	}
 
 }
