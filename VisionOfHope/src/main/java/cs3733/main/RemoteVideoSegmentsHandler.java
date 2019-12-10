@@ -11,8 +11,7 @@ import cs3733.main.http.RemoteVideoSegmentsRequest;
 import cs3733.main.http.RemoteVideoSegmentsResponse;
 import cs3733.main.model.VideoSegment;
 
-public class RemoteVideoSegmentsHandler
-		implements RequestHandler<RemoteVideoSegmentsRequest, RemoteVideoSegmentsResponse> {
+public class RemoteVideoSegmentsHandler implements RequestHandler<RemoteVideoSegmentsRequest, RemoteVideoSegmentsResponse> {
 
 	public LambdaLogger logger;
 
