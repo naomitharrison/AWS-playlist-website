@@ -7,6 +7,6 @@ public class ListVideoSegmentsRequest {
 	}
 
 	public String toString() {
-		return "List()";
+		return "segments()";
 	}
 }
