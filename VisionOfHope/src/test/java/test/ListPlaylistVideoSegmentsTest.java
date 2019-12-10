@@ -27,11 +27,11 @@ public class ListPlaylistVideoSegmentsTest extends LambdaTest {
        
         boolean hasVideo = false;
         
-        for (VideoSegment vs : resp.list) {
-        	System.out.println(vs.toString());
+        for (String vs : resp.list) {
+        	System.out.println(vs);
         }
-        for (VideoSegment vs : resp.list) {
-        	if (vs.getTitle().equals("Only a god can breathe life into the dead")) { hasVideo = true; break; }
+        for (String vs : resp.list) {
+        	if (vs.equals("https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/Only+a+god+can+breathe+life+into+the+dead.ogg")) { hasVideo = true; break; }
         }
         assertTrue(hasVideo);
         assertEquals(200, resp.statusCode);
@@ -46,11 +46,11 @@ public class ListPlaylistVideoSegmentsTest extends LambdaTest {
        
         boolean hasVideo = false;
         
-        for (VideoSegment vs : resp.list) {
-        	System.out.println(vs.toString());
+        for (String vs : resp.list) {
+        	System.out.println(vs);
         }
-        for (VideoSegment vs : resp.list) {
-        	if (vs.getTitle().equals("nonexistantTitle")) { hasVideo = true; break; }
+        for (String vs : resp.list) {
+        	if (vs.equals("https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/Only+a+god+can+breathe+life+into+the.ogg")) { hasVideo = true; break; }
         }
         assertFalse(hasVideo);
     }
@@ -64,11 +64,11 @@ public class ListPlaylistVideoSegmentsTest extends LambdaTest {
        
         boolean hasVideo = false;
         
-        for (VideoSegment vs : resp.list) {
-        	System.out.println(vs.toString());
+        for (String vs : resp.list) {
+        	System.out.println(vs);
         }
-        for (VideoSegment vs : resp.list) {
-        	if (vs.getTitle().equals("Only a god can breathe life into the dead")) { hasVideo = true; break; }
+        for (String vs : resp.list) {
+        	if (vs.equals("https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/Only+a+god+can+breathe+life+into+the+dead.ogg")) { hasVideo = true; break; }
         }
         assertFalse(hasVideo);
     }

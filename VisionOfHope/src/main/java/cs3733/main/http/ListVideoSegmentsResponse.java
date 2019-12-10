@@ -7,7 +7,7 @@ import cs3733.main.model.VideoSegment;
 
 public class ListVideoSegmentsResponse {
 
-	public  List<VideoSegment> list;
+	public  List<VideoSegment> segments;
 	public  int statusCode;
 	public  String error;
 	
@@ -15,25 +15,25 @@ public class ListVideoSegmentsResponse {
 		
 	}
 	
-	public ListVideoSegmentsResponse(List<VideoSegment> list, int code) {
+	public ListVideoSegmentsResponse(List<VideoSegment> segments, int code) {
 		// TODO Auto-generated constructor stub
-		this.list = list;
+		this.segments = segments;
 		this.statusCode = code;
 		this.error = "";
 	}
 
 	public ListVideoSegmentsResponse(int code, String errorMessage) {
 		// TODO Auto-generated constructor stub
-		this.list = new ArrayList<VideoSegment>();
+		this.segments = new ArrayList<VideoSegment>();
 		this.statusCode = code;
 		this.error = errorMessage;
 	}
 	
 	public String toString() {
-		if(list==null) {
+		if(segments==null) {
 			return "EmptyVideoSegments";
 		}
-		return "AllVideoSegments(" + list.size() + ")";
+		return "AllVideoSegments(" + segments.size() + ")";
 	}
 
 }

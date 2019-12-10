@@ -6,7 +6,7 @@ import java.util.List;
 import cs3733.main.model.VideoSegment;
 
 public class ListPlaylistVideoSegmentsResponse {
-	public  List<VideoSegment> list;
+	public  List<String> list;
 	public  int statusCode;
 	public  String error;
 	
@@ -14,7 +14,7 @@ public class ListPlaylistVideoSegmentsResponse {
 		
 	}
 	
-	public ListPlaylistVideoSegmentsResponse(List<VideoSegment> list, int code) {
+	public ListPlaylistVideoSegmentsResponse(List<String> list, int code) {
 		// TODO Auto-generated constructor stub
 		this.list = list;
 		this.statusCode = code;
@@ -23,7 +23,7 @@ public class ListPlaylistVideoSegmentsResponse {
 
 	public ListPlaylistVideoSegmentsResponse(int code, String errorMessage) {
 		// TODO Auto-generated constructor stub
-		this.list = new ArrayList<VideoSegment>();
+		this.list = new ArrayList<String>();
 		this.statusCode = code;
 		this.error = errorMessage;
 	}

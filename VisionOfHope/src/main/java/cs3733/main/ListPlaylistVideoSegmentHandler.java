@@ -21,7 +21,7 @@ public class ListPlaylistVideoSegmentHandler implements RequestHandler<ListPlayl
 	 * find playlist video segments in RDS
 	 * @throws Exception 
 	 */
-	List<VideoSegment> getPlaylistVideoSegments(String playlistName) throws Exception {
+	List<String> getPlaylistVideoSegments(String playlistName) throws Exception {
 		logger.log("in getPlaylistVideoSegments");
 		PlaylistsDAO dao = new PlaylistsDAO();
 		
@@ -47,7 +47,7 @@ public class ListPlaylistVideoSegmentHandler implements RequestHandler<ListPlayl
 		try {
 			// get all video segments associated with a playlist in the database
 			logger.log(input.getName());
-			List<VideoSegment> list = getPlaylistVideoSegments(input.getName());
+			List<String> list = getPlaylistVideoSegments(input.getName());
 			response = new ListPlaylistVideoSegmentsResponse(list, 200);
 		} catch (Exception e) {
 			response = new ListPlaylistVideoSegmentsResponse(403, e.getMessage());

@@ -24,10 +24,10 @@ public class ListVideoSegmentsTest extends LambdaTest {
         
         boolean hasVideo = false;
         
-        for (VideoSegment vs : resp.list) {
+        for (VideoSegment vs : resp.segments) {
         	System.out.println(vs.toString());
         }
-        for (VideoSegment vs : resp.list) {
+        for (VideoSegment vs : resp.segments) {
         	if (vs.getTitle().equals("It will be our secret")) { hasVideo = true; break; }
         }
         assertTrue(hasVideo);
