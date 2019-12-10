@@ -1,0 +1,68 @@
+swagger: '2.0'
+info:
+  version: "1.0"
+  title: 'API for RemoteSegments'
+  description: 'Communication between browser and AWS lambda function'
+tags:
+- name: participant
+  description: Operations available to regular consumers
+paths:
+  /remoteVideoSegments
+    get:
+      tags:
+      - participant
+      summary: request a list of all remotely available video segments
+      description: Returns a list of all remotely available video segments
+      operationId: getRemoteVideoSegments
+      produces:
+      - application/json
+      parameters: []
+      responses:
+        200:
+          description: list of playlists returned
+          schema: 
+            $ref: '#/definitions/RemoteVideoSegmentsResponse'
+        403:
+          description: Connection failed
+          schema:
+            $ref: '#/definitions/ErrorResponse'
+ 
+definitions:
+  RemoteVideoSegmentsResponse:
+    type: object
+    required:
+    - listOfSegments
+    properties:
+      listOfSegments:
+        type: array
+        items:
+          $ref: '#/definitions/VideoSegment'
+  ErrorResponse:
+    type: object
+    required:
+    - errorMessage
+    properties:
+      errorMessage:
+        type: string
+  VideoSegment:
+    type: object
+    required:
+    - title
+    - character
+    - url
+    - remoteStatus
+    properties:
+      title:
+        type: string
+      character:
+        type: string
+      url:
+        type: string
+      remoteStatus:
+        type: boolean
+
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /Vision-of-Hope/vision_of_hope_surpassed/1.0
+schemes:
+ - https
