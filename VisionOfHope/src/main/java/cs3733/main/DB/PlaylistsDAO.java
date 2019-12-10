@@ -46,9 +46,8 @@ public class PlaylistsDAO {
 				resultSet = ps.executeQuery();
 
 				while (resultSet.next()) {
-					VideoSegment vs = generateVideoSegment(resultSet);
-					if(vs!=null)
-						playlist.appendEntry(vs);
+					String URL = resultSet.getString("videoURL");
+					playlist.appendEntry(URL);
 				}
 				resultSet.close();
 				ps.close();
@@ -68,7 +67,7 @@ public class PlaylistsDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	private VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
+	/*private VideoSegment generateVideoSegment(ResultSet resultSet) throws Exception {
 		
 		String URL = resultSet.getString("videoURL");
 		if(URL.equals("")) {
@@ -90,7 +89,7 @@ public class PlaylistsDAO {
 		p.close();
 
 		return new VideoSegment(title, character, URL);
-	}
+	}*/
 
 	/**
 	 * creats a playlist with empty video list
@@ -114,13 +113,12 @@ public class PlaylistsDAO {
 
 			// all playlist names are unique
 			PreparedStatement ps = conn
-					.prepareStatement("SELECT * FROM playlists where playlistname = '" + playlist.getName() + "'");
+					.prepareStatement("SELECT * FROM playlists where playlistname = '" + playlist.getName() + "' and videoURL <> ''");
 			ResultSet resultSet = ps.executeQuery();
 
 			while (resultSet.next()) {
-				VideoSegment vs = generateVideoSegment(resultSet);
-				if(vs!=null)
-					playlist.appendEntry(vs);
+				String URL = resultSet.getString("videoURL");
+				playlist.appendEntry(URL);
 			}
 			resultSet.close();
 			ps.close();
@@ -140,7 +138,7 @@ public class PlaylistsDAO {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<VideoSegment> getPlaylistVideoSegments(String playlistName) throws Exception {
+	public List<String> getPlaylistVideoSegments(String playlistName) throws Exception {
 		Playlist p = getPlaylist(playlistName);
 
 		return p.getPlaylistVideos();
