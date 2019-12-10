@@ -6,19 +6,19 @@ import java.util.Iterator;
 public class Playlist {
 
 	String name;
-	ArrayList<VideoSegment> playlistVideos;
+	ArrayList<String> videoURLs;
 	
 	public Playlist(String name) {
 		this.name = name;
-		this.playlistVideos = new ArrayList<VideoSegment>();
+		this.videoURLs = new ArrayList<String>();
 	}
 	
-	public boolean appendEntry(VideoSegment vs) {
-		return this.playlistVideos.add(vs);
+	public boolean appendEntry(String URL) {
+		return this.videoURLs.add(URL);
 	}
 	
-	public ArrayList<VideoSegment> getPlaylistVideos(){
-		return this.playlistVideos;
+	public ArrayList<String> getPlaylistVideos(){
+		return this.videoURLs;
 	}
 	
 	public String getName() {
@@ -47,6 +47,6 @@ public class Playlist {
 
 	@Override
 	public String toString() {
-		return "Playlist [name=" + name + ", playlistVideos=" + playlistVideos + "]";
+		return "Playlist [name=" + name + ", playlistVideos=" + videoURLs + "]";
 	}
 }

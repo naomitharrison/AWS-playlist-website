@@ -26,8 +26,8 @@ public class RemoteVideoSegmentsHandler
 		logger.log("DAO Created");
 		RemoteVideoSegmentsResponse response;
 		try {
-			List<VideoSegment> list = dao.getRemoteVideoSegments();
-			response = new RemoteVideoSegmentsResponse(list, 200);
+			List<VideoSegment> segments = dao.getRemoteVideoSegments();
+			response = new RemoteVideoSegmentsResponse(segments, 200);
 		} catch (Exception e) {
 			response = new RemoteVideoSegmentsResponse(403, e.getMessage());
 		}
