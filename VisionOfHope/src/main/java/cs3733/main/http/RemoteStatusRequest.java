@@ -1,7 +1,5 @@
 package cs3733.main.http;
 
-import java.sql.Array;
-
 public class RemoteStatusRequest {
 
 	boolean[] checkboxes;
