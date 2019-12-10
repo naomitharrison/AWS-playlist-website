@@ -85,3 +85,9 @@ function processPlaylistVideoSegmentsListResponse(name, result) {
 	playlistName.innerHTML = outputTitle;
 
 }
+
+function clearPlaylistVideoSegments() {
+	document.getElementById('playlist').innerHTML = '';
+	document.getElementById('playlistTitle').innerHTML = '';
+
+}
