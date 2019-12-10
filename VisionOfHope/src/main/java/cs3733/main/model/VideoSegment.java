@@ -18,6 +18,10 @@ public class VideoSegment {
 		
 	}
 	
+	public String getText() {
+		return this.title; 
+	}
+	
 	public String getTitle() {
 		return this.title; 
 	}
