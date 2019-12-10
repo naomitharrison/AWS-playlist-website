@@ -70,8 +70,8 @@ function processPlaylistVideoSegmentsListResponse(name, result) {
 	outputTitle += '<div class="row"><h5 id="playlistTitleHeader">' + name + '</h5></div>';
 	output += '<div class="row"><ul style="list-style-type:none;">';
 	for (var k = 0; k < js.list.length; k++) {
-		var videoIterate = js.list[k];
-		var curl = videoIterate["url"];
+		var curl = js.list[k];
+		//var curl = videoIterate["url"];
 
 		output += '<li><input type="radio" name="playlistVideoSegment" value="' + curl
 				+ '"><video width="320" height="240" controls><source src="'
