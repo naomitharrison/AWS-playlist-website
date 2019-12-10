@@ -1,5 +1,6 @@
 function deletePlaylist() {
 	var playlistSegmentSelection = document.getElementsByTagName('input');
+	var visiblePlaylist = document.getElementById('playlistTitleHeader').innerHTML;
 
 	for (var i = 0; i < playlistSegmentSelection.length; i++) {
 		if (playlistSegmentSelection[i].type == "radio"
@@ -8,6 +9,10 @@ function deletePlaylist() {
 			if (playlistSegmentSelection[i].checked) {
 				var data = {};
 				data["name"] = playlistSegmentSelection[i].value;
+				if(data["name"] === visiblePlaylist) {
+					clearPlaylistVideoSegments();
+					console.log("Removing displayed playlist")
+				}
 
 				var js = JSON.stringify(data);
 				console.log("JS:" + js);
@@ -36,5 +41,4 @@ function deletePlaylist() {
 
 function processDeletePlaylistResponse(result) {
 	refreshPlaylists();
-	refreshPlaylistVideoSegments();
 }

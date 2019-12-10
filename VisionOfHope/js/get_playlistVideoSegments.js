@@ -70,15 +70,12 @@ function processPlaylistVideoSegmentsListResponse(name, result) {
 	outputTitle += '<div class="row"><h5 id="playlistTitleHeader">' + name + '</h5></div>';
 	output += '<div class="row"><ul style="list-style-type:none;">';
 	for (var k = 0; k < js.list.length; k++) {
-		var videoIterate = js.list[k];
-		var ctitle = videoIterate["title"];
-		var ccharacter = videoIterate["character"];
-		var curl = videoIterate["url"];
+		var curl = js.list[k];
+		//var curl = videoIterate["url"];
 
 		output += '<li><input type="radio" name="playlistVideoSegment" value="' + curl
 				+ '"><video width="320" height="240" controls><source src="'
-				+ curl + '" type="video/ogg"></video><br> Line:' + ctitle
-				+ '<br> Character: ' + ccharacter + '</li><br><br>'
+				+ curl + '" type="video/ogg"></video></li><br><br>'
 	}
 	output += '</ul></div>';
 	
@@ -97,5 +94,11 @@ function processPlaylistVideoSegmentsListResponse(name, result) {
 	console.log("final Title HTML: " + outputTitle);
 	playlist.innerHTML = output;
 	playlistName.innerHTML = outputTitle;
+
+}
+
+function clearPlaylistVideoSegments() {
+	document.getElementById('playlist').innerHTML = '';
+	document.getElementById('playlistTitle').innerHTML = '';
 
 }
