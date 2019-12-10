@@ -9,11 +9,13 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import cs3733.main.DB.RemoteLibrariesDAO;
 import cs3733.main.DB.VideoSegmentsDAO;
 import cs3733.main.http.RemoteLibraryAddResponse;
+import cs3733.main.http.RemoteLibraryRemoveRequest;
+import cs3733.main.http.RemoteLibraryRemoveResponse;
 import cs3733.main.http.RemoteStatusRequest;
 import cs3733.main.http.RemoteStatusResponse;
 import cs3733.main.model.VideoSegment;
 
-public class RemoteStatusHandler implements RequestStreamHandler {
+public class RemoteStatusHandler implements RequestHandler<RemoteStatusRequest,RemoteStatusResponse> {
 
 	public LambdaLogger logger = null;
 	
@@ -46,9 +48,7 @@ public class RemoteStatusHandler implements RequestStreamHandler {
 			response = new RemoteStatusResponse(req.getVideoUrls(), 403,
 					"Unable to change remote status: " + req.getVideoUrls() + "(" + e.getMessage() + ")");
 		}
-
-	// write out.
-	pw.print(response);pw.close(); 
+		return response;
 	}
 
 }
