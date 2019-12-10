@@ -13,7 +13,7 @@ import cs3733.main.http.RemoteStatusRequest;
 import cs3733.main.http.RemoteStatusResponse;
 import cs3733.main.model.VideoSegment;
 
-public class RemoteStatusHandler implements RequestHandler<RemoteStatusRequest,RemoteStatusResponse>{
+public class RemoteStatusHandler implements RequestStreamHandler {
 
 	public LambdaLogger logger = null;
 	
@@ -47,8 +47,10 @@ public class RemoteStatusHandler implements RequestHandler<RemoteStatusRequest,R
 					"Unable to change remote status: " + req.getVideoUrls() + "(" + e.getMessage() + ")");
 		}
 
-		return response;
+	// write out.
+	pw.print(response);pw.close(); 
 	}
+
 }
 
 
