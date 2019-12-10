@@ -150,7 +150,7 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		System.out.println(deleteResp.toString());
 		
 		boolean noLongerHasVideo = true;
-		for (VideoSegment vs : listResp.list) {
+		for (VideoSegment vs : listResp.segments) {
 			if (vs.getTitle().equals("testTitle")) {
 				noLongerHasVideo = false;
 				break;
@@ -205,8 +205,8 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		System.out.println(deleteResponse.toString());
 		
 		boolean hasVideo = true;
-		for (VideoSegment vs : listResp.list) {
-			if (vs.getTitle().equals("testTitle")) {
+		for (String vs : listResp.list) {
+			if (vs.equals("https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/testTitle.ogg")) {
 				hasVideo = false;
 			}
 		}
@@ -233,8 +233,8 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		System.out.println(listResp.toString());
 
 		boolean hasVideo = false;
-		for (VideoSegment vs : listResp.list) {
-			if (vs.getTitle().equals("testTitle")) {
+		for (String vs : listResp.list) {
+			if (vs.equals("https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/testTitle.ogg")) {
 				hasVideo = true;
 			}
 		}
@@ -315,7 +315,7 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		System.out.println(listResp.toString());
 		
 		boolean hasVideo = false;
-		for (VideoSegment vs : listResp.list) {
+		for (VideoSegment vs : listResp.segments) {
 			if (vs.getTitle().equals("testTitle")) {
 				hasVideo = true;
 			}
