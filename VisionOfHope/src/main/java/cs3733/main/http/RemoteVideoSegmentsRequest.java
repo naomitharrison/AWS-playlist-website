@@ -2,7 +2,9 @@ package cs3733.main.http;
 
 public class RemoteVideoSegmentsRequest {
 
-	RemoteVideoSegmentsRequest(){}
+	public RemoteVideoSegmentsRequest(){
+		
+	}
 	
 	public String toString() {
 		return "segments()";
