@@ -3,7 +3,7 @@ function searchVideoSegments() {
     while (videoList.firstChild) {
     	videoList.removeChild(videoList.firstChild);
   	}
-  	videoList.innerHtml = '<div class="row"><input type="button" id="switchToLibrary" value="Open Local Library" onclick="refreshVideoSegments()"></div>';
+	videoList.innerHTML = '<div class="row"><input type="button" id="switchToLibrary" value="Open Local Library" onclick="refreshVideoSegments()"></div>';
 
     var libraryHeader = document.getElementById('LibraryHeader');
 	libraryHeader.innerHTML = '<h3>Remote and Local Search</h3>';
