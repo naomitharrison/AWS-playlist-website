@@ -58,7 +58,7 @@ if (logger != null) { logger.log("in delete from s3"); }
 		VideoSegmentsDAO dao = new VideoSegmentsDAO();
 		
 		try {
-			if (dao.deleteVideo(req.getURL())&&deleteFromS3(req.getURL())) {
+			if (dao.deleteVideo(req.getURL())&&deleteFromS3(req.getUrl())) {
 				response = new DeleteVideoSegmentResponse(req.getURL(), 200);
 			} else {
 				response = new DeleteVideoSegmentResponse(req.getURL(), 422, "Unable to delete video segment");
