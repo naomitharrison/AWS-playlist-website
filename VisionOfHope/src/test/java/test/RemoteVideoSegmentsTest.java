@@ -21,6 +21,6 @@ public class RemoteVideoSegmentsTest extends LambdaTest {
 		System.out.println("hello");
 		System.out.println(res.toString());
 		
-		//System.out.println(res.segments);
+		System.out.println(res.segments);
 	}
 }

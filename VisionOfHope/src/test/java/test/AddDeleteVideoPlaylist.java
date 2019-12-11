@@ -49,11 +49,12 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 		addToPlaylist();
 		addToPlaylistAgain();
 		deleteFromPlaylist();
-		//deleteFromPlaylistAgain();
+		deleteFromPlaylistAgain();
 		deletePlaylist();
 		deletePlaylistAgain();
 		changeRemoteStatus();
 		changeRemoteStatusAgain();
+		changeRemoteStatusAgainAgain();
 		deleteVideo();
 		deleteVideoAgain();
 					
@@ -72,6 +73,20 @@ public class AddDeleteVideoPlaylist extends LambdaTest {
 		
 		assertEquals(422, remoteResponse.statusCode);
 		
+	}
+	
+	private void changeRemoteStatusAgainAgain() {
+		RemoteStatusHandler remoteHandler = new RemoteStatusHandler();
+		
+		String urls[] = {"https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/testTitle.ogg"};
+		boolean avail[] = {false};
+		RemoteStatusRequest remoteRequest = new RemoteStatusRequest(avail,urls);
+		RemoteStatusResponse remoteResponse = remoteHandler.handleRequest(remoteRequest,createContext("name"));
+		
+		System.out.println(remoteRequest.toString());
+		System.out.println(remoteResponse.toString());
+		
+		assertEquals(200, remoteResponse.statusCode);
 	}
 
 	private void changeRemoteStatus() {
@@ -119,6 +134,9 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		
 		DeletePlaylistVideoSegmentRequest deleteRequest = new DeletePlaylistVideoSegmentRequest("testPlaylist","https://cs3733visionofhopesurpassed.s3.amazonaws.com/videos/testTitle.ogg");
 		DeletePlaylistVideoSegmentResponse deleteResponse = deleteHandler.handleRequest(deleteRequest,createContext("name"));
+		
+		System.out.println(deleteRequest.toString());
+		System.out.println(deleteResponse.toString());
 		
 		assertEquals(422, deleteResponse.statusCode);
 	}
