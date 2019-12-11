@@ -13,7 +13,9 @@ public class VideoSegmentsDAO {
 
 	public VideoSegmentsDAO() {
 		try {
+			System.out.println("in dao");
 			conn = DatabaseUtil.connect();
+			System.out.println("after connect");
 		} catch (Exception e) {
 			conn = null;
 		}

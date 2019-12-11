@@ -13,10 +13,14 @@ public class RemoteVideoSegmentsTest extends LambdaTest {
 	
 	@Test
 	public void testRemote() {
+		
+		
 		RemoteVideoSegmentsHandler handle = new RemoteVideoSegmentsHandler();
 		RemoteVideoSegmentsRequest req = new RemoteVideoSegmentsRequest();
 		RemoteVideoSegmentsResponse res = handle.handleRequest(req,createContext("list"));
+		System.out.println("hello");
+		System.out.println(res.toString());
 		
-		System.out.println(res.segments);
+		//System.out.println(res.segments);
 	}
 }
