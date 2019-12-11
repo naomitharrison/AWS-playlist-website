@@ -151,7 +151,7 @@ DeletePlaylistVideoSegmentHandler deleteHandler = new DeletePlaylistVideoSegment
 		
 		boolean noLongerHasVideo = true;
 		for (VideoSegment vs : listResp.segments) {
-			if (vs.getTitle().equals("testTitle")) {
+			if (vs.getText().equals("testTitle")) {
 				noLongerHasVideo = false;
 				break;
 			}
