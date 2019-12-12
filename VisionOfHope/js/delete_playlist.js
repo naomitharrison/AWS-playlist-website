@@ -1,6 +1,11 @@
 function deletePlaylist() {
 	var playlistSegmentSelection = document.getElementsByTagName('input');
-	var visiblePlaylist = document.getElementById('playlistTitleHeader').innerHTML;
+	var visiblePlaylistCode = document.getElementById('playlistTitleHeader');
+	var playlistIsVisible = (visiblePlaylistCode != null);
+	var visiblePlaylist = "";
+	if (playlistIsVisible) {
+		visiblePlaylist=visiblePlaylistCode.innerHTML;
+	}
 
 	for (var i = 0; i < playlistSegmentSelection.length; i++) {
 		if (playlistSegmentSelection[i].type == "radio"
