@@ -78,7 +78,18 @@ function processPlaylistVideoSegmentsListResponse(name, result) {
 				+ curl + '" type="video/ogg"></video></li><br><br>'
 	}
 	output += '</ul></div>';
+	
+/*	output += '<script>';
+	id = 0;
+	for (var l = 0; l < js.list.length; l++){
+		output += '<br> var num' + id + '= document.getElementById("' + id + 
+				'"); <br><br> num' + id + '.addEventListener("ended", function() {num' + id++
+				+ '.play();});'
+		id++;
+	}
+	output += '</script>';
 
+*/
 	console.log("final List HTML: " + output);
 	console.log("final Title HTML: " + outputTitle);
 	playlist.innerHTML = output;
