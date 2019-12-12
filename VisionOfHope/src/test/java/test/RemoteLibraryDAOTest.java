@@ -17,7 +17,7 @@ public class RemoteLibraryDAOTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		assertTrue(!test);
+		assertTrue(test);
 	}
 
 }
